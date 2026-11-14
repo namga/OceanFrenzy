@@ -1,6 +1,6 @@
 {
   "name": "ocean-frenzy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Ocean Frenzy cross-platform HTML5 arcade game",
   "scripts": {

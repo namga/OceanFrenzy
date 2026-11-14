@@ -15,14 +15,33 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-      - uses: android-actions/setup-android@v3
+      # Pin a known stable Android command-line tools package instead of latest.
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 11076708
+          packages: |
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
+      - name: Verify Android SDK
+        shell: bash
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          test -x "$ANDROID_HOME/cmdline-tools/$(ls "$ANDROID_HOME/cmdline-tools" | grep -E '^[0-9]+$' | head -n 1)/bin/sdkmanager" || true
+          sdkmanager --version
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager --list_installed
       - name: Install dependencies
         run: npm install
       - name: Validate game source
         run: npm run check
       - name: Create Android project
-        run: npx cap add android
-        continue-on-error: true
+        shell: bash
+        run: |
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
       - name: Sync web assets
         run: npx cap sync android
       - name: Apply app branding and version
@@ -33,14 +52,22 @@ jobs:
           if [ -f android/app/src/main/res/values/strings.xml ]; then
             sed -i 's/<string name="app_name">.*<\/string>/<string name="app_name">Ocean Frenzy<\/string>/' android/app/src/main/res/values/strings.xml
           fi
-          sed -i 's/versionName ".*"/versionName "1.0.1"/' android/app/build.gradle
+          if [ -f android/app/build.gradle ]; then
+            sed -i 's/versionName " .*"/versionName "1.0.2"/' android/app/build.gradle || true
+            sed -i 's/versionName "[^"]*"/versionName "1.0.2"/' android/app/build.gradle
+          elif [ -f android/app/build.gradle.kts ]; then
+            sed -i 's/versionName = "[^"]*"/versionName = "1.0.2"/' android/app/build.gradle.kts
+          fi
       - name: Build debug APK
-        run: cd android && chmod +x gradlew && ./gradlew assembleDebug
-      - name: Rename APK
+        run: cd android && chmod +x gradlew && ./gradlew --no-daemon assembleDebug
+      - name: Verify APK output
+        shell: bash
         run: |
+          test -s android/app/build/outputs/apk/debug/app-debug.apk
           mkdir -p release
-          cp android/app/build/outputs/apk/debug/app-debug.apk release/Ocean-Frenzy-v1.0.1-Android-debug.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk release/Ocean-Frenzy-v1.0.2-Android-debug.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: Ocean-Frenzy-v1.0.1-Android-APK
-          path: release/Ocean-Frenzy-v1.0.1-Android-debug.apk
+          name: Ocean-Frenzy-v1.0.2-Android-APK
+          path: release/Ocean-Frenzy-v1.0.2-Android-debug.apk
+          if-no-files-found: error

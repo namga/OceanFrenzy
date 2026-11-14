@@ -1,4 +1,4 @@
-# Ocean Frenzy v1.0.1 — Release Candidate
+# Ocean Frenzy v1.0.2 — Release Candidate
 
 A self-contained HTML5 arcade fish-eat-fish game for desktop browsers, phones, tablets, and Android via Capacitor. Original canvas-drawn art; no third-party game assets.
 
@@ -10,7 +10,7 @@ npx serve .
 
 Open the local URL. Landscape is recommended. Touch and drag to swim on touch screens; use WASD or arrow keys on desktop. Hold Space or tap the boost button to dash.
 
-## Included in v1.0.1
+## Included in v1.0.2
 
 - Adventure campaign with five launch stages and unlock progress saved locally
 - Survival mode and Challenge mode
@@ -27,14 +27,14 @@ Serve over HTTPS or localhost. Use the browser's Install/Add to Home Screen acti
 
 ## Android debug APK
 
-Push this folder to GitHub. The workflow in `.github/workflows/build-apk.yml` runs on push or manual dispatch and uploads a versioned debug APK artifact. The debug APK is for testing, not Play Store distribution.
+Push this folder to GitHub. The workflow in `.github/workflows/build-apk.yml` runs on push or manual dispatch and uploads a versioned debug APK artifact. Android SDK command-line tools are pinned to a stable release to avoid failures caused by automatically selecting the newest SDK manager.. The debug APK is for testing, not Play Store distribution.
 
 ## Next version
 
 Additional campaign regions, fish species, boss encounters, and new challenge stages are intentionally reserved for v1.1.0 and later.
 
 
-## Visual & audio upgrade v1.0.1
+## Visual & audio upgrade v1.0.2
 - Added a high-quality reef background illustration, light rays and layered underwater atmosphere.
 - Reworked fish rendering with gradient bodies, animated tail fins, dorsal/pectoral fins, gill and scale highlights, eye glints and player aura.
 - Added synthesized underwater ambience and distinct sound effects for feeding, boost, power-ups, victory and defeat. Audio starts after the first user gesture and can be disabled in Settings.
