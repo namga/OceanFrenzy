@@ -20,18 +20,20 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           cmdline-tools-version: 11076708
-          packages: |
-            platform-tools
-            platforms;android-35
-            build-tools;35.0.0
+          # setup-android parses this input as a comma-separated list.
+          # Do not use a YAML block list here: it is passed as one invalid package ID.
+          packages: "platform-tools,platforms;android-35,build-tools;35.0.0"
       - name: Verify Android SDK
         shell: bash
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
-          test -x "$ANDROID_HOME/cmdline-tools/$(ls "$ANDROID_HOME/cmdline-tools" | grep -E '^[0-9]+$' | head -n 1)/bin/sdkmanager" || true
+          command -v sdkmanager
           sdkmanager --version
-          yes | sdkmanager --licenses >/dev/null || true
+          yes | sdkmanager --licenses >/dev/null
           sdkmanager --list_installed
+          sdkmanager --list_installed | grep -F "platform-tools"
+          sdkmanager --list_installed | grep -F "platforms;android-35"
+          sdkmanager --list_installed | grep -F "build-tools;35.0.0"
       - name: Install dependencies
         run: npm install
       - name: Validate game source
@@ -53,10 +55,10 @@ jobs:
             sed -i 's/<string name="app_name">.*<\/string>/<string name="app_name">Ocean Frenzy<\/string>/' android/app/src/main/res/values/strings.xml
           fi
           if [ -f android/app/build.gradle ]; then
-            sed -i 's/versionName " .*"/versionName "1.0.2"/' android/app/build.gradle || true
-            sed -i 's/versionName "[^"]*"/versionName "1.0.2"/' android/app/build.gradle
+            sed -i 's/versionName " .*"/versionName "1.0.3"/' android/app/build.gradle || true
+            sed -i 's/versionName "[^"]*"/versionName "1.0.3"/' android/app/build.gradle
           elif [ -f android/app/build.gradle.kts ]; then
-            sed -i 's/versionName = "[^"]*"/versionName = "1.0.2"/' android/app/build.gradle.kts
+            sed -i 's/versionName = "[^"]*"/versionName = "1.0.3"/' android/app/build.gradle.kts
           fi
       - name: Build debug APK
         run: cd android && chmod +x gradlew && ./gradlew --no-daemon assembleDebug
@@ -65,9 +67,9 @@ jobs:
         run: |
           test -s android/app/build/outputs/apk/debug/app-debug.apk
           mkdir -p release
-          cp android/app/build/outputs/apk/debug/app-debug.apk release/Ocean-Frenzy-v1.0.2-Android-debug.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk release/Ocean-Frenzy-v1.0.3-Android-debug.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: Ocean-Frenzy-v1.0.2-Android-APK
-          path: release/Ocean-Frenzy-v1.0.2-Android-debug.apk
+          name: Ocean-Frenzy-v1.0.3-Android-APK
+          path: release/Ocean-Frenzy-v1.0.3-Android-debug.apk
           if-no-files-found: error
