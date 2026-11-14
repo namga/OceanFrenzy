@@ -1,4 +1,4 @@
-const CACHE='ocean-frenzy-v2.0.0';
+const CACHE='ocean-frenzy-v2.0.5';
 const ASSETS=["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./icon.svg","./assets/reef-background.webp","./assets/fish/clown.webp","./assets/fish/blueTang.webp","./assets/fish/yellowTang.webp","./assets/fish/angelfish.webp","./assets/fish/butterfly.webp","./assets/fish/moorishIdol.webp","./assets/fish/puffer.webp","./assets/fish/triggerfish.webp","./assets/fish/wrasse.webp","./assets/fish/royalGramma.webp","./assets/fish/sardine.webp","./assets/fish/parrot.webp","./assets/fish/barracuda.webp","./assets/fish/grouper.webp","./assets/fish/lionfish.webp","./assets/fish/shark.webp"];
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(ASSETS);await self.skipWaiting()})()));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)));await self.clients.claim()})()));

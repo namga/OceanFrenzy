@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b49"><meta name="description" content="Ocean Frenzy - cá lớn ăn cá bé, khám phá đại dương."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Ocean Frenzy – Full 3D Remake v2.0.0</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b49"><meta name="description" content="Ocean Frenzy - cá lớn ăn cá bé, khám phá đại dương."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Ocean Frenzy – Full 3D Remake v2.0.4</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 :root{--navy:#062b49;--cyan:#37d6df;--glass:rgba(4,27,48,.78);--gold:#ffd66b}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#031c34;color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;touch-action:none}#game{position:fixed;inset:0;width:100%;height:100%;display:block;background:#06365a}.hud{position:fixed;z-index:3;top:env(safe-area-inset-top,10px);left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:12px 14px;pointer-events:none;gap:10px}.brand,.stats,.hud button{background:var(--glass);border:1px solid #ffffff24;backdrop-filter:blur(12px);border-radius:16px;box-shadow:0 8px 24px #00162955}.brand{padding:9px 13px;font-weight:900;letter-spacing:.5px}.brand small{display:block;font-size:10px;color:#8ce9ed;letter-spacing:2px}.stats{padding:8px 12px;display:flex;gap:14px;font-size:12px}.stats b{display:block;font-size:17px;color:#ffe18a}.hud button{pointer-events:auto;color:#fff;border:1px solid #ffffff30;padding:10px 12px;font-size:18px}.bottom{position:fixed;z-index:3;left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:end;pointer-events:none}.hint,.boost{pointer-events:auto;background:var(--glass);border:1px solid #ffffff24;border-radius:16px;padding:10px 13px;font-size:12px;color:#c9f7f8}.boost{font-weight:800;color:#fff;background:linear-gradient(135deg,#087d9a,#1453a0);border:1px solid #74e8f1;padding:13px 17px}.overlay{position:fixed;z-index:10;inset:0;display:grid;place-items:center;padding:18px;background:linear-gradient(180deg,#02182bd9,#031a30eF);backdrop-filter:blur(9px)}.panel{width:min(520px,100%);max-height:90dvh;overflow:auto;border:1px solid #8ce9ed45;border-radius:26px;padding:24px;background:linear-gradient(145deg,#0a4665f5,#082b4bf5);box-shadow:0 25px 80px #0009}.logo{font-size:clamp(30px,8vw,48px);font-weight:1000;line-height:1;color:#fff;text-shadow:0 4px 0 #087e9c}.sub{color:#a8e9ef;margin:8px 0 22px}.primary,.secondary{border:0;border-radius:15px;padding:14px 18px;font-size:16px;font-weight:850;cursor:pointer}.primary{background:linear-gradient(135deg,#ffe58c,#ffb84d);color:#17324a;width:100%;box-shadow:0 6px 0 #b96b29}.secondary{background:#ffffff17;color:#fff;border:1px solid #ffffff30}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:15px 0}.row label{font-weight:700}.row output{color:#ffe18a;font-weight:800}.setting input[type=range]{width:100%;accent-color:#47e0e4}.toggle{width:23px;height:23px;accent-color:#40d9d9}.divider{height:1px;background:#ffffff20;margin:17px 0}.hidden{display:none!important}.tag{display:inline-block;border-radius:99px;background:#ffffff18;color:#a9f5ef;padding:5px 10px;font-size:11px;font-weight:800}.help{font-size:12px;line-height:1.6;color:#b6dce8}.mobile-tip{display:none}@media(max-width:650px){.stats{gap:8px;padding:7px 9px}.stats b{font-size:14px}.brand{font-size:13px}.hint{max-width:65%;font-size:11px}.mobile-tip{display:block}}
 
@@ -56,15 +56,29 @@
 .fish-card small{font-size:9px;color:#9ddde5}
 @media(max-width:520px){.fish-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.fish-card img{height:58px}}
 @media(orientation:landscape) and (max-height:520px){.fish-card img{height:48px}}
+
+/* v2.0.4 mobile virtual joystick */
+.joystick{display:none;position:fixed;z-index:5;left:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:116px;height:116px;touch-action:none;user-select:none;-webkit-user-select:none;pointer-events:none;opacity:.36;transition:opacity .15s ease}
+.joystick-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(220,250,255,.55);background:radial-gradient(circle,rgba(180,230,245,.10),rgba(180,230,245,.035) 62%,rgba(255,255,255,.015));box-shadow:inset 0 0 18px rgba(170,235,255,.08),0 2px 14px rgba(0,15,30,.10);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);pointer-events:auto}
+.joystick-knob{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1px solid rgba(231,251,255,.72);background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.58),rgba(190,236,248,.23) 48%,rgba(94,173,201,.20));box-shadow:0 2px 12px rgba(0,20,40,.20),inset 0 1px 3px rgba(255,255,255,.32);pointer-events:none;transform:translate(0,0)}
+.joystick.active{opacity:.68}
+@media(pointer:coarse){body.playing .joystick{display:block}.bottom .hint{display:none}.bottom{left:150px;justify-content:flex-end}.boost{margin-right:2px}}
+@media(pointer:coarse) and (max-width:390px){body.playing .joystick{width:104px;height:104px;left:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}.bottom{left:124px}.joystick-knob{width:40px;height:40px;margin:-20px 0 0 -20px}}
+@media(pointer:coarse) and (orientation:landscape){body.playing .joystick{width:96px;height:96px;left:14px;bottom:12px}.bottom{left:120px;bottom:12px}}
+
 </style></head><body>
 <canvas id="game"></canvas><div id="damageFlash" aria-hidden="true"></div>
 <div class="hud"><div class="brand"><span class="brand-fish">🐠</span><span class="brand-name">OCEAN FRENZY</span><small>FULL 3D REMAKE • FEED • GROW • SURVIVE</small></div><div class="stats"><div class="stat-item"><span>ĐIỂM</span><b id="score">0</b></div><div class="stat-item"><span>KÍCH THƯỚC</span><b id="size">1.0×</b></div><div class="stat-item"><span>VÙNG BIỂN</span><b id="level">01</b><small id="stageName" style="display:block;color:#a8eff2;font-size:9px;max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Đầm phá san hô</small></div><div class="stat-item"><span>MẠNG</span><b id="lives">♥♥♥</b></div><div class="growth-wrap"><div class="growth-label">TIẾN HÓA <span id="growthText">0%</span></div><div class="growth-track"><i id="growthBar"></i></div></div></div><div class="hud-actions"><button id="pauseBtn" aria-label="Tạm dừng">Ⅱ</button><button id="settingsBtn" aria-label="Cài đặt">⚙</button></div></div>
-<div class="bottom"><div class="hint" id="hint">Di chuyển bằng WASD / phím mũi tên hoặc chạm và kéo trên màn hình.</div><button class="boost" id="boostBtn">⚡ TĂNG TỐC</button></div>
-<div class="overlay" id="start"><div class="panel"><div class="logo">OCEAN<br>FRENZY</div><div class="sub">Đại dương rộng lớn. Cá bé phải ăn để trở thành kẻ thống trị!</div><span class="tag">CAMPAIGN • SURVIVAL • CHALLENGE • OFFLINE</span><div style="height:20px"></div><button class="primary" id="playBtn">▶ BẮT ĐẦU CHƠI</button><div style="height:10px"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="openSettings">⚙ Cài đặt</button><button class="secondary" id="openCollection">🐠 Thư viện cá</button></div><button class="secondary" id="openCollection">🐠 Thư viện cá</button></div><div class="row" style="margin-bottom:0"><label for="modeSelect">Chế độ chơi</label><select id="modeSelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="adventure">Adventure</option><option value="survival">Survival</option><option value="challenge">Challenge</option></select></div><div class="row" style="margin-bottom:0"><label for="difficultySelect">Độ khó</label><select id="difficultySelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="Easy" selected>Dễ</option><option value="Normal">Bình thường</option><option value="Hard">Khó</option></select></div><p class="help" id="bestScore">Kỷ lục: 0</p><p class="help">Ăn những sinh vật nhỏ hơn bạn, né cá săn mồi lớn hơn. Ăn đủ để tăng kích thước và mở rộng vùng săn.</p></div></div>
+<div class="bottom"><div class="hint" id="hint">Dùng joystick ở góc dưới trái hoặc WASD / phím mũi tên để di chuyển.</div><button class="boost" id="boostBtn">⚡ TĂNG TỐC</button></div>
+<div class="joystick" id="joystick" aria-label="Điều khiển hướng di chuyển" role="application">
+ <div class="joystick-ring"><div class="joystick-knob" id="joystickKnob"></div></div>
+</div>
+<div class="overlay" id="start"><div class="panel"><div class="logo">OCEAN<br>FRENZY</div><div class="sub">Đại dương rộng lớn. Cá bé phải ăn để trở thành kẻ thống trị!</div><span class="tag">CAMPAIGN • SURVIVAL • CHALLENGE • OFFLINE</span><div style="height:20px"></div><button class="primary" id="playBtn">▶ BẮT ĐẦU CHƠI</button><div style="height:10px"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="openSettings">⚙ Cài đặt</button><button class="secondary" id="openCollection">🐠 Thư viện cá</button></div></div><div class="row" style="margin-bottom:0"><label for="modeSelect">Chế độ chơi</label><select id="modeSelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="adventure">Adventure</option><option value="survival">Survival</option><option value="challenge">Challenge</option></select></div><div class="row" style="margin-bottom:0"><label for="difficultySelect">Độ khó</label><select id="difficultySelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="Easy" selected>Dễ</option><option value="Normal">Bình thường</option><option value="Hard">Khó</option></select></div><p class="help" id="bestScore">Kỷ lục: 0</p><p class="help">Ăn những sinh vật nhỏ hơn bạn, né cá săn mồi lớn hơn. Ăn đủ để tăng kích thước và mở rộng vùng săn.</p></div></div>
 <div class="overlay hidden" id="collection"><div class="panel collection-panel"><div class="row"><div><div class="logo" style="font-size:28px">THƯ VIỆN SINH VẬT</div><div class="sub">Khám phá các loài cá của đại dương</div></div><button class="secondary" id="closeCollection">✕</button></div><div class="fish-grid" id="fishGrid"></div></div></div>\n<div class="overlay hidden" id="collection"><div class="panel collection-panel"><div class="row"><div><div class="logo" style="font-size:28px">THƯ VIỆN SINH VẬT</div><div class="sub">Khám phá các loài cá của đại dương</div></div><button class="secondary" id="closeCollection">✕</button></div><div class="fish-grid" id="fishGrid"></div></div></div>\n<div class="overlay hidden" id="settings"><div class="panel setting"><div class="row" style="margin-top:0"><div><div class="logo" style="font-size:28px">FISH AI SETTINGS</div><div class="sub" style="margin:5px 0 0">Tùy chỉnh hành vi sinh vật</div></div><button class="secondary" id="closeSettings">✕</button></div>
 <div class="row"><label for="swim">Tốc độ bơi</label><output id="swimOut">65%</output></div><input id="swim" type="range" min="0" max="100" value="65">
 <div class="row"><label for="hunt">Hung hãn săn mồi</label><output id="huntOut">70%</output></div><input id="hunt" type="range" min="0" max="100" value="70">
-<div class="divider"></div><div class="row"><label for="school">Bơi theo đàn</label><input class="toggle" id="school" type="checkbox" checked></div><div class="row"><label for="escape">Tự động bỏ chạy</label><input class="toggle" id="escape" type="checkbox" checked></div>
+<div class="row"><label for="reaction">Tốc độ phản ứng AI</label><output id="reactionOut">45%</output></div><input id="reaction" type="range" min="0" max="100" value="45"><div class="help">Thấp: cá phản ứng chậm, chuyển hướng mềm hơn. Cao: phát hiện nguy hiểm và né tránh nhanh hơn.</div>
+<div class="divider"></div><div class="row"><label for="school">Bơi theo đàn</label><input class="toggle" id="school" type="checkbox" checked></div><div class="row"><label for="escape">Tự động bỏ chạy khi gặp cá lớn</label><input class="toggle" id="escape" type="checkbox" checked></div>
 <div class="divider"></div><div class="row"><label for="difficulty">Độ khó AI</label><select id="difficulty" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option selected>Easy</option><option>Normal</option><option>Hard</option></select></div>
 <div class="row"><label for="sound">Âm thanh</label><input class="toggle" id="sound" type="checkbox" checked></div><div class="row"><label for="quality">Hiệu ứng đồ họa</label><select id="quality" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="high">Cao</option><option value="balanced" selected>Cân bằng</option><option value="low">Tiết kiệm pin</option></select></div><div class="help">Cấu hình mặc định đã chọn: tốc độ 65%, săn mồi 70%, bơi đàn và bỏ chạy đều bật, độ khó Normal. Thay đổi được lưu trên thiết bị.</div><div style="height:15px"></div><button class="primary" id="saveSettings">LƯU CẤU HÌNH</button></div></div>
 <div class="overlay hidden" id="pause"><div class="panel"><div class="logo" style="font-size:36px">TẠM DỪNG</div><div class="sub">Đại dương đang chờ bạn.</div><button class="primary" id="resumeBtn">▶ TIẾP TỤC</button><div style="height:10px"></div><button class="secondary" id="pauseSettings">⚙ Cài đặt</button><div style="height:10px"></div><button class="secondary" id="quitBtn">Về màn hình chính</button></div></div>
@@ -74,7 +88,7 @@
 window.addEventListener('error',e=>{console.error('Ocean Frenzy runtime error',e.error||e.message);const b=document.getElementById('startError');if(b)b.textContent='Lỗi game: '+(e.message||'Không xác định')});
 window.addEventListener('unhandledrejection',e=>{console.error('Ocean Frenzy async error',e.reason)});
 (()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d');let W=0,H=0,dpr=1,playing=false,paused=false,dead=false,last=0,score=0,level=1,lives=3,foods=[],fish=[],bubbles=[],particles=[],powerups=[],keys={},pointer=null,boost=0,player,elapsed=0,mode='adventure',stageGoal=180,stageTime=0,audioOn=true,audioCtx=null,powerTimer=10,introTimer=0,introStarted=false,introWave=0,introWaveDelay=1.25;
-const $=id=>document.getElementById(id);const defaults={swim:65,hunt:70,school:true,escape:true,difficulty:'Easy',sound:true,quality:'balanced'};let cfg={...defaults};try{cfg={...cfg,...JSON.parse(localStorage.getItem('oceanAI')||'{}')}}catch{}const reefBg=new Image();reefBg.src='./assets/reef-background.webp';const fishSprites={};const campaignStages=[
+const $=id=>document.getElementById(id);const defaults={swim:65,hunt:70,reaction:45,school:true,escape:true,difficulty:'Easy',sound:true,quality:'balanced'};let cfg={...defaults};try{cfg={...cfg,...JSON.parse(localStorage.getItem('oceanAI')||'{}')}}catch{}const reefBg=new Image();reefBg.src='./assets/reef-background.webp';const fishSprites={};const campaignStages=[
 'Đầm phá san hô','Vịnh cá hề','Hang đá xanh','Khu rừng tảo bẹ','Xác tàu đắm',
 'Rãnh san hô sâu','Thành phố cổ','Vườn sứa phát sáng','Vực thẳm xanh','Lãnh địa cá mập',
 'Đảo san hô đỏ','Hẻm núi đại dương','Rừng rong biển','Hang pha lê','Vương quốc cá đuối',
@@ -86,70 +100,136 @@ const speciesLabels={clown:'Cá hề',blueTang:'Cá đuôi gai xanh',yellowTang:
 for(const species of ['clown','blueTang','yellowTang','angelfish','butterfly','moorishIdol','puffer','triggerfish','wrasse','royalGramma','sardine','parrot','barracuda','grouper','lionfish','shark']){const im=new Image();im.src='./assets/fish/'+species+'.webp';fishSprites[species]=im;}let ambientNodes=null,bubbleSfxTimer=0,deathFx=null;resize();
 function resize(){dpr=Math.min(devicePixelRatio||1,cfg.quality==='low'?1:cfg.quality==='high'?2:1.5);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
 function rand(a,b){return a+Math.random()*(b-a)}function clamp(v,a,b){return Math.max(a,Math.min(b,v))}function makeFish(x,y,r,kind='prey',species=null,entering=false){const preySpecies=['blueTang','yellowTang','angelfish','butterfly','sardine','parrot','moorishIdol','puffer','triggerfish','wrasse','royalGramma','clown'];const predatorSpecies=['barracuda','grouper','lionfish','shark','moray'];return{x,y,r,kind,species:species||(kind==='pred'?predatorSpecies[Math.floor(Math.random()*predatorSpecies.length)]:preySpecies[Math.floor(Math.random()*preySpecies.length)]),entering,angle:rand(0,6.28),speed:rand(.5,1.3),turn:rand(-1,1),timer:rand(0,2),hue:kind==='pred'?rand(8,35):rand(160,220),phase:rand(0,6.28),alive:true,fleeing:false,fleeTimer:0,fleeAngle:0,schoolId:Math.floor(rand(0,4))}}
-function reset(){deathFx=null;dead=false;introTimer=4;introStarted=false;introWave=0;introWaveDelay=1.25;$('damageFlash').classList.remove('active');mode=$('modeSelect').value;score=0;level=mode==='adventure'?Math.min(30,Math.max(1,+(localStorage.getItem('oceanUnlocked')||1))):1;lives=cfg.difficulty==='Easy'?5:cfg.difficulty==='Hard'?2:3;elapsed=0;stageTime=0;dead=false;paused=false;boost=0;stageGoal=mode==='challenge'?260:150+(level-1)*38;player={x:W*.34,y:H*.52,r:13,angle:0,vx:0,vy:0,boost:100,shield:cfg.difficulty==='Easy'?5:0};foods=[];fish=[];bubbles=[];particles=[];powerups=[];powerTimer=10;for(let i=0;i<95;i++)spawnFood();updateHUD()}
+function reset(){deathFx=null;dead=false;introTimer=4;introStarted=false;introWave=0;introWaveDelay=1.25;$('damageFlash').classList.remove('active');mode=$('modeSelect').value;score=0;level=mode==='adventure'?Math.min(30,Math.max(1,+(localStorage.getItem('oceanUnlocked')||1))):1;lives=cfg.difficulty==='Easy'?5:cfg.difficulty==='Hard'?2:3;elapsed=0;stageTime=0;dead=false;paused=false;boost=0;stageGoal=mode==='challenge'?260:150+(level-1)*38;player={x:W*.34,y:H*.52,r:13,angle:0,vx:0,vy:0,boost:100,shield:cfg.difficulty==='Easy'?5:0};foods=[];fish=[];bubbles=[];particles=[];powerups=[];powerTimer=10;for(let i=0;i<24;i++)spawnFood();updateHUD()}
 function spawnBoss(){const boss=makeFish(W+95,H*.42,50+Math.min(18,level*.45),'pred','shark',true);boss.boss=true;boss.hp=3;boss.speed=rand(.72,.95);boss.angle=Math.PI;fish.push(boss);showToast('⚠ CÁ MẬP ĐẦU ĐÀN!')}
 function showToast(message){let el=$('toast');if(!el){el=document.createElement('div');el.id='toast';el.style.cssText='position:fixed;z-index:8;top:18%;left:50%;transform:translateX(-50%);padding:10px 18px;border-radius:999px;background:#082f4ee8;border:1px solid #ffe28b;color:#ffe28b;font-weight:900;box-shadow:0 8px 30px #001b30aa;pointer-events:none';document.body.appendChild(el)}el.textContent=message;el.style.display='block';clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.style.display='none',2100)}
 function spawnPowerup(){const types=['boost','shield','growth'];powerups.push({x:rand(35,W-35),y:rand(90,H-55),type:types[Math.floor(Math.random()*types.length)],phase:rand(0,6)})}
-function spawnFood(){foods.push({x:rand(20,W-20),y:rand(80,H-30),r:rand(2,4),phase:rand(0,6),hue:rand(45,70)})}function spawnFish(kind=null,entering=false){let pred=kind?kind==='pred':Math.random()<Math.min(.42,.18+level*.025);let easy=cfg.difficulty==='Easy',hard=cfg.difficulty==='Hard';let r=pred?(easy?rand(16,28):hard?rand(25,43):rand(20,39)):rand(7,20);let fromLeft=Math.random()<.5;let x=entering?(fromLeft?-r-12:W+r+12):rand(0,W);let y=rand(100,H-70);let f=makeFish(x,y,r,pred?'pred':'prey',null,entering);if(entering)f.angle=fromLeft?rand(-.28,.28):Math.PI+rand(-.28,.28);fish.push(f)}
+function spawnFood(){
+ let x=0,y=0,attempt=0;
+ do{x=rand(28,W-28);y=rand(95,H-45);attempt++}
+ while(attempt<18&&foods.some(q=>Math.hypot(q.x-x,q.y-y)<82));
+ foods.push({x,y,r:10,phase:rand(0,6),hue:rand(45,70)})
+}function spawnFish(kind=null,entering=false){let pred=kind?kind==='pred':Math.random()<Math.min(.42,.18+level*.025);let easy=cfg.difficulty==='Easy',hard=cfg.difficulty==='Hard';let r=pred?(easy?rand(16,28):hard?rand(25,43):rand(20,39)):rand(7,20);let fromLeft=Math.random()<.5;let x=entering?(fromLeft?-r-12:W+r+12):rand(0,W);let y=rand(100,H-70);let f=makeFish(x,y,r,pred?'pred':'prey',null,entering);if(entering)f.angle=fromLeft?rand(-.28,.28):Math.PI+rand(-.28,.28);fish.push(f)}
 function updateHUD(){$('score').textContent=score;$('size').textContent=(player.r/13).toFixed(1)+'×';$('level').textContent=mode==='survival'?'∞':String(level).padStart(2,'0');$('stageName').textContent=mode==='survival'?'Sinh tồn':mode==='challenge'?'Thử thách':(campaignStages[level-1]||'Vùng biển cuối');$('lives').textContent='♥'.repeat(Math.max(0,lives))+'♡'.repeat(Math.max(0,(cfg.difficulty==='Easy'?5:cfg.difficulty==='Hard'?2:3)-lives));const pct=clamp((player.r-13)/(58-13)*100,0,100);$('growthBar').style.width=pct+'%';$('growthText').textContent=Math.round(pct)+'%'}
 function settingsOpen(){ if(paused)$('pause').classList.add('hidden');$('settings').classList.remove('hidden') }function settingsClose(){ $('settings').classList.add('hidden');if(paused)$('pause').classList.remove('hidden') }
-function loadSettings(){audioOn=cfg.sound!==false;$('difficultySelect').value=cfg.difficulty||'Easy';$('sound').checked=audioOn;$('quality').value=cfg.quality||'balanced';for(let k of ['swim','hunt']){$(k).value=cfg[k];$(k+'Out').textContent=cfg[k]+'%'}$('school').checked=cfg.school;$('escape').checked=cfg.escape;$('difficulty').value=cfg.difficulty;$('difficultySelect').value=cfg.difficulty}
-$('swim').oninput=e=>$('swimOut').textContent=e.target.value+'%';$('hunt').oninput=e=>$('huntOut').textContent=e.target.value+'%';$('settingsBtn').onclick=settingsOpen;$('openSettings').onclick=settingsOpen;$('closeSettings').onclick=settingsClose;
-$('saveSettings').onclick=()=>{cfg={swim:+$('swim').value,hunt:+$('hunt').value,school:$('school').checked,escape:$('escape').checked,difficulty:$('difficulty').value,sound:$('sound').checked,quality:$('quality').value};audioOn=cfg.sound;if(!audioOn&&ambientNodes){ambientNodes.master.gain.setTargetAtTime(0,audioCtx.currentTime,.15)}else if(audioOn){startAmbient();if(ambientNodes)ambientNodes.master.gain.setTargetAtTime(.12,audioCtx.currentTime,.2)}resize();localStorage.setItem('oceanAI',JSON.stringify(cfg));$('difficultySelect').value=cfg.difficulty;settingsClose()};$('difficultySelect').onchange=()=>{$('difficulty').value=$('difficultySelect').value;cfg.difficulty=$('difficultySelect').value;localStorage.setItem('oceanAI',JSON.stringify(cfg))};loadSettings();
+function loadSettings(){audioOn=cfg.sound!==false;$('difficultySelect').value=cfg.difficulty||'Easy';$('sound').checked=audioOn;$('quality').value=cfg.quality||'balanced';for(let k of ['swim','hunt','reaction']){$(k).value=cfg[k]??(k==='reaction'?45:defaults[k]);$(k+'Out').textContent=$(k).value+'%'}$('school').checked=cfg.school;$('escape').checked=cfg.escape;$('difficulty').value=cfg.difficulty;$('difficultySelect').value=cfg.difficulty}
+$('swim').oninput=e=>$('swimOut').textContent=e.target.value+'%';$('hunt').oninput=e=>$('huntOut').textContent=e.target.value+'%';$('reaction').oninput=e=>$('reactionOut').textContent=e.target.value+'%';$('settingsBtn').onclick=settingsOpen;$('openSettings').onclick=settingsOpen;$('closeSettings').onclick=settingsClose;
+$('saveSettings').onclick=()=>{cfg={swim:+$('swim').value,hunt:+$('hunt').value,reaction:+$('reaction').value,school:$('school').checked,escape:$('escape').checked,difficulty:$('difficulty').value,sound:$('sound').checked,quality:$('quality').value};audioOn=cfg.sound;if(!audioOn&&ambientNodes){ambientNodes.master.gain.setTargetAtTime(0,audioCtx.currentTime,.15)}else if(audioOn){startAmbient();if(ambientNodes)ambientNodes.master.gain.setTargetAtTime(.12,audioCtx.currentTime,.2)}resize();localStorage.setItem('oceanAI',JSON.stringify(cfg));$('difficultySelect').value=cfg.difficulty;settingsClose()};$('difficultySelect').onchange=()=>{$('difficulty').value=$('difficultySelect').value;cfg.difficulty=$('difficultySelect').value;localStorage.setItem('oceanAI',JSON.stringify(cfg))};loadSettings();
 function buildFishGallery(){const grid=$('fishGrid');if(!grid)return;grid.innerHTML='';for(const name of Object.keys(speciesLabels)){const card=document.createElement('div');card.className='fish-card';const img=document.createElement('img');img.src='./assets/fish/'+name+'.webp';img.alt=speciesLabels[name];const title=document.createElement('b');title.textContent=speciesLabels[name];const sub=document.createElement('small');sub.textContent=['barracuda','grouper','lionfish','shark'].includes(name)?'Săn mồi':'Sinh vật biển';card.append(img,title,sub);grid.appendChild(card)}}
 $('openCollection').onclick=()=>{$('start').classList.add('hidden');$('collection').classList.remove('hidden');buildFishGallery()};
 $('closeCollection').onclick=()=>{$('collection').classList.add('hidden');$('start').classList.remove('hidden')};
-function start(){try{$('playBtn').disabled=true;cfg.difficulty=$('difficultySelect').value;localStorage.setItem('oceanAI',JSON.stringify(cfg));$('difficulty').value=cfg.difficulty;startAmbient();reset();playing=true;paused=false;$('start').classList.add('hidden');$('gameover').classList.add('hidden');$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}catch(err){playing=false;paused=false;$('start').classList.remove('hidden');let box=$('startError');if(!box){box=document.createElement('p');box.id='startError';box.style.cssText='margin:12px 0 0;padding:10px;border-radius:10px;background:#7b1f2b;color:white;font-size:12px;overflow-wrap:anywhere';$('playBtn').insertAdjacentElement('afterend',box)}box.textContent='Không thể khởi động: '+(err&&err.message?err.message:String(err));console.error('Ocean Frenzy start failed',err)}finally{$('playBtn').disabled=false}}$('playBtn').addEventListener('click',start);$('playBtn').addEventListener('pointerup',e=>{if(e.pointerType==='touch'){e.preventDefault();start()}},{passive:false});$('pauseBtn').onclick=()=>{if(playing){paused=true;playing=false;$('pause').classList.remove('hidden')}};$('resumeBtn').onclick=()=>{if(paused){paused=false;playing=true;$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}};$('pauseSettings').onclick=()=>{settingsOpen()};$('quitBtn').onclick=()=>{paused=false;$('pause').classList.add('hidden');$('start').classList.remove('hidden')};$('nextLevelBtn').onclick=()=>{if(mode==='adventure'&&level>=30){localStorage.setItem('oceanUnlocked','30');$('levelComplete').classList.add('hidden');$('start').classList.remove('hidden');playing=false;return}level++;if(mode==='adventure')localStorage.setItem('oceanUnlocked',String(Math.max(level,+(localStorage.getItem('oceanUnlocked')||1))));score=0;stageTime=0;introTimer=4;introStarted=false;introWave=0;introWaveDelay=1.25;stageGoal+=90;fish=[];foods=[];for(let i=0;i<95;i++)spawnFood();player.r=Math.max(13,player.r);$('levelComplete').classList.add('hidden');playing=true;last=performance.now();requestAnimationFrame(loop)};$('retryBtn').onclick=start;$('homeBtn').onclick=()=>{$('gameover').classList.add('hidden');$('start').classList.remove('hidden');playing=false};
+function start(){try{$('playBtn').disabled=true;cfg.difficulty=$('difficultySelect').value;localStorage.setItem('oceanAI',JSON.stringify(cfg));$('difficulty').value=cfg.difficulty;startAmbient();reset();playing=true;paused=false;document.body.classList.add('playing');resetJoystick();$('start').classList.add('hidden');$('gameover').classList.add('hidden');$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}catch(err){playing=false;paused=false;$('start').classList.remove('hidden');let box=$('startError');if(!box){box=document.createElement('p');box.id='startError';box.style.cssText='margin:12px 0 0;padding:10px;border-radius:10px;background:#7b1f2b;color:white;font-size:12px;overflow-wrap:anywhere';$('playBtn').insertAdjacentElement('afterend',box)}box.textContent='Không thể khởi động: '+(err&&err.message?err.message:String(err));console.error('Ocean Frenzy start failed',err)}finally{$('playBtn').disabled=false}}$('playBtn').addEventListener('click',start);$('playBtn').addEventListener('pointerup',e=>{if(e.pointerType==='touch'){e.preventDefault();start()}},{passive:false});$('pauseBtn').onclick=()=>{if(playing){paused=true;playing=false;$('pause').classList.remove('hidden')}};$('resumeBtn').onclick=()=>{if(paused){paused=false;playing=true;$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}};$('pauseSettings').onclick=()=>{settingsOpen()};$('quitBtn').onclick=()=>{paused=false;playing=false;document.body.classList.remove('playing');resetJoystick();$('pause').classList.add('hidden');$('start').classList.remove('hidden')};$('nextLevelBtn').onclick=()=>{if(mode==='adventure'&&level>=30){localStorage.setItem('oceanUnlocked','30');$('levelComplete').classList.add('hidden');$('start').classList.remove('hidden');playing=false;return}level++;if(mode==='adventure')localStorage.setItem('oceanUnlocked',String(Math.max(level,+(localStorage.getItem('oceanUnlocked')||1))));score=0;stageTime=0;introTimer=4;introStarted=false;introWave=0;introWaveDelay=1.25;stageGoal+=90;fish=[];foods=[];for(let i=0;i<24;i++)spawnFood();player.r=Math.max(13,player.r);$('levelComplete').classList.add('hidden');playing=true;last=performance.now();requestAnimationFrame(loop)};$('retryBtn').onclick=start;$('homeBtn').onclick=()=>{$('gameover').classList.add('hidden');$('start').classList.remove('hidden');playing=false};
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(e.key.toLowerCase()))e.preventDefault();if(e.key==='Escape'&&playing)settingsOpen()});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
-canvas.addEventListener('pointerdown',e=>{pointer={x:e.clientX,y:e.clientY,id:e.pointerId};canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(pointer&&pointer.id===e.pointerId){pointer.x=e.clientX;pointer.y=e.clientY}});canvas.addEventListener('pointerup',()=>pointer=null);canvas.addEventListener('pointercancel',()=>pointer=null);
+const coarsePointer=window.matchMedia('(pointer:coarse)').matches;
+let joyVector={x:0,y:0},joyPointerId=null;
+const joy=$('joystick'),joyKnob=$('joystickKnob');
+function resetJoystick(){joyPointerId=null;joyVector={x:0,y:0};joy.classList.remove('active');joyKnob.style.transform='translate(0px,0px)'}
+function moveJoystick(e){
+ const rect=joy.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+ let dx=e.clientX-cx,dy=e.clientY-cy;const max=rect.width*.31,dist=Math.hypot(dx,dy);
+ if(dist>max){dx=dx/dist*max;dy=dy/dist*max}
+ joyVector={x:dx/max,y:dy/max};
+ joyKnob.style.transform=`translate(${dx}px,${dy}px)`;
+}
+joy.addEventListener('pointerdown',e=>{e.preventDefault();joyPointerId=e.pointerId;joy.setPointerCapture(e.pointerId);joy.classList.add('active');moveJoystick(e)});
+joy.addEventListener('pointermove',e=>{if(e.pointerId===joyPointerId){e.preventDefault();moveJoystick(e)}});
+joy.addEventListener('pointerup',e=>{if(e.pointerId===joyPointerId)resetJoystick()});
+joy.addEventListener('pointercancel',resetJoystick);
+// Mouse and pen dragging remain available on every platform, including hybrid touch laptops/tablets.
+// Touch input is reserved for the virtual joystick so fingers never need to cover the player fish.
+canvas.addEventListener('pointerdown',e=>{
+ if(e.pointerType==='touch')return;
+ pointer={x:e.clientX,y:e.clientY,id:e.pointerId};
+ canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove',e=>{
+ if(pointer&&pointer.id===e.pointerId){pointer.x=e.clientX;pointer.y=e.clientY}
+});
+canvas.addEventListener('pointerup',e=>{if(pointer&&pointer.id===e.pointerId)pointer=null});
+canvas.addEventListener('pointercancel',e=>{if(pointer&&pointer.id===e.pointerId)pointer=null});
 function doBoost(){if(player&&player.boost>0){playSfx('boost');boost=.45;player.boost=Math.max(0,player.boost-22)}}$('boostBtn').addEventListener('pointerdown',e=>{e.preventDefault();doBoost()});addEventListener('keydown',e=>{if(e.code==='Space')doBoost()});
 function moveFish(f,dt){
  f.timer-=dt;
- let target=null, fleeing=false, fleeX=0, fleeY=0, threatWeight=0;
- if(f.kind==='pred'){
-   let nearest=Infinity;
-   for(const q of [player,...fish.filter(z=>z.kind==='prey'&&z.alive)]){
-     if(!q||q===f)continue;
-     const d=Math.hypot(q.x-f.x,q.y-f.y);
-     if(q.r<f.r*.88&&d<nearest&&d<300){nearest=d;target=q}
-   }
-   if(target){
-     const huntChance=(cfg.hunt/100)*(cfg.difficulty==='Easy'?.48:cfg.difficulty==='Hard'?1.12:.78);
-     if(Math.random()<Math.min(1,huntChance*dt*8))f.angle=Math.atan2(target.y-f.y,target.x-f.x);
-   }
- }else if(cfg.escape){
-   // Threat detection includes both AI predators and the human-controlled fish.
+ let target=null;
+ let fleeing=false;
+ let fleeX=0,fleeY=0,threatWeight=0;
+ let nearestThreat=null,nearestDistance=Infinity;
+ const reaction=clamp((cfg.reaction??45)/100,0,1);
+ if(!cfg.escape){f.fleeing=false;f.fleeTimer=0;}
+ if(cfg.escape){
+   // All fish can flee: prey avoid the player/predators; predators avoid larger predators
+   // and the player once the player has grown large enough to threaten them.
    const possible=[player,...fish.filter(q=>q!==f&&q.kind==='pred'&&q.alive)];
-   const detectRange=cfg.difficulty==='Easy'?285:cfg.difficulty==='Hard'?235:260;
+   const detectRange=(cfg.difficulty==='Easy'?350:cfg.difficulty==='Hard'?305:325)*(.72+reaction*.48);
    for(const q of possible){
-     if(!q||q===f||q.r<f.r*1.10)continue;
-     const dx=f.x-q.x,dy=f.y-q.y,d=Math.max(1,Math.hypot(dx,dy));
-     if(d<detectRange){
-       // Nearby and much larger threats exert stronger steering.
-       const sizeFactor=Math.min(2.2,q.r/Math.max(1,f.r));
-       const weight=(1-d/detectRange)*sizeFactor;
-       fleeX+=(dx/d)*weight;
-       fleeY+=(dy/d)*weight;
-       threatWeight+=weight;
+     if(!q||q===f)continue;
+     const isPlayer=q===player;
+     if(isPlayer){
+       if(q.r<f.r*1.10)continue;
+     }else{
+       if(q.kind!=='pred'||q.r<f.r*1.08)continue;
      }
+     const dx=f.x-q.x,dy=f.y-q.y;
+     const d=Math.max(1,Math.hypot(dx,dy));
+     if(d>=detectRange)continue;
+     if(d<nearestDistance){nearestDistance=d;nearestThreat={dx,dy,d,q}}
+     const proximity=Math.pow(1-d/detectRange,1.25);
+     const sizeFactor=clamp(q.r/Math.max(1,f.r),1.05,2.8);
+     const weight=proximity*sizeFactor;
+     fleeX+=(dx/d)*weight;
+     fleeY+=(dy/d)*weight;
+     threatWeight+=weight;
    }
-   if(threatWeight>.04){
-     fleeing=true;
+   if(threatWeight>.025&&nearestThreat){
+     // If two threats are on opposite sides, prioritize the closest one instead of
+     // allowing their vectors to cancel and sending the fish in an arbitrary direction.
+     if(Math.hypot(fleeX,fleeY)<threatWeight*.22){
+       fleeX=nearestThreat.dx/nearestThreat.d;
+       fleeY=nearestThreat.dy/nearestThreat.d;
+     }
+     // Blend a small side-step into the escape path so fish do not run in a straight line.
+     const magnitude=Math.max(.001,Math.hypot(fleeX,fleeY));
+     let ax=fleeX/magnitude,ay=fleeY/magnitude;
+     const side=(f.schoolId%2===0?1:-1)*.16;
+     const sideX=-ay*side,sideY=ax*side;
+     ax+=sideX;ay+=sideY;
+     // Avoid getting trapped against the top/bottom edges of the aquarium.
+     const edgeMargin=78;
+     if(f.y<edgeMargin)ay+=.85*(1-f.y/edgeMargin);
+     if(f.y>H-edgeMargin)ay-=.85*(1-(H-f.y)/edgeMargin);
+     if(f.x<edgeMargin)ax+=.65*(1-f.x/edgeMargin);
+     if(f.x>W-edgeMargin)ax-=.65*(1-(W-f.x)/edgeMargin);
+     f.fleeAngle=Math.atan2(ay,ax);
+     f.fleeTimer=.82;
      f.fleeing=true;
-     f.fleeTimer=.42;
-     f.fleeAngle=Math.atan2(fleeY,fleeX);
    }else if(f.fleeTimer>0){
-     fleeing=true;
      f.fleeTimer=Math.max(0,f.fleeTimer-dt);
+     f.fleeing=true;
    }else{
      f.fleeing=false;
    }
  }
- // School cohesion is deliberately secondary: it must never overwrite an active escape direction.
+ fleeing=!!f.fleeing;
+ if(f.kind==='pred'&&!fleeing){
+   // Predators hunt smaller fish only when they are not escaping a larger threat.
+   let nearest=Infinity;
+   for(const q of [player,...fish.filter(z=>z.kind==='prey'&&z.alive)]){
+     if(!q||q===f)continue;
+     const d=Math.hypot(q.x-f.x,q.y-f.y);
+     if(q.r<f.r*.88&&d<nearest&&d<320){nearest=d;target=q}
+   }
+   if(target){
+     const huntChance=(cfg.hunt/100)*(cfg.difficulty==='Easy'?.48:cfg.difficulty==='Hard'?1.12:.78);
+     if(Math.random()<Math.min(1,huntChance*dt*8)){
+       f.angle=Math.atan2(target.y-f.y,target.x-f.x);
+     }
+   }
+ }
+ // School cohesion is secondary and never overrides a flee or hunt action.
  if(fleeing){
    const desired=f.fleeAngle??f.angle;
-   let delta=Math.atan2(Math.sin(desired-f.angle),Math.cos(desired-f.angle));
-   f.angle+=clamp(delta,-dt*8,dt*8);
+   const delta=Math.atan2(Math.sin(desired-f.angle),Math.cos(desired-f.angle));
+   f.angle+=clamp(delta,-dt*(2.4+reaction*8.4),dt*(2.4+reaction*8.4));
  }else{
    if(cfg.school&&f.kind==='prey'){
      const mates=fish.filter(q=>q!==f&&q.kind==='prey'&&q.schoolId===f.schoolId&&Math.hypot(q.x-f.x,q.y-f.y)<115);
@@ -158,7 +238,7 @@ function moveFish(f,dt){
        for(const q of mates){ax+=q.x;ay+=q.y}
        const schoolAngle=Math.atan2(ay/mates.length-f.y,ax/mates.length-f.x);
        const delta=Math.atan2(Math.sin(schoolAngle-f.angle),Math.cos(schoolAngle-f.angle));
-       f.angle+=clamp(delta,-dt*1.8,dt*1.8)*.32;
+       f.angle+=clamp(delta,-dt*(.7+((cfg.reaction??45)/100)*2.1),dt*(.7+((cfg.reaction??45)/100)*2.1))*.32;
      }
    }
    if(f.timer<=0){
@@ -166,9 +246,10 @@ function moveFish(f,dt){
      if(!target)f.angle+=rand(-1.15,1.15);
    }
  }
- const baseSpeed=(1.1+cfg.swim/100*2.2)*f.speed*(cfg.difficulty==='Hard'?1.22:cfg.difficulty==='Easy'?.68:.9);
- const panicBoost=fleeing?1.75:1;
- const speed=baseSpeed*panicBoost;
+ const baseSpeed=(1.1+cfg.swim/100*2.2)*f.speed*(cfg.difficulty==='Hard'?1.05:cfg.difficulty==='Easy'?.85:.95);
+ // A frightened fish gets a strong short sprint, even if its normal swim stat is low.
+ const reactionSpeed=.95+((cfg.reaction??45)/100)*1.15;
+ const speed=fleeing?Math.max(baseSpeed,1.65)*reactionSpeed:baseSpeed;
  f.x+=Math.cos(f.angle)*speed*60*dt;
  f.y+=Math.sin(f.angle)*speed*60*dt;
  f.y=clamp(f.y,65,H-18);
@@ -177,30 +258,29 @@ function moveFish(f,dt){
  if(f.y<=66||f.y>=H-19)f.angle=-f.angle+rand(-.25,.25);
 }
 function checkStage(){if(mode==='adventure'&&score>=stageGoal){playing=false;playSfx('win');localStorage.setItem('oceanUnlocked',String(Math.max(level+1,+(localStorage.getItem('oceanUnlocked')||1))));$('levelMessage').textContent='Bạn đã hoàn thành vùng biển '+String(level).padStart(2,'0')+' • Điểm '+score;$('nextLevelBtn').textContent=level>=30?'HOÀN TẤT CHIẾN DỊCH':'MÀN TIẾP THEO →';$('levelComplete').classList.remove('hidden')}else if(mode==='challenge'&&score>=stageGoal){playing=false;playSfx('win');$('levelMessage').textContent='Thử thách hoàn thành trong '+Math.floor(stageTime)+' giây!';$('nextLevelBtn').textContent='THỬ THÁCH TIẾP THEO';$('levelComplete').classList.remove('hidden')}}
-function eatCheck(){for(let i=fish.length-1;i>=0;i--){let f=fish[i];if(!f.alive)continue;let d=Math.hypot(f.x-player.x,f.y-player.y);if(d<player.r+f.r*.7){if(player.r>f.r*(f.boss?1.02:1.12)){playSfx('eat');score+=Math.round(f.r*(f.boss?12:4));player.r=Math.min(76,player.r+(f.boss?4:f.r*.018));if(f.boss)showToast('🏆 HẠ GỤC CÁ MẬP ĐẦU ĐÀN!');fish.splice(i,1);for(let n=0;n<8;n++)particles.push({x:f.x,y:f.y,vx:rand(-2,2),vy:rand(-2,2),life:1,hue:f.hue});spawnFish();checkStage();updateHUD()}else if(f.kind==='pred'&&f.r>player.r*(cfg.difficulty==='Easy'?1.65:cfg.difficulty==='Hard'?1.05:1.2)){if(player.shield>0){player.shield=0;score+=Math.round(f.r*2);fish.splice(i,1);spawnFish();playSfx('power')}else{die();return}}}}for(let i=foods.length-1;i>=0;i--){let q=foods[i];if(Math.hypot(q.x-player.x,q.y-player.y)<player.r+q.r+3){playSfx('snack');score+=2;player.r=Math.min(58,player.r+.035);foods.splice(i,1);spawnFood();checkStage();updateHUD()}}}
+function eatCheck(){for(let i=fish.length-1;i>=0;i--){let f=fish[i];if(!f.alive)continue;let d=Math.hypot(f.x-player.x,f.y-player.y);if(d<player.r+f.r*.7){if(player.r>f.r*(f.boss?1.02:1.12)){playSfx('eat');const reward=Math.round(f.r*(f.boss?12:4));score+=reward;const oldSize=player.r;player.r=Math.min(76,player.r+(f.boss?4:f.r*.018));player.growFlash=.65;showToast(f.boss?'🏆 HẠ GỤC CÁ MẬP ĐẦU ĐÀN!  +'+reward+' ĐIỂM':'+'+reward+' ĐIỂM  •  CÁ LỚN HƠN!');for(let n=0;n<14;n++){const a=rand(0,Math.PI*2),v=rand(1.1,3.2);particles.push({x:player.x,y:player.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.45,.9),hue:rand(38,58),size:rand(2,5),growth:true})}fish.splice(i,1);for(let n=0;n<8;n++)particles.push({x:f.x,y:f.y,vx:rand(-2,2),vy:rand(-2,2),life:1,hue:f.hue});spawnFish();checkStage();updateHUD()}else if(f.kind==='pred'&&f.r>player.r*(cfg.difficulty==='Easy'?1.65:cfg.difficulty==='Hard'?1.05:1.2)){if(player.shield>0){player.shield=0;score+=Math.round(f.r*2);fish.splice(i,1);spawnFish();playSfx('power')}else{die();return}}}}for(let i=foods.length-1;i>=0;i--){let q=foods[i];if(Math.hypot(q.x-player.x,q.y-player.y)<player.r+q.r+3){playSfx('snack');score+=2;player.r=Math.min(58,player.r+.035);foods.splice(i,1);spawnFood();checkStage();updateHUD()}}}
 function ensureAudio(){if(!audioOn)return;try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();if(!ambientNodes){const master=audioCtx.createGain();master.gain.value=.12;master.connect(audioCtx.destination);const low=audioCtx.createOscillator(),high=audioCtx.createOscillator(),filter=audioCtx.createBiquadFilter(),gain=audioCtx.createGain();low.type='sine';low.frequency.value=74;high.type='sine';high.frequency.value=111;filter.type='lowpass';filter.frequency.value=260;gain.gain.value=.18;low.connect(filter);high.connect(filter);filter.connect(gain);gain.connect(master);low.start();high.start();ambientNodes={master,low,high,gain};}}catch{}}
 function playTone(freq,duration,type='sine',volume=.045,slide=0){if(!audioOn)return;try{ensureAudio();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(30,freq+slide),audioCtx.currentTime+duration);g.gain.setValueAtTime(volume,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration)}catch{}}
 function playSfx(kind){if(!audioOn)return;const sounds={eat:()=>{playTone(620,.08,'sine',.035,260);setTimeout(()=>playTone(980,.07,'sine',.022,180),35)},snack:()=>playTone(880,.045,'triangle',.018,140),boost:()=>{playTone(260,.22,'sawtooth',.025,760);setTimeout(()=>playTone(720,.16,'sine',.018,300),70)},power:()=>{playTone(540,.12,'sine',.035,450);setTimeout(()=>playTone(900,.2,'triangle',.025,320),75)},hit:()=>{playTone(220,.34,'sawtooth',.035,-150);setTimeout(()=>playTone(82,.42,'sine',.055,-35),110)},caught:()=>{playTone(460,.12,'triangle',.025,-210);setTimeout(()=>playTone(125,.38,'sawtooth',.045,-75),85);setTimeout(()=>playTone(58,.48,'sine',.035,-20),170)},win:()=>{[523,659,784,1047].forEach((n,i)=>setTimeout(()=>playTone(n,.18,'sine',.025,60),i*95))}};if(sounds[kind])sounds[kind]()}
 function startAmbient(){ensureAudio()}
 function die(){if(dead)return;playSfx('hit');lives=Math.max(0,lives-1);updateHUD();dead=true;deathFx={time:0,duration:1.0,x:player.x,y:player.y,r:player.r,angle:player.angle};$('damageFlash').classList.remove('active');void $('damageFlash').offsetWidth;$('damageFlash').classList.add('active');for(let n=0;n<30;n++){const a=rand(0,Math.PI*2),v=rand(1.2,5.2);particles.push({x:player.x,y:player.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.55,1.1),hue:rand(0,28),size:rand(2,6),damage:true})}playSfx('caught')}
-function update(dt){if(dead&&deathFx){deathFx.time+=dt;if(deathFx.time>=deathFx.duration){deathFx=null;if(lives>0){dead=false;player.x=W*.34;player.y=H*.5;player.vx=0;player.vy=0;player.r=Math.max(13,player.r*.88);player.shield=cfg.difficulty==='Easy'?5:3;showToast('♥ CÒN '+lives+' MẠNG — TIẾP TỤC!');updateHUD();return}playing=false;let best=+(localStorage.getItem('oceanBest_'+mode)||0);if(score>best){localStorage.setItem('oceanBest_'+mode,String(score));best=score}$('bestScore').textContent='Kỷ lục: '+best;$('finalScore').textContent='Điểm của bạn: '+score+' • Kích thước: '+(player.r/13).toFixed(1)+'×';$('gameover').classList.remove('hidden')}for(let p of particles){p.x+=p.vx*.45;p.y+=p.vy*.45;p.life-=dt*1.2}particles=particles.filter(p=>p.life>0);return}if(dead)return;
+function update(dt){if(dead&&deathFx){deathFx.time+=dt;if(deathFx.time>=deathFx.duration){deathFx=null;if(lives>0){dead=false;player.x=W*.34;player.y=H*.5;player.vx=0;player.vy=0;player.r=Math.max(13,player.r*.88);player.shield=cfg.difficulty==='Easy'?5:3;showToast('♥ CÒN '+lives+' MẠNG — TIẾP TỤC!');updateHUD();return}playing=false;document.body.classList.remove('playing');resetJoystick();let best=+(localStorage.getItem('oceanBest_'+mode)||0);if(score>best){localStorage.setItem('oceanBest_'+mode,String(score));best=score}$('bestScore').textContent='Kỷ lục: '+best;$('finalScore').textContent='Điểm của bạn: '+score+' • Kích thước: '+(player.r/13).toFixed(1)+'×';$('gameover').classList.remove('hidden')}for(let p of particles){p.x+=p.vx*.45;p.y+=p.vy*.45;p.life-=dt*1.2}particles=particles.filter(p=>p.life>0);return}if(dead)return;
 if(introTimer>0){introTimer=Math.max(0,introTimer-dt);if(introTimer===0&&!introStarted){introStarted=true;introWave=1;introWaveDelay=1.25;for(let i=0;i<7;i++)spawnFish('prey',true)}}
 else if(introStarted&&introWave===1){introWaveDelay-=dt;if(introWaveDelay<=0){introWave=2;for(let i=0;i<(cfg.difficulty==='Easy'?2:cfg.difficulty==='Hard'?5:4)+Math.floor((level-1)/6);i++)spawnFish('pred',true);for(let i=0;i<6;i++)spawnFish('prey',true);if(mode==='adventure'&&level%5===0)spawnBoss()}}
-elapsed+=dt;stageTime+=dt;bubbleSfxTimer-=dt;if(bubbleSfxTimer<=0){bubbleSfxTimer=rand(4.5,8);if(audioOn&&Math.random()<.55)playTone(rand(720,1150),.12,'sine',.008,rand(150,360))}player.shield=Math.max(0,player.shield-dt);powerTimer-=dt;if(powerTimer<=0&&powerups.length<2){spawnPowerup();powerTimer=rand(16,24)}let dx=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),dy=(keys.s||keys.arrowdown?1:0)-(keys.w||keys.arrowup?1:0);if(pointer){let px=pointer.x-player.x,py=pointer.y-player.y,dist=Math.hypot(px,py);if(dist>12){dx=px/dist;dy=py/dist}}let len=Math.hypot(dx,dy);if(len){dx/=len;dy/=len;player.angle=Math.atan2(dy,dx)}let difficultyMove=cfg.difficulty==='Easy'?1.24:cfg.difficulty==='Hard'?.98:1.12;let speed=(3.25+player.r*.045)*difficultyMove*(boost>0?2.15:1);const response=Math.min(1,dt*18);player.vx+=(dx*speed-player.vx)*response;player.vy+=(dy*speed-player.vy)*response;player.x=clamp(player.x+player.vx*60*dt,player.r,W-player.r);player.y=clamp(player.y+player.vy*60*dt,65+player.r,H-player.r);boost=Math.max(0,boost-dt);player.boost=Math.min(100,player.boost+dt*9);for(let f of fish)moveFish(f,dt);
+elapsed+=dt;stageTime+=dt;bubbleSfxTimer-=dt;if(bubbleSfxTimer<=0){bubbleSfxTimer=rand(4.5,8);if(audioOn&&Math.random()<.55)playTone(rand(720,1150),.12,'sine',.008,rand(150,360))}player.shield=Math.max(0,player.shield-dt);player.growFlash=Math.max(0,(player.growFlash||0)-dt);powerTimer-=dt;if(powerTimer<=0&&powerups.length<2){spawnPowerup();powerTimer=rand(16,24)}let dx=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),dy=(keys.s||keys.arrowdown?1:0)-(keys.w||keys.arrowup?1:0);if(pointer){let px=pointer.x-player.x,py=pointer.y-player.y,dist=Math.hypot(px,py);if(dist>12){dx=px/dist;dy=py/dist}}else if(coarsePointer){dx=joyVector.x;dy=joyVector.y}let len=Math.hypot(dx,dy);if(len){dx/=len;dy/=len;player.angle=Math.atan2(dy,dx)}let difficultyMove=cfg.difficulty==='Easy'?1.24:cfg.difficulty==='Hard'?.98:1.12;let speed=(3.25+player.r*.045)*difficultyMove*(boost>0?2.15:1);const response=Math.min(1,dt*18);player.vx+=(dx*speed-player.vx)*response;player.vy+=(dy*speed-player.vy)*response;player.x=clamp(player.x+player.vx*60*dt,player.r,W-player.r);player.y=clamp(player.y+player.vy*60*dt,65+player.r,H-player.r);boost=Math.max(0,boost-dt);player.boost=Math.min(100,player.boost+dt*9);for(let f of fish){moveFish(f,dt);if(f.fleeing&&Math.random()<dt*5){particles.push({x:f.x-Math.cos(f.angle)*f.r*.8,y:f.y-Math.sin(f.angle)*f.r*.8,vx:rand(-.45,.45),vy:rand(-.9,-.25),life:.42,hue:185,size:rand(1.5,3),escapeBubble:true})}}
 // Autonomous ecosystem: predators consume smaller AI fish, then grow.
-for(let i=fish.length-1;i>=0;i--){const hunter=fish[i];if(hunter.kind!=='pred')continue;for(let j=fish.length-1;j>=0;j--){if(i===j)continue;const prey=fish[j];if(prey.kind==='prey'&&hunter.r>prey.r*1.12&&Math.hypot(hunter.x-prey.x,hunter.y-prey.y)<hunter.r*.75+prey.r*.65){hunter.r=Math.min(48,hunter.r+prey.r*.025);fish.splice(j,1);if(j<i)i--;break}}}eatCheck();for(let i=powerups.length-1;i>=0;i--){const p=powerups[i];if(Math.hypot(p.x-player.x,p.y-player.y)<player.r+15){if(p.type==='boost')player.boost=100;else if(p.type==='shield')player.shield=8;else player.r=Math.min(58,player.r+2.5);score+=25;powerups.splice(i,1);playSfx('power');updateHUD()}}for(let b of bubbles){b.y-=b.v*dt*60;b.x+=Math.sin(elapsed+b.p)*.3;if(b.y<-10)b.y=H+10}for(let p of particles){p.x+=p.vx;p.y+=p.vy;p.life-=dt*1.7}particles=particles.filter(p=>p.life>0);if(fish.length<27&&Math.random()<dt*.7)spawnFish();if(foods.length<100&&Math.random()<dt*3)spawnFood()}
+for(let i=fish.length-1;i>=0;i--){const hunter=fish[i];if(hunter.kind!=='pred')continue;for(let j=fish.length-1;j>=0;j--){if(i===j)continue;const prey=fish[j];if(prey.kind==='prey'&&hunter.r>prey.r*1.12&&Math.hypot(hunter.x-prey.x,hunter.y-prey.y)<hunter.r*.75+prey.r*.65){hunter.r=Math.min(48,hunter.r+prey.r*.025);fish.splice(j,1);if(j<i)i--;break}}}eatCheck();for(let i=powerups.length-1;i>=0;i--){const p=powerups[i];if(Math.hypot(p.x-player.x,p.y-player.y)<player.r+15){if(p.type==='boost')player.boost=100;else if(p.type==='shield')player.shield=8;else player.r=Math.min(58,player.r+2.5);score+=25;powerups.splice(i,1);playSfx('power');updateHUD()}}for(let b of bubbles){b.y-=b.v*dt*60;b.x+=Math.sin(elapsed+b.p)*.3;if(b.y<-10)b.y=H+10}for(let p of particles){p.x+=p.vx;p.y+=p.vy;p.life-=dt*1.7}particles=particles.filter(p=>p.life>0);if(fish.length<27&&Math.random()<dt*.7)spawnFish();if(foods.length<30&&Math.random()<dt*.8)spawnFood()}
 function drawFish(x,y,r,angle,hue,playerFish=false,species='blueTang'){
  const playerSpecies=playerFish?(r<22?'clown':r<31?'blueTang':r<42?'angelfish':'parrot'):species;const spriteName=fishSprites[playerSpecies]?playerSpecies:'blueTang';
  const sprite=fishSprites[spriteName];
  if(sprite&&sprite.complete&&sprite.naturalWidth>0){
    const swimPulse=Math.sin(elapsed*9+(x+y)*.01)*.035;
-   ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(1+swimPulse,1-swimPulse*.45);
+   ctx.save();ctx.translate(x,y);ctx.scale(Math.cos(angle)<0?-1:1,1);ctx.scale(1+swimPulse,1-swimPulse*.45);
    const targetW=r*(spriteName==='shark'||spriteName==='barracuda'?3.05:2.75);
    const ratio=sprite.naturalHeight/sprite.naturalWidth;
    ctx.shadowColor='rgba(0,12,28,.48)';ctx.shadowBlur=Math.max(3,r*.22);ctx.shadowOffsetY=Math.max(1,r*.07);
    ctx.drawImage(sprite,-targetW*.5,-targetW*ratio*.5,targetW,targetW*ratio);
    ctx.restore();
-   if(playerFish){ctx.save();ctx.strokeStyle='rgba(215,255,255,.82)';ctx.lineWidth=Math.max(1.3,r*.045);ctx.shadowColor='#6ff7ff';ctx.shadowBlur=10;ctx.beginPath();ctx.ellipse(x,y,r*1.42,r*.94,angle,0,Math.PI*2);ctx.stroke();ctx.restore()}
    return;
  }
  const t=elapsed,tail=Math.sin(t*8+(x+y)*.012)*.16,small=Math.max(.72,Math.min(1.7,r/18));
@@ -225,7 +305,7 @@ function drawFish(x,y,r,angle,hue,playerFish=false,species='blueTang'){
  };
  let sp=playerFish?'clown':(palettes[species]?species:'blueTang'),p=palettes[sp];
  const pred=['barracuda','grouper','lionfish','shark','moray'].includes(sp);
- ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(1,1);
+ ctx.save();ctx.translate(x,y);ctx.scale(Math.cos(angle)<0?-1:1,1);
  // Ambient shadow and soft rim light
  ctx.shadowColor='rgba(0,13,30,.55)';ctx.shadowBlur=Math.max(3,r*.28);ctx.shadowOffsetY=r*.12;
  // Tail fin with translucent lobes
@@ -283,8 +363,79 @@ function drawFish(x,y,r,angle,hue,playerFish=false,species='blueTang'){
  else {ctx.strokeStyle='#653d32';ctx.lineWidth=Math.max(.7,r*.03);ctx.beginPath();ctx.moveTo(r*.83,r*.16);ctx.quadraticCurveTo(r*.93,r*.2,r*1.01,r*.14);ctx.stroke()}
  // Bright upper-body highlight
  ctx.globalAlpha=.32;ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(r*.12,-r*.34,r*.46,r*.12,-.12,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
- // Player ring
- if(playerFish){ctx.strokeStyle='#fff3bd';ctx.lineWidth=Math.max(1.4,r*.055);ctx.globalAlpha=.8+Math.sin(t*4)*.12;ctx.beginPath();ctx.ellipse(0,0,r*1.18,r*.82,0,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
+ ctx.restore();
+}
+function drawBubbleShell(x,y,r,phase=0){
+ const pulse=Math.sin(elapsed*3.2+phase)*.8;
+ ctx.save();
+ ctx.globalAlpha=.88;
+ ctx.fillStyle='rgba(176,245,255,.075)';
+ ctx.strokeStyle='rgba(220,252,255,.88)';
+ ctx.lineWidth=Math.max(1,r*.105);
+ ctx.shadowColor='#9ff5ff';ctx.shadowBlur=r*.65;
+ ctx.beginPath();ctx.arc(x,y,r+pulse,0,Math.PI*2);ctx.fill();ctx.stroke();
+ ctx.shadowBlur=0;
+ ctx.strokeStyle='rgba(255,255,255,.92)';ctx.lineWidth=Math.max(.8,r*.075);
+ ctx.beginPath();ctx.arc(x-r*.27,y-r*.3,r*.23,Math.PI*1.05,Math.PI*1.85);ctx.stroke();
+ ctx.fillStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.arc(x+r*.43,y-r*.48,Math.max(1,r*.07),0,Math.PI*2);ctx.fill();
+ ctx.restore();
+}
+function drawStarfishBubble(q){
+ const r=8.5+Math.sin(elapsed*3+q.phase)*.7;
+ drawBubbleShell(q.x,q.y,r+4,q.phase);
+ ctx.save();ctx.translate(q.x,q.y);ctx.rotate(Math.sin(elapsed*1.7+q.phase)*.12);
+ const outer=r*.78,inner=r*.34;
+ const grad=ctx.createRadialGradient(-r*.22,-r*.3,1,0,0,r);
+ grad.addColorStop(0,'#ffe9a0');grad.addColorStop(.48,'#f5a94e');grad.addColorStop(1,'#b95731');
+ ctx.fillStyle=grad;ctx.strokeStyle='#8d4b35';ctx.lineWidth=1;
+ ctx.beginPath();
+ for(let i=0;i<10;i++){
+   const a=-Math.PI/2+i*Math.PI/5,rr=i%2===0?outer:inner;
+   const px=Math.cos(a)*rr,py=Math.sin(a)*rr;
+   if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+ }
+ ctx.closePath();ctx.fill();ctx.stroke();
+ ctx.fillStyle='rgba(255,246,205,.8)';
+ for(let i=0;i<5;i++){const a=-Math.PI/2+i*Math.PI*2/5;ctx.beginPath();ctx.arc(Math.cos(a)*r*.36,Math.sin(a)*r*.36,Math.max(.65,r*.045),0,Math.PI*2);ctx.fill()}
+ ctx.restore();
+}
+function drawPearlBubble(x,y,phase=0,size=12){
+ const bob=Math.sin(elapsed*2.4+phase)*1.1;
+ const px=x+Math.sin(elapsed*1.1+phase)*1.4,py=y+bob;
+ const r=size+Math.sin(elapsed*2.8+phase)*.35;
+ // Small water capsule: pearl is the visual focus, not an oversized empty ring.
+ ctx.save();
+ ctx.globalAlpha=.82;
+ const bubble=ctx.createRadialGradient(px-r*.38,py-r*.55,1,px,py,r*1.45);
+ bubble.addColorStop(0,'rgba(255,255,255,.16)');
+ bubble.addColorStop(.68,'rgba(135,231,255,.07)');
+ bubble.addColorStop(1,'rgba(104,218,255,.015)');
+ ctx.fillStyle=bubble;ctx.beginPath();ctx.arc(px,py,r*1.38,0,Math.PI*2);ctx.fill();
+ ctx.strokeStyle='rgba(221,252,255,.76)';ctx.lineWidth=1.25;ctx.shadowColor='#9defff';ctx.shadowBlur=8;
+ ctx.beginPath();ctx.arc(px,py,r*1.38,0,Math.PI*2);ctx.stroke();
+ ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.92)';ctx.lineWidth=1.4;
+ ctx.beginPath();ctx.arc(px-r*.43,py-r*.52,r*.3,Math.PI*1.05,Math.PI*1.78);ctx.stroke();
+ ctx.restore();
+ // Pearl body: layered nacre shading, cool and warm iridescence, and a crisp specular highlight.
+ ctx.save();
+ const pearl=ctx.createRadialGradient(px-r*.31,py-r*.38,r*.025,px+r*.05,py+r*.08,r*.82);
+ pearl.addColorStop(0,'#ffffff');
+ pearl.addColorStop(.18,'#fffdf2');
+ pearl.addColorStop(.42,'#f4f0df');
+ pearl.addColorStop(.66,'#c8dce4');
+ pearl.addColorStop(.82,'#e6c9d9');
+ pearl.addColorStop(1,'#789eaf');
+ ctx.shadowColor='rgba(211,250,255,.9)';ctx.shadowBlur=9;
+ ctx.fillStyle=pearl;ctx.beginPath();ctx.arc(px,py,r*.76,0,Math.PI*2);ctx.fill();
+ ctx.shadowBlur=0;
+ // Delicate nacre crescent and reflected aqua edge.
+ ctx.globalAlpha=.52;ctx.strokeStyle='#ffffff';ctx.lineWidth=Math.max(1,r*.09);
+ ctx.beginPath();ctx.arc(px,py,r*.62,-2.25,-.55);ctx.stroke();
+ ctx.globalAlpha=.36;ctx.strokeStyle='#8ce9e8';ctx.lineWidth=Math.max(.7,r*.055);
+ ctx.beginPath();ctx.arc(px,py,r*.67,.35,1.9);ctx.stroke();
+ ctx.globalAlpha=1;
+ ctx.fillStyle='rgba(255,255,255,.96)';ctx.beginPath();ctx.ellipse(px-r*.25,py-r*.3,r*.19,r*.105,-.65,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='rgba(255,255,255,.5)';ctx.beginPath();ctx.arc(px+r*.22,py-r*.42,r*.055,0,Math.PI*2);ctx.fill();
  ctx.restore();
 }
 function draw(){
@@ -297,7 +448,7 @@ function draw(){
 // Animated sea grass and tiny reef polyps give the foreground real depth.
  for(let i=0;i<24;i++){const bx=(i*W/23),len=24+(i%5)*12;ctx.strokeStyle=i%3===0?'rgba(70,207,147,.7)':'rgba(26,164,133,.62)';ctx.lineWidth=2+(i%3);ctx.beginPath();ctx.moveTo(bx,H+4);ctx.quadraticCurveTo(bx+Math.sin(elapsed*.8+i)*13,H-len*.45,bx+Math.sin(elapsed*.8+i+1)*19,H-len);ctx.stroke()}
  for(let i=0;i<38;i++){const x=(i*173+Math.sin(elapsed*.3+i)*24)%W,y=(i*97+elapsed*(3+i%4))%H;ctx.fillStyle='rgba(210,255,244,.26)';ctx.beginPath();ctx.arc(x,y,1+(i%3)*.6,0,Math.PI*2);ctx.fill()}
- ctx.fillStyle='rgba(3,39,57,.78)';ctx.fillRect(0,H-22,W,22);for(let i=0;i<18;i++){let x=i*W/17;ctx.strokeStyle=i%3?'#18b99c':'#42c9a3';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x,H-18);ctx.quadraticCurveTo(x+Math.sin(elapsed+i)*12,H-55,x+Math.cos(elapsed*.7+i)*9,H-78);ctx.stroke()}for(let q of foods){ctx.fillStyle=`hsl(${q.hue} 90% 70%)`;ctx.shadowBlur=17;ctx.shadowColor='#fff4a8';ctx.beginPath();ctx.arc(q.x,q.y,q.r+Math.sin(elapsed*3+q.phase),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;for(let f of fish)drawFish(f.x,f.y,f.r,f.angle,f.hue,false,f.species);for(let p of powerups){ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle=p.type==='boost'?'#ffd86b':p.type==='shield'?'#70e8ff':'#a8ff87';ctx.shadowBlur=16;ctx.shadowColor=ctx.fillStyle;ctx.beginPath();ctx.arc(0,0,11+Math.sin(elapsed*4+p.phase)*2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#07304a';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.type==='boost'?'⚡':p.type==='shield'?'◆':'✚',0,1);ctx.restore();}for(let p of particles){ctx.globalAlpha=p.life;ctx.fillStyle=`hsl(${p.hue} 90% 70%)`;ctx.beginPath();ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;if(player){drawFish(player.x,player.y,player.r,player.angle,28,true,'clown');if(player.shield>0){ctx.strokeStyle='#8ff5ff';ctx.lineWidth=3;ctx.globalAlpha=.5+Math.sin(elapsed*8)*.25;ctx.beginPath();ctx.arc(player.x,player.y,player.r+9,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}}for(let i=0;i<24;i++){let x=(i*137+elapsed*(5+i%4))%(W+40)-20,y=(i*83+Math.sin(elapsed*.7+i)*24)%(H-80)+55;ctx.fillStyle='rgba(190,250,255,.12)';ctx.beginPath();ctx.arc(x,y,2+(i%5)*1.1,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c9ffff55';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,3+(i%4)*2,0,Math.PI*2);ctx.stroke()}
+ ctx.fillStyle='rgba(3,39,57,.78)';ctx.fillRect(0,H-22,W,22);for(let i=0;i<18;i++){let x=i*W/17;ctx.strokeStyle=i%3?'#18b99c':'#42c9a3';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x,H-18);ctx.quadraticCurveTo(x+Math.sin(elapsed+i)*12,H-55,x+Math.cos(elapsed*.7+i)*9,H-78);ctx.stroke()}for(let q of foods)drawStarfishBubble(q);for(let f of fish)drawFish(f.x,f.y,f.r,f.angle,f.hue,false,f.species);for(let p of powerups){ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle=p.type==='boost'?'#ffd86b':p.type==='shield'?'#70e8ff':'#a8ff87';ctx.shadowBlur=16;ctx.shadowColor=ctx.fillStyle;ctx.beginPath();ctx.arc(0,0,11+Math.sin(elapsed*4+p.phase)*2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#07304a';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';if(p.type==='growth'){ctx.restore();drawPearlBubble(p.x,p.y,p.phase,10);continue}else{ctx.fillText(p.type==='boost'?'⚡':'◆',0,1)}ctx.restore();}for(let p of particles){ctx.globalAlpha=p.life;ctx.fillStyle=`hsl(${p.hue} 90% 70%)`;ctx.beginPath();ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;if(player){drawFish(player.x,player.y,player.r,player.angle,28,true,'clown');if(player.growFlash>0){ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=Math.min(1,player.growFlash*1.5);const glow=ctx.createRadialGradient(player.x,player.y,player.r*.25,player.x,player.y,player.r*1.5);glow.addColorStop(0,'rgba(255,238,160,.34)');glow.addColorStop(1,'rgba(255,214,105,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(player.x,player.y,player.r*1.5,0,Math.PI*2);ctx.fill();ctx.restore()}}for(let i=0;i<24;i++){let x=(i*137+elapsed*(5+i%4))%(W+40)-20,y=(i*83+Math.sin(elapsed*.7+i)*24)%(H-80)+55;ctx.fillStyle='rgba(190,250,255,.12)';ctx.beginPath();ctx.arc(x,y,2+(i%5)*1.1,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c9ffff55';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,3+(i%4)*2,0,Math.PI*2);ctx.stroke()}
 if(deathFx){const k=clamp(deathFx.time/deathFx.duration,0,1),fade=1-k;ctx.save();ctx.globalCompositeOperation='screen';ctx.strokeStyle=`rgba(255,220,190,${fade*.9})`;ctx.lineWidth=3+fade*5;for(let n=0;n<3;n++){const radius=deathFx.r*(1.2+k*5+n*1.15);ctx.globalAlpha=fade*(1-n*.2);ctx.beginPath();ctx.ellipse(deathFx.x,deathFx.y,radius*1.5,radius*.9,0,0,Math.PI*2);ctx.stroke()}ctx.restore();const vg=ctx.createRadialGradient(deathFx.x,deathFx.y,deathFx.r*.5,deathFx.x,deathFx.y,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,30,35,0)');vg.addColorStop(.55,`rgba(255,25,35,${fade*.08})`);vg.addColorStop(1,`rgba(110,0,15,${fade*.58})`);ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);if(k<.38){ctx.save();ctx.globalAlpha=(.38-k)*1.8;ctx.strokeStyle='#fff3dc';ctx.lineWidth=5;ctx.beginPath();ctx.arc(deathFx.x,deathFx.y,deathFx.r*(1.4+k*5),0,Math.PI*2);ctx.stroke();ctx.restore()}}}
 function drawIntro(){if(introTimer<=0)return;const n=Math.ceil(introTimer);ctx.save();ctx.fillStyle='rgba(0,20,42,.3)';ctx.fillRect(0,0,W,H);ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='#00233f';ctx.shadowBlur=16;ctx.fillStyle='#ffe28a';ctx.font=`900 ${Math.max(25,Math.min(42,W*.085))}px system-ui`;ctx.fillText('SẴN SÀNG!',W/2,H*.34);ctx.shadowBlur=0;ctx.fillStyle='#e8fbff';ctx.font=`600 ${Math.max(12,Math.min(17,W*.034))}px system-ui`;ctx.fillText('Các loài cá đang tiến vào...',W/2,H*.34+32);const rad=Math.max(27,Math.min(39,W*.085));const pulse=1+Math.sin(elapsed*7)*.06;ctx.fillStyle='rgba(65,211,239,.22)';ctx.strokeStyle='#b7f8ff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(W/2,H*.34+78,rad*pulse,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff0a6';ctx.font=`900 ${rad}px system-ui`;ctx.fillText(String(n),W/2,H*.34+79);ctx.restore()}
 function loop(t){if(!playing)return;let raw=Math.min(.033,(t-last)/1000||0);last=t;const slow=deathFx?(.22+.78*Math.min(1,deathFx.time/.32)):1;update(raw*slow);draw();if(introTimer>0)drawIntro();requestAnimationFrame(loop)}draw();

@@ -1,13 +1,14 @@
 {
   "name": "ocean-frenzy",
-  "version": "2.0.0",
+  "version": "2.0.5",
   "private": true,
   "description": "Ocean Frenzy cross-platform HTML5 arcade game",
   "scripts": {
     "start": "npx serve .",
-    "check": "node scripts/check-game.js",
+    "check": "node scripts/check-game.js && node scripts/test-flee-ai.js",
     "android:add": "npx cap add android",
-    "android:sync": "npx cap sync android"
+    "android:sync": "npx cap sync android",
+    "test:flee-ai": "node scripts/test-flee-ai.js"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",

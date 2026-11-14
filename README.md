@@ -1,30 +1,22 @@
-# Ocean Frenzy v2.0.0 — Full Campaign Remake
+# Ocean Frenzy v2.0.5 — Web Input Compatibility
 
-## Chosen direction
-Full remake inspired by the classic Feeding Frenzy arcade loop; Android phones, Android tablets and Web/PWA; glossy 3D cartoon-realistic art direction; Vietnamese-first interface. Game code and assets are original.
+## v2.0.5 changes
+- Keeps the translucent mobile joystick for touch-screen phones and tablets.
+- Restores mouse/trackpad dragging on the game canvas on every platform, including hybrid touchscreen laptops/tablets.
+- Touch pointer events do not take over the fish; they remain dedicated to the joystick.
+- Keyboard movement (WASD / arrow keys) remains enabled on web and desktop.
+- Keeps the single Fish Library button and boost button.
+- Bumped service-worker cache and Android APK artifact to v2.0.5.
 
-## Implemented in this source release
-- 16 new high-detail 3D-rendered fish sprites, individually cropped with transparent backgrounds.
-- Player fish visually evolves as it grows: clownfish → blue tang → angelfish → parrotfish.
-- 30 named campaign stages with saved unlock progression and themed stage color treatments.
-- Boss shark encounters every fifth campaign stage.
-- Survival and Challenge modes.
-- Three difficulty tiers with different life counts: Easy 5, Normal 3, Hard 2.
-- Respawn and temporary invulnerability while lives remain.
-- Fish collection gallery with all 16 species.
-- Predator hunting, prey escape, schooling, power-ups, growth and stage completion.
-- Touch, keyboard and boost controls; responsive portrait/landscape layout.
-- Web assets mirrored into Capacitor `www/`; service worker cache versioned for v2.0.0.
-- GitHub Actions workflow names the APK `Ocean-Frenzy-v2.0.0-Android-debug.apk`.
+## Run Web/PWA
+`npm install`
+`npm run check`
+`npm run start`
+Open the local HTTP URL; do not use `file://`.
 
-## Run the Web version
-Run `npm install`, then `npm run start` from this folder. Open the local HTTP URL shown by the server. Do not open `index.html` directly as a `file://` URL; service workers and PWA features require HTTP/HTTPS.
-
-## Build Android
-Push the folder contents to the GitHub repository and run the included `build-apk.yml` workflow. The generated APK is uploaded as a workflow artifact.
-
-## Rendering note
-Gameplay uses a 2D Canvas engine with high-detail 3D-rendered sprite artwork and layered 2.5D effects, not a real-time polygonal 3D engine. This keeps the game lightweight and compatible with mobile browsers and Android WebView.
+## Android
+Push to GitHub and run `.github/workflows/build-apk.yml`.
+Artifact: `Ocean-Frenzy-v2.0.5-Android-debug.apk`.
 
 ## Validation
-`npm run check` validates JavaScript parsing, core UI, 30-stage campaign, boss/lives systems, and all 16 sprite assets in both Web and Android folders. Workflow YAML, manifest, asset mirroring and ZIP integrity were also checked. The Android GitHub Actions build and physical-device gameplay have not been run from this environment.
+`npm run check` validates syntax, gameplay, AI and control wiring. Android CI and physical-device input testing have not yet been executed here.
