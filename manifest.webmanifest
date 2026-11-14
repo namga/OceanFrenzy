@@ -3,10 +3,9 @@
   "short_name": "Ocean Frenzy",
   "start_url": "./",
   "display": "standalone",
-  "orientation": "landscape",
   "background_color": "#062b49",
   "theme_color": "#062b49",
-  "description": "Cá lớn ăn cá bé - game arcade đại dương.",
+  "description": "Ocean Frenzy Full Remake: 30 màn chiến dịch, sinh tồn, thử thách, 16 loài cá và đồ họa cá 3D.",
   "icons": [
     {
       "src": "./icon-192.png",

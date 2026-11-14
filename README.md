@@ -1,23 +1,30 @@
-# Ocean Frenzy v1.0.7 — Capacitor webDir repair
+# Ocean Frenzy v2.0.0 — Full Campaign Remake
 
-## Root cause fixed
+## Chosen direction
+Full remake inspired by the classic Feeding Frenzy arcade loop; Android phones, Android tablets and Web/PWA; glossy 3D cartoon-realistic art direction; Vietnamese-first interface. Game code and assets are original.
 
-The previous Capacitor config set `webDir` to `.`. Capacitor rejects the repository root as a web asset directory (`"." is not a valid value for webDir`). Since `cap add android` failed before creating the Android project, the following plugin sync then failed because `android/app/src/main/assets/capacitor.plugins.json` did not exist.
+## Implemented in this source release
+- 16 new high-detail 3D-rendered fish sprites, individually cropped with transparent backgrounds.
+- Player fish visually evolves as it grows: clownfish → blue tang → angelfish → parrotfish.
+- 30 named campaign stages with saved unlock progression and themed stage color treatments.
+- Boss shark encounters every fifth campaign stage.
+- Survival and Challenge modes.
+- Three difficulty tiers with different life counts: Easy 5, Normal 3, Hard 2.
+- Respawn and temporary invulnerability while lives remain.
+- Fish collection gallery with all 16 species.
+- Predator hunting, prey escape, schooling, power-ups, growth and stage completion.
+- Touch, keyboard and boost controls; responsive portrait/landscape layout.
+- Web assets mirrored into Capacitor `www/`; service worker cache versioned for v2.0.0.
+- GitHub Actions workflow names the APK `Ocean-Frenzy-v2.0.0-Android-debug.apk`.
 
-This release:
-- Changes Capacitor `webDir` to `www`.
-- Copies the complete static game runtime (index, service worker, manifest, icons and assets) into `www/`.
-- Adds a workflow preflight that checks `www/index.html` exists before creating the Android project.
-- Keeps the Android project generated fresh in CI; do not commit a partially generated Android folder.
+## Run the Web version
+Run `npm install`, then `npm run start` from this folder. Open the local HTTP URL shown by the server. Do not open `index.html` directly as a `file://` URL; service workers and PWA features require HTTP/HTTPS.
 
-## GitHub update
+## Build Android
+Push the folder contents to the GitHub repository and run the included `build-apk.yml` workflow. The generated APK is uploaded as a workflow artifact.
 
-1. Extract this ZIP.
-2. Copy the contents of `ocean-frenzy-v1.0.7` into the repository root, replacing existing files.
-3. Commit and push to the branch configured in the workflow.
-4. Run **Ocean Frenzy Android APK** in Actions.
+## Rendering note
+Gameplay uses a 2D Canvas engine with high-detail 3D-rendered sprite artwork and layered 2.5D effects, not a real-time polygonal 3D engine. This keeps the game lightweight and compatible with mobile browsers and Android WebView.
 
-Expected artifact: `Ocean-Frenzy-v1.0.7-Android-APK`
-Expected APK: `Ocean-Frenzy-v1.0.7-Android-debug.apk`
-
-This source/workflow has been statically validated and packaged. It has not been executed on your GitHub repository; APK success must be confirmed by the Actions run.
+## Validation
+`npm run check` validates JavaScript parsing, core UI, 30-stage campaign, boss/lives systems, and all 16 sprite assets in both Web and Android folders. Workflow YAML, manifest, asset mirroring and ZIP integrity were also checked. The Android GitHub Actions build and physical-device gameplay have not been run from this environment.

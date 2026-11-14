@@ -1,1 +1,15 @@
-const fs=require('fs');const html=fs.readFileSync('index.html','utf8');const match=html.match(/<script>([\s\S]*?)<\/script>/);if(!match)throw new Error('Game script not found');new Function(match[1]);for(const id of ['game','start','settings','gameover','pause','levelComplete','modeSelect','swim','hunt','school','escape'])if(!html.includes('id=\"'+id+'\"'))throw new Error('Missing UI element: '+id);console.log('Ocean Frenzy: HTML script syntax and core UI checks passed.');
+const fs=require('fs'),path=require('path');
+const html=fs.readFileSync('index.html','utf8');
+const match=html.match(/<script>([\s\S]*?)<\/script>/);
+if(!match) throw new Error('Game script not found');
+new Function(match[1]);
+const ids=['game','start','playBtn','settings','gameover','pause','levelComplete','modeSelect','difficultySelect','stageName','lives','collection','fishGrid','openCollection','closeCollection','swim','hunt','school','escape'];
+for(const id of ids) if(!html.includes('id="'+id+'"')) throw new Error('Missing UI element: '+id);
+if(!html.includes("addEventListener('click',start)")) throw new Error('Start button click handler missing');
+if(!html.includes('level>=30')) throw new Error('30-stage campaign limit missing');
+if(!html.includes('spawnBoss()')) throw new Error('Boss encounter system missing');
+if(!html.includes('lives=Math.max(0,lives-1)')) throw new Error('Lives/respawn system missing');
+const species=['clown','blueTang','yellowTang','angelfish','butterfly','moorishIdol','puffer','triggerfish','wrasse','royalGramma','sardine','parrot','barracuda','grouper','lionfish','shark'];
+for(const name of species) for(const base of ['assets/fish','www/assets/fish']) if(!fs.existsSync(path.join(base,name+'.webp'))) throw new Error('Missing fish asset '+base+'/'+name);
+if(!fs.readFileSync('www/index.html','utf8').includes('Full 3D Remake')) throw new Error('Capacitor web assets are not synced');
+console.log('Ocean Frenzy v2.0.0: syntax, UI, 30 stages, boss/lives systems, 16 fish assets and Android webDir passed.');

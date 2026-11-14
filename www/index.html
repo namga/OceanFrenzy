@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b49"><meta name="description" content="Ocean Frenzy - cá lớn ăn cá bé, khám phá đại dương."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Ocean Frenzy v1.0.2</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b49"><meta name="description" content="Ocean Frenzy - cá lớn ăn cá bé, khám phá đại dương."><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><title>Ocean Frenzy – Full 3D Remake v2.0.0</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 :root{--navy:#062b49;--cyan:#37d6df;--glass:rgba(4,27,48,.78);--gold:#ffd66b}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#031c34;color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;touch-action:none}#game{position:fixed;inset:0;width:100%;height:100%;display:block;background:#06365a}.hud{position:fixed;z-index:3;top:env(safe-area-inset-top,10px);left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:12px 14px;pointer-events:none;gap:10px}.brand,.stats,.hud button{background:var(--glass);border:1px solid #ffffff24;backdrop-filter:blur(12px);border-radius:16px;box-shadow:0 8px 24px #00162955}.brand{padding:9px 13px;font-weight:900;letter-spacing:.5px}.brand small{display:block;font-size:10px;color:#8ce9ed;letter-spacing:2px}.stats{padding:8px 12px;display:flex;gap:14px;font-size:12px}.stats b{display:block;font-size:17px;color:#ffe18a}.hud button{pointer-events:auto;color:#fff;border:1px solid #ffffff30;padding:10px 12px;font-size:18px}.bottom{position:fixed;z-index:3;left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:end;pointer-events:none}.hint,.boost{pointer-events:auto;background:var(--glass);border:1px solid #ffffff24;border-radius:16px;padding:10px 13px;font-size:12px;color:#c9f7f8}.boost{font-weight:800;color:#fff;background:linear-gradient(135deg,#087d9a,#1453a0);border:1px solid #74e8f1;padding:13px 17px}.overlay{position:fixed;z-index:10;inset:0;display:grid;place-items:center;padding:18px;background:linear-gradient(180deg,#02182bd9,#031a30eF);backdrop-filter:blur(9px)}.panel{width:min(520px,100%);max-height:90dvh;overflow:auto;border:1px solid #8ce9ed45;border-radius:26px;padding:24px;background:linear-gradient(145deg,#0a4665f5,#082b4bf5);box-shadow:0 25px 80px #0009}.logo{font-size:clamp(30px,8vw,48px);font-weight:1000;line-height:1;color:#fff;text-shadow:0 4px 0 #087e9c}.sub{color:#a8e9ef;margin:8px 0 22px}.primary,.secondary{border:0;border-radius:15px;padding:14px 18px;font-size:16px;font-weight:850;cursor:pointer}.primary{background:linear-gradient(135deg,#ffe58c,#ffb84d);color:#17324a;width:100%;box-shadow:0 6px 0 #b96b29}.secondary{background:#ffffff17;color:#fff;border:1px solid #ffffff30}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:15px 0}.row label{font-weight:700}.row output{color:#ffe18a;font-weight:800}.setting input[type=range]{width:100%;accent-color:#47e0e4}.toggle{width:23px;height:23px;accent-color:#40d9d9}.divider{height:1px;background:#ffffff20;margin:17px 0}.hidden{display:none!important}.tag{display:inline-block;border-radius:99px;background:#ffffff18;color:#a9f5ef;padding:5px 10px;font-size:11px;font-weight:800}.help{font-size:12px;line-height:1.6;color:#b6dce8}.mobile-tip{display:none}@media(max-width:650px){.stats{gap:8px;padding:7px 9px}.stats b{font-size:14px}.brand{font-size:13px}.hint{max-width:65%;font-size:11px}.mobile-tip{display:block}}
 
@@ -11,83 +11,297 @@
 .primary{transition:transform .16s ease,filter .16s ease}.primary:active,.secondary:active,.boost:active{transform:translateY(2px) scale(.98);filter:brightness(1.12)}
 .panel{background:linear-gradient(145deg,rgba(8,68,96,.96),rgba(4,29,58,.97));border-color:#9dfaff66;box-shadow:0 28px 90px #00111dcc,inset 0 1px #ffffff25}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* v1.0.8 — classic arcade HUD and clearer gameplay feedback */
+.hud{top:calc(env(safe-area-inset-top,0px) + 7px);left:10px;right:10px;padding:0;display:grid;grid-template-columns:minmax(112px, .82fr) minmax(210px,1.8fr) auto;gap:8px;align-items:stretch;filter:drop-shadow(0 5px 10px #00111c88)}
+.brand,.stats,.hud button{border:2px solid rgba(255,220,132,.78);border-radius:13px;background:linear-gradient(180deg,rgba(7,65,95,.94),rgba(2,29,54,.94));box-shadow:inset 0 1px 0 #ffffff42,0 3px 0 rgba(0,14,29,.5),0 0 0 1px #032d4c}
+.brand{min-width:0;padding:7px 10px;display:grid;grid-template-columns:22px 1fr;column-gap:5px;align-content:center;line-height:1.05}
+.brand-fish{grid-row:span 2;font-size:19px;align-self:center}
+.brand-name{font-size:clamp(10px,2vw,14px);font-weight:1000;letter-spacing:.7px;white-space:nowrap}
+.brand small{grid-column:2;font-size:8px;letter-spacing:1.25px;color:#9af4f2;margin-top:4px;white-space:nowrap}
+.stats{min-width:0;padding:6px 9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto 5px;gap:2px 9px;align-items:center}
+.stat-item{text-align:center;min-width:0;line-height:1.05}
+.stat-item span{display:block;font-size:8px;letter-spacing:1px;color:#b7e9ef;font-weight:800;white-space:nowrap}
+.stat-item b{display:block;font-size:clamp(13px,2.7vw,18px);color:#ffe38d;text-shadow:0 1px 3px #0009}
+.growth-wrap{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;gap:7px;align-items:center}
+.growth-label{font-size:7px;font-weight:900;letter-spacing:.9px;color:#a9e8ef;white-space:nowrap}
+.growth-label span{color:#ffe38d}
+.growth-track{height:5px;border-radius:8px;background:#001c36;border:1px solid #ffffff35;overflow:hidden}
+.growth-track i{display:block;width:0;height:100%;border-radius:8px;background:linear-gradient(90deg,#30dce7,#ffe27e);box-shadow:0 0 8px #52efff;transition:width .2s}
+.hud-actions{display:flex;gap:6px;pointer-events:auto}
+.hud button{pointer-events:auto;color:#fff;width:38px;min-width:38px;padding:5px;font-size:17px;border-radius:12px}
+.bottom{left:10px;right:10px;bottom:calc(9px + env(safe-area-inset-bottom,0px));align-items:end;gap:8px}
+.hint{max-width:min(56%,340px);padding:8px 11px;border:1px solid #e9d18b88;border-radius:12px;background:linear-gradient(180deg,#052e4cdd,#031b32eF);font-size:10px;line-height:1.35;color:#e0f8fa}
+.boost{padding:11px 15px;border:2px solid #ffe18a;border-radius:12px;background:linear-gradient(180deg,#138eaa,#07508c);box-shadow:inset 0 1px #ffffff55,0 3px 0 #032b4b;font-size:12px}
+#damageFlash{position:fixed;z-index:8;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(255,28,35,.1) 62%,rgba(255,16,26,.78) 100%);mix-blend-mode:screen}
+#damageFlash.active{animation:damagePulse 1.05s ease-out forwards}
+@keyframes damagePulse{0%{opacity:0}12%{opacity:1}48%{opacity:.72}100%{opacity:0}}
+@media(max-width:520px){.hud{grid-template-columns:106px minmax(0,1fr) 78px;gap:5px;left:7px;right:7px}.brand{padding:6px 7px}.brand-name{font-size:10px;letter-spacing:.2px}.brand small{font-size:6px;letter-spacing:.7px}.stats{gap:2px 4px;padding:6px 5px}.stat-item span{font-size:6px;letter-spacing:.45px}.stat-item b{font-size:13px}.growth-label{font-size:6px}.hud-actions{gap:4px}.hud button{width:36px;min-width:36px;font-size:15px}.hint{max-width:58%;font-size:9px}.boost{font-size:10px;padding:10px 11px}}
+@media(orientation:landscape) and (max-height:520px){.hud{left:12px;right:12px;grid-template-columns:145px minmax(250px,360px) auto}.brand{padding:5px 9px}.stats{padding:4px 8px}.bottom{bottom:8px}.hint{max-width:260px}}
+
+.collection-panel{width:min(760px,100%)}
+.fish-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.fish-card{background:linear-gradient(145deg,#0c5a78,#092b4b);border:1px solid #8ce9ed35;border-radius:14px;padding:8px;text-align:center;min-width:0}
+.fish-card img{width:100%;height:74px;object-fit:contain;filter:drop-shadow(0 5px 6px #001b30aa)}
+.fish-card b{display:block;font-size:11px;color:#e8ffff}
+.fish-card small{font-size:9px;color:#9ddde5}
+@media(max-width:520px){.fish-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.fish-card img{height:58px}}
+@media(orientation:landscape) and (max-height:520px){.fish-card img{height:48px}}
+
+.collection-panel{width:min(760px,100%)}
+.fish-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.fish-card{background:linear-gradient(145deg,#0c5a78,#092b4b);border:1px solid #8ce9ed35;border-radius:14px;padding:8px;text-align:center;min-width:0}
+.fish-card img{width:100%;height:74px;object-fit:contain;filter:drop-shadow(0 5px 6px #001b30aa)}
+.fish-card b{display:block;font-size:11px;color:#e8ffff}
+.fish-card small{font-size:9px;color:#9ddde5}
+@media(max-width:520px){.fish-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.fish-card img{height:58px}}
+@media(orientation:landscape) and (max-height:520px){.fish-card img{height:48px}}
 </style></head><body>
-<canvas id="game"></canvas>
-<div class="hud"><div class="brand">🐠 OCEAN FRENZY<small>FEED • GROW • SURVIVE</small></div><div class="stats"><div>ĐIỂM<b id="score">0</b></div><div>KÍCH THƯỚC<b id="size">1.0×</b></div><div>MÀN<b id="level">01</b></div></div><div style="display:flex;gap:7px;pointer-events:auto"><button id="pauseBtn" aria-label="Tạm dừng">Ⅱ</button><button id="settingsBtn" aria-label="Cài đặt">⚙</button></div></div>
+<canvas id="game"></canvas><div id="damageFlash" aria-hidden="true"></div>
+<div class="hud"><div class="brand"><span class="brand-fish">🐠</span><span class="brand-name">OCEAN FRENZY</span><small>FULL 3D REMAKE • FEED • GROW • SURVIVE</small></div><div class="stats"><div class="stat-item"><span>ĐIỂM</span><b id="score">0</b></div><div class="stat-item"><span>KÍCH THƯỚC</span><b id="size">1.0×</b></div><div class="stat-item"><span>VÙNG BIỂN</span><b id="level">01</b><small id="stageName" style="display:block;color:#a8eff2;font-size:9px;max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Đầm phá san hô</small></div><div class="stat-item"><span>MẠNG</span><b id="lives">♥♥♥</b></div><div class="growth-wrap"><div class="growth-label">TIẾN HÓA <span id="growthText">0%</span></div><div class="growth-track"><i id="growthBar"></i></div></div></div><div class="hud-actions"><button id="pauseBtn" aria-label="Tạm dừng">Ⅱ</button><button id="settingsBtn" aria-label="Cài đặt">⚙</button></div></div>
 <div class="bottom"><div class="hint" id="hint">Di chuyển bằng WASD / phím mũi tên hoặc chạm và kéo trên màn hình.</div><button class="boost" id="boostBtn">⚡ TĂNG TỐC</button></div>
-<div class="overlay" id="start"><div class="panel"><div class="logo">OCEAN<br>FRENZY</div><div class="sub">Đại dương rộng lớn. Cá bé phải ăn để trở thành kẻ thống trị!</div><span class="tag">ARCADE • SURVIVAL • OFFLINE</span><div style="height:20px"></div><button class="primary" id="playBtn">▶ BẮT ĐẦU CHƠI</button><div style="height:10px"></div><button class="secondary" id="openSettings">⚙ Cài đặt</button><div class="row" style="margin-bottom:0"><label for="modeSelect">Chế độ chơi</label><select id="modeSelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="adventure">Adventure</option><option value="survival">Survival</option><option value="challenge">Challenge</option></select></div><p class="help" id="bestScore">Kỷ lục: 0</p><p class="help">Ăn những sinh vật nhỏ hơn bạn, né cá săn mồi lớn hơn. Ăn đủ để tăng kích thước và mở rộng vùng săn.</p></div></div>
-<div class="overlay hidden" id="settings"><div class="panel setting"><div class="row" style="margin-top:0"><div><div class="logo" style="font-size:28px">FISH AI SETTINGS</div><div class="sub" style="margin:5px 0 0">Tùy chỉnh hành vi sinh vật</div></div><button class="secondary" id="closeSettings">✕</button></div>
+<div class="overlay" id="start"><div class="panel"><div class="logo">OCEAN<br>FRENZY</div><div class="sub">Đại dương rộng lớn. Cá bé phải ăn để trở thành kẻ thống trị!</div><span class="tag">CAMPAIGN • SURVIVAL • CHALLENGE • OFFLINE</span><div style="height:20px"></div><button class="primary" id="playBtn">▶ BẮT ĐẦU CHƠI</button><div style="height:10px"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="openSettings">⚙ Cài đặt</button><button class="secondary" id="openCollection">🐠 Thư viện cá</button></div><button class="secondary" id="openCollection">🐠 Thư viện cá</button></div><div class="row" style="margin-bottom:0"><label for="modeSelect">Chế độ chơi</label><select id="modeSelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="adventure">Adventure</option><option value="survival">Survival</option><option value="challenge">Challenge</option></select></div><div class="row" style="margin-bottom:0"><label for="difficultySelect">Độ khó</label><select id="difficultySelect" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="Easy" selected>Dễ</option><option value="Normal">Bình thường</option><option value="Hard">Khó</option></select></div><p class="help" id="bestScore">Kỷ lục: 0</p><p class="help">Ăn những sinh vật nhỏ hơn bạn, né cá săn mồi lớn hơn. Ăn đủ để tăng kích thước và mở rộng vùng săn.</p></div></div>
+<div class="overlay hidden" id="collection"><div class="panel collection-panel"><div class="row"><div><div class="logo" style="font-size:28px">THƯ VIỆN SINH VẬT</div><div class="sub">Khám phá các loài cá của đại dương</div></div><button class="secondary" id="closeCollection">✕</button></div><div class="fish-grid" id="fishGrid"></div></div></div>\n<div class="overlay hidden" id="collection"><div class="panel collection-panel"><div class="row"><div><div class="logo" style="font-size:28px">THƯ VIỆN SINH VẬT</div><div class="sub">Khám phá các loài cá của đại dương</div></div><button class="secondary" id="closeCollection">✕</button></div><div class="fish-grid" id="fishGrid"></div></div></div>\n<div class="overlay hidden" id="settings"><div class="panel setting"><div class="row" style="margin-top:0"><div><div class="logo" style="font-size:28px">FISH AI SETTINGS</div><div class="sub" style="margin:5px 0 0">Tùy chỉnh hành vi sinh vật</div></div><button class="secondary" id="closeSettings">✕</button></div>
 <div class="row"><label for="swim">Tốc độ bơi</label><output id="swimOut">65%</output></div><input id="swim" type="range" min="0" max="100" value="65">
 <div class="row"><label for="hunt">Hung hãn săn mồi</label><output id="huntOut">70%</output></div><input id="hunt" type="range" min="0" max="100" value="70">
 <div class="divider"></div><div class="row"><label for="school">Bơi theo đàn</label><input class="toggle" id="school" type="checkbox" checked></div><div class="row"><label for="escape">Tự động bỏ chạy</label><input class="toggle" id="escape" type="checkbox" checked></div>
-<div class="divider"></div><div class="row"><label for="difficulty">Độ khó AI</label><select id="difficulty" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option>Easy</option><option selected>Normal</option><option>Hard</option></select></div>
+<div class="divider"></div><div class="row"><label for="difficulty">Độ khó AI</label><select id="difficulty" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option selected>Easy</option><option>Normal</option><option>Hard</option></select></div>
 <div class="row"><label for="sound">Âm thanh</label><input class="toggle" id="sound" type="checkbox" checked></div><div class="row"><label for="quality">Hiệu ứng đồ họa</label><select id="quality" style="background:#123f5e;color:white;border:1px solid #ffffff35;border-radius:10px;padding:9px"><option value="high">Cao</option><option value="balanced" selected>Cân bằng</option><option value="low">Tiết kiệm pin</option></select></div><div class="help">Cấu hình mặc định đã chọn: tốc độ 65%, săn mồi 70%, bơi đàn và bỏ chạy đều bật, độ khó Normal. Thay đổi được lưu trên thiết bị.</div><div style="height:15px"></div><button class="primary" id="saveSettings">LƯU CẤU HÌNH</button></div></div>
 <div class="overlay hidden" id="pause"><div class="panel"><div class="logo" style="font-size:36px">TẠM DỪNG</div><div class="sub">Đại dương đang chờ bạn.</div><button class="primary" id="resumeBtn">▶ TIẾP TỤC</button><div style="height:10px"></div><button class="secondary" id="pauseSettings">⚙ Cài đặt</button><div style="height:10px"></div><button class="secondary" id="quitBtn">Về màn hình chính</button></div></div>
 <div class="overlay hidden" id="levelComplete"><div class="panel"><div class="logo" style="font-size:36px">HOÀN THÀNH!</div><div class="sub" id="levelMessage">Bạn đã vượt qua vùng biển.</div><button class="primary" id="nextLevelBtn">MÀN TIẾP THEO →</button></div></div>
 <div class="overlay hidden" id="gameover"><div class="panel"><div class="logo" style="font-size:36px">BẠN ĐÃ BỊ ĂN!</div><div class="sub" id="finalScore">Điểm: 0</div><button class="primary" id="retryBtn">↻ CHƠI LẠI</button><div style="height:10px"></div><button class="secondary" id="homeBtn">Về màn hình chính</button></div></div>
 <script>
-(()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d');let W=0,H=0,dpr=1,playing=false,paused=false,dead=false,last=0,score=0,level=1,foods=[],fish=[],bubbles=[],particles=[],powerups=[],keys={},pointer=null,boost=0,player,elapsed=0,mode='adventure',stageGoal=180,stageTime=0,audioOn=true,audioCtx=null,powerTimer=10;
-const $=id=>document.getElementById(id);const defaults={swim:65,hunt:70,school:true,escape:true,difficulty:'Normal',sound:true,quality:'balanced'};let cfg={...defaults};try{cfg={...cfg,...JSON.parse(localStorage.getItem('oceanAI')||'{}')}}catch{}const reefBg=new Image();reefBg.src='./assets/reef-background.webp';let ambientNodes=null,bubbleSfxTimer=0;resize();
+window.addEventListener('error',e=>{console.error('Ocean Frenzy runtime error',e.error||e.message);const b=document.getElementById('startError');if(b)b.textContent='Lỗi game: '+(e.message||'Không xác định')});
+window.addEventListener('unhandledrejection',e=>{console.error('Ocean Frenzy async error',e.reason)});
+(()=>{'use strict';const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d');let W=0,H=0,dpr=1,playing=false,paused=false,dead=false,last=0,score=0,level=1,lives=3,foods=[],fish=[],bubbles=[],particles=[],powerups=[],keys={},pointer=null,boost=0,player,elapsed=0,mode='adventure',stageGoal=180,stageTime=0,audioOn=true,audioCtx=null,powerTimer=10,introTimer=0,introStarted=false,introWave=0,introWaveDelay=1.25;
+const $=id=>document.getElementById(id);const defaults={swim:65,hunt:70,school:true,escape:true,difficulty:'Easy',sound:true,quality:'balanced'};let cfg={...defaults};try{cfg={...cfg,...JSON.parse(localStorage.getItem('oceanAI')||'{}')}}catch{}const reefBg=new Image();reefBg.src='./assets/reef-background.webp';const fishSprites={};const campaignStages=[
+'Đầm phá san hô','Vịnh cá hề','Hang đá xanh','Khu rừng tảo bẹ','Xác tàu đắm',
+'Rãnh san hô sâu','Thành phố cổ','Vườn sứa phát sáng','Vực thẳm xanh','Lãnh địa cá mập',
+'Đảo san hô đỏ','Hẻm núi đại dương','Rừng rong biển','Hang pha lê','Vương quốc cá đuối',
+'Biển băng xanh','Miệng núi lửa ngầm','Vườn san hô đêm','Vực xoáy','Đế chế cá mập',
+'Thềm lục địa','Rạn san hô tím','Nghĩa địa tàu đắm','Hang ngọc trai','Vực thẳm bóng tối',
+'Thành phố Atlantis','Dòng hải lưu','Rừng sứa khổng lồ','Vương quốc đại dương','Trận chiến thủy thần'
+];
+const speciesLabels={clown:'Cá hề',blueTang:'Cá đuôi gai xanh',yellowTang:'Cá đuôi gai vàng',angelfish:'Cá thần tiên',butterfly:'Cá bướm',moorishIdol:'Cá thù lù',puffer:'Cá nóc',triggerfish:'Cá bò',wrasse:'Cá mó',royalGramma:'Cá Royal Gramma',sardine:'Cá mòi',parrot:'Cá vẹt',barracuda:'Cá nhồng',grouper:'Cá mú',lionfish:'Cá sư tử',shark:'Cá mập'};
+for(const species of ['clown','blueTang','yellowTang','angelfish','butterfly','moorishIdol','puffer','triggerfish','wrasse','royalGramma','sardine','parrot','barracuda','grouper','lionfish','shark']){const im=new Image();im.src='./assets/fish/'+species+'.webp';fishSprites[species]=im;}let ambientNodes=null,bubbleSfxTimer=0,deathFx=null;resize();
 function resize(){dpr=Math.min(devicePixelRatio||1,cfg.quality==='low'?1:cfg.quality==='high'?2:1.5);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
-function rand(a,b){return a+Math.random()*(b-a)}function clamp(v,a,b){return Math.max(a,Math.min(b,v))}function makeFish(x,y,r,kind='prey'){return{x,y,r,kind,angle:rand(0,6.28),speed:rand(.5,1.3),turn:rand(-1,1),timer:rand(0,2),hue:kind==='pred'?rand(0,24):rand(160,220),phase:rand(0,6.28),alive:true,schoolId:Math.floor(rand(0,4))}}
-function reset(){mode=$('modeSelect').value;score=0;level=mode==='adventure'?Math.min(5,Math.max(1,+(localStorage.getItem('oceanUnlocked')||1))):1;elapsed=0;stageTime=0;dead=false;paused=false;boost=0;stageGoal=mode==='challenge'?260:180+(level-1)*90;player={x:W*.34,y:H*.52,r:13,angle:0,vx:0,vy:0,boost:100,shield:0};foods=[];fish=[];bubbles=[];particles=[];powerups=[];powerTimer=10;for(let i=0;i<95;i++)spawnFood();for(let i=0;i<22;i++)spawnFish();updateHUD()}
+function rand(a,b){return a+Math.random()*(b-a)}function clamp(v,a,b){return Math.max(a,Math.min(b,v))}function makeFish(x,y,r,kind='prey',species=null,entering=false){const preySpecies=['blueTang','yellowTang','angelfish','butterfly','sardine','parrot','moorishIdol','puffer','triggerfish','wrasse','royalGramma','clown'];const predatorSpecies=['barracuda','grouper','lionfish','shark','moray'];return{x,y,r,kind,species:species||(kind==='pred'?predatorSpecies[Math.floor(Math.random()*predatorSpecies.length)]:preySpecies[Math.floor(Math.random()*preySpecies.length)]),entering,angle:rand(0,6.28),speed:rand(.5,1.3),turn:rand(-1,1),timer:rand(0,2),hue:kind==='pred'?rand(8,35):rand(160,220),phase:rand(0,6.28),alive:true,fleeing:false,fleeTimer:0,fleeAngle:0,schoolId:Math.floor(rand(0,4))}}
+function reset(){deathFx=null;dead=false;introTimer=4;introStarted=false;introWave=0;introWaveDelay=1.25;$('damageFlash').classList.remove('active');mode=$('modeSelect').value;score=0;level=mode==='adventure'?Math.min(30,Math.max(1,+(localStorage.getItem('oceanUnlocked')||1))):1;lives=cfg.difficulty==='Easy'?5:cfg.difficulty==='Hard'?2:3;elapsed=0;stageTime=0;dead=false;paused=false;boost=0;stageGoal=mode==='challenge'?260:150+(level-1)*38;player={x:W*.34,y:H*.52,r:13,angle:0,vx:0,vy:0,boost:100,shield:cfg.difficulty==='Easy'?5:0};foods=[];fish=[];bubbles=[];particles=[];powerups=[];powerTimer=10;for(let i=0;i<95;i++)spawnFood();updateHUD()}
+function spawnBoss(){const boss=makeFish(W+95,H*.42,50+Math.min(18,level*.45),'pred','shark',true);boss.boss=true;boss.hp=3;boss.speed=rand(.72,.95);boss.angle=Math.PI;fish.push(boss);showToast('⚠ CÁ MẬP ĐẦU ĐÀN!')}
+function showToast(message){let el=$('toast');if(!el){el=document.createElement('div');el.id='toast';el.style.cssText='position:fixed;z-index:8;top:18%;left:50%;transform:translateX(-50%);padding:10px 18px;border-radius:999px;background:#082f4ee8;border:1px solid #ffe28b;color:#ffe28b;font-weight:900;box-shadow:0 8px 30px #001b30aa;pointer-events:none';document.body.appendChild(el)}el.textContent=message;el.style.display='block';clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.style.display='none',2100)}
 function spawnPowerup(){const types=['boost','shield','growth'];powerups.push({x:rand(35,W-35),y:rand(90,H-55),type:types[Math.floor(Math.random()*types.length)],phase:rand(0,6)})}
-function spawnFood(){foods.push({x:rand(20,W-20),y:rand(80,H-30),r:rand(2,4),phase:rand(0,6),hue:rand(45,70)})}function spawnFish(){let pred=Math.random()<Math.min(.42,.18+level*.025);let r=pred?rand(20,39):rand(7,20);fish.push(makeFish(rand(0,W),rand(80,H),r,pred?'pred':'prey'))}
-function updateHUD(){$('score').textContent=score;$('size').textContent=(player.r/13).toFixed(1)+'×';$('level').textContent=mode==='survival'?'∞':String(level).padStart(2,'0')}
+function spawnFood(){foods.push({x:rand(20,W-20),y:rand(80,H-30),r:rand(2,4),phase:rand(0,6),hue:rand(45,70)})}function spawnFish(kind=null,entering=false){let pred=kind?kind==='pred':Math.random()<Math.min(.42,.18+level*.025);let easy=cfg.difficulty==='Easy',hard=cfg.difficulty==='Hard';let r=pred?(easy?rand(16,28):hard?rand(25,43):rand(20,39)):rand(7,20);let fromLeft=Math.random()<.5;let x=entering?(fromLeft?-r-12:W+r+12):rand(0,W);let y=rand(100,H-70);let f=makeFish(x,y,r,pred?'pred':'prey',null,entering);if(entering)f.angle=fromLeft?rand(-.28,.28):Math.PI+rand(-.28,.28);fish.push(f)}
+function updateHUD(){$('score').textContent=score;$('size').textContent=(player.r/13).toFixed(1)+'×';$('level').textContent=mode==='survival'?'∞':String(level).padStart(2,'0');$('stageName').textContent=mode==='survival'?'Sinh tồn':mode==='challenge'?'Thử thách':(campaignStages[level-1]||'Vùng biển cuối');$('lives').textContent='♥'.repeat(Math.max(0,lives))+'♡'.repeat(Math.max(0,(cfg.difficulty==='Easy'?5:cfg.difficulty==='Hard'?2:3)-lives));const pct=clamp((player.r-13)/(58-13)*100,0,100);$('growthBar').style.width=pct+'%';$('growthText').textContent=Math.round(pct)+'%'}
 function settingsOpen(){ if(paused)$('pause').classList.add('hidden');$('settings').classList.remove('hidden') }function settingsClose(){ $('settings').classList.add('hidden');if(paused)$('pause').classList.remove('hidden') }
-function loadSettings(){audioOn=cfg.sound!==false;$('sound').checked=audioOn;$('quality').value=cfg.quality||'balanced';for(let k of ['swim','hunt']){$(k).value=cfg[k];$(k+'Out').textContent=cfg[k]+'%'}$('school').checked=cfg.school;$('escape').checked=cfg.escape;$('difficulty').value=cfg.difficulty}
+function loadSettings(){audioOn=cfg.sound!==false;$('difficultySelect').value=cfg.difficulty||'Easy';$('sound').checked=audioOn;$('quality').value=cfg.quality||'balanced';for(let k of ['swim','hunt']){$(k).value=cfg[k];$(k+'Out').textContent=cfg[k]+'%'}$('school').checked=cfg.school;$('escape').checked=cfg.escape;$('difficulty').value=cfg.difficulty;$('difficultySelect').value=cfg.difficulty}
 $('swim').oninput=e=>$('swimOut').textContent=e.target.value+'%';$('hunt').oninput=e=>$('huntOut').textContent=e.target.value+'%';$('settingsBtn').onclick=settingsOpen;$('openSettings').onclick=settingsOpen;$('closeSettings').onclick=settingsClose;
-$('saveSettings').onclick=()=>{cfg={swim:+$('swim').value,hunt:+$('hunt').value,school:$('school').checked,escape:$('escape').checked,difficulty:$('difficulty').value,sound:$('sound').checked,quality:$('quality').value};audioOn=cfg.sound;if(!audioOn&&ambientNodes){ambientNodes.master.gain.setTargetAtTime(0,audioCtx.currentTime,.15)}else if(audioOn){startAmbient();if(ambientNodes)ambientNodes.master.gain.setTargetAtTime(.12,audioCtx.currentTime,.2)}resize();localStorage.setItem('oceanAI',JSON.stringify(cfg));settingsClose()};loadSettings();
-function start(){startAmbient();reset();playing=true;paused=false;$('start').classList.add('hidden');$('gameover').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}$('playBtn').onclick=start;$('pauseBtn').onclick=()=>{if(playing){paused=true;playing=false;$('pause').classList.remove('hidden')}};$('resumeBtn').onclick=()=>{if(paused){paused=false;playing=true;$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}};$('pauseSettings').onclick=()=>{settingsOpen()};$('quitBtn').onclick=()=>{paused=false;$('pause').classList.add('hidden');$('start').classList.remove('hidden')};$('nextLevelBtn').onclick=()=>{if(mode==='adventure'&&level>=5){localStorage.setItem('oceanUnlocked','5');$('levelComplete').classList.add('hidden');$('start').classList.remove('hidden');playing=false;return}level++;if(mode==='adventure')localStorage.setItem('oceanUnlocked',String(Math.max(level,+(localStorage.getItem('oceanUnlocked')||1))));score=0;stageTime=0;stageGoal+=90;fish=[];foods=[];for(let i=0;i<95;i++)spawnFood();for(let i=0;i<22+level*2;i++)spawnFish();player.r=Math.max(13,player.r);$('levelComplete').classList.add('hidden');playing=true;last=performance.now();requestAnimationFrame(loop)};$('retryBtn').onclick=start;$('homeBtn').onclick=()=>{$('gameover').classList.add('hidden');$('start').classList.remove('hidden');playing=false};
+$('saveSettings').onclick=()=>{cfg={swim:+$('swim').value,hunt:+$('hunt').value,school:$('school').checked,escape:$('escape').checked,difficulty:$('difficulty').value,sound:$('sound').checked,quality:$('quality').value};audioOn=cfg.sound;if(!audioOn&&ambientNodes){ambientNodes.master.gain.setTargetAtTime(0,audioCtx.currentTime,.15)}else if(audioOn){startAmbient();if(ambientNodes)ambientNodes.master.gain.setTargetAtTime(.12,audioCtx.currentTime,.2)}resize();localStorage.setItem('oceanAI',JSON.stringify(cfg));$('difficultySelect').value=cfg.difficulty;settingsClose()};$('difficultySelect').onchange=()=>{$('difficulty').value=$('difficultySelect').value;cfg.difficulty=$('difficultySelect').value;localStorage.setItem('oceanAI',JSON.stringify(cfg))};loadSettings();
+function buildFishGallery(){const grid=$('fishGrid');if(!grid)return;grid.innerHTML='';for(const name of Object.keys(speciesLabels)){const card=document.createElement('div');card.className='fish-card';const img=document.createElement('img');img.src='./assets/fish/'+name+'.webp';img.alt=speciesLabels[name];const title=document.createElement('b');title.textContent=speciesLabels[name];const sub=document.createElement('small');sub.textContent=['barracuda','grouper','lionfish','shark'].includes(name)?'Săn mồi':'Sinh vật biển';card.append(img,title,sub);grid.appendChild(card)}}
+$('openCollection').onclick=()=>{$('start').classList.add('hidden');$('collection').classList.remove('hidden');buildFishGallery()};
+$('closeCollection').onclick=()=>{$('collection').classList.add('hidden');$('start').classList.remove('hidden')};
+function start(){try{$('playBtn').disabled=true;cfg.difficulty=$('difficultySelect').value;localStorage.setItem('oceanAI',JSON.stringify(cfg));$('difficulty').value=cfg.difficulty;startAmbient();reset();playing=true;paused=false;$('start').classList.add('hidden');$('gameover').classList.add('hidden');$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}catch(err){playing=false;paused=false;$('start').classList.remove('hidden');let box=$('startError');if(!box){box=document.createElement('p');box.id='startError';box.style.cssText='margin:12px 0 0;padding:10px;border-radius:10px;background:#7b1f2b;color:white;font-size:12px;overflow-wrap:anywhere';$('playBtn').insertAdjacentElement('afterend',box)}box.textContent='Không thể khởi động: '+(err&&err.message?err.message:String(err));console.error('Ocean Frenzy start failed',err)}finally{$('playBtn').disabled=false}}$('playBtn').addEventListener('click',start);$('playBtn').addEventListener('pointerup',e=>{if(e.pointerType==='touch'){e.preventDefault();start()}},{passive:false});$('pauseBtn').onclick=()=>{if(playing){paused=true;playing=false;$('pause').classList.remove('hidden')}};$('resumeBtn').onclick=()=>{if(paused){paused=false;playing=true;$('pause').classList.add('hidden');last=performance.now();requestAnimationFrame(loop)}};$('pauseSettings').onclick=()=>{settingsOpen()};$('quitBtn').onclick=()=>{paused=false;$('pause').classList.add('hidden');$('start').classList.remove('hidden')};$('nextLevelBtn').onclick=()=>{if(mode==='adventure'&&level>=30){localStorage.setItem('oceanUnlocked','30');$('levelComplete').classList.add('hidden');$('start').classList.remove('hidden');playing=false;return}level++;if(mode==='adventure')localStorage.setItem('oceanUnlocked',String(Math.max(level,+(localStorage.getItem('oceanUnlocked')||1))));score=0;stageTime=0;introTimer=4;introStarted=false;introWave=0;introWaveDelay=1.25;stageGoal+=90;fish=[];foods=[];for(let i=0;i<95;i++)spawnFood();player.r=Math.max(13,player.r);$('levelComplete').classList.add('hidden');playing=true;last=performance.now();requestAnimationFrame(loop)};$('retryBtn').onclick=start;$('homeBtn').onclick=()=>{$('gameover').classList.add('hidden');$('start').classList.remove('hidden');playing=false};
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(e.key.toLowerCase()))e.preventDefault();if(e.key==='Escape'&&playing)settingsOpen()});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 canvas.addEventListener('pointerdown',e=>{pointer={x:e.clientX,y:e.clientY,id:e.pointerId};canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(pointer&&pointer.id===e.pointerId){pointer.x=e.clientX;pointer.y=e.clientY}});canvas.addEventListener('pointerup',()=>pointer=null);canvas.addEventListener('pointercancel',()=>pointer=null);
 function doBoost(){if(player&&player.boost>0){playSfx('boost');boost=.45;player.boost=Math.max(0,player.boost-22)}}$('boostBtn').addEventListener('pointerdown',e=>{e.preventDefault();doBoost()});addEventListener('keydown',e=>{if(e.code==='Space')doBoost()});
-function moveFish(f,dt){f.timer-=dt;let target=null;if(f.kind==='pred'){let nearest=Infinity;for(const q of [player,...fish.filter(z=>z.kind==='prey'&&z.alive)]){if(!q||q===f)continue;let d=Math.hypot(q.x-f.x,q.y-f.y);if(q.r<f.r*.88&&d<nearest&&d<260){nearest=d;target=q}}if(target&&Math.random()<cfg.hunt/100){f.angle=Math.atan2(target.y-f.y,target.x-f.x)}}else{if(cfg.escape){let threat=null,near=190;for(const q of fish.filter(z=>z.kind==='pred')){let d=Math.hypot(q.x-f.x,q.y-f.y);if(d<near&&q.r>f.r*1.25){near=d;threat=q}}if(threat)f.angle=Math.atan2(f.y-threat.y,f.x-threat.x)}}
-if(cfg.school&&f.kind==='prey'&&Math.random()<.5){let mates=fish.filter(q=>q!==f&&q.kind==='prey'&&q.schoolId===f.schoolId&&Math.hypot(q.x-f.x,q.y-f.y)<100);if(mates.length){let ax=0,ay=0;for(let q of mates){ax+=q.x;ay+=q.y}f.angle=Math.atan2(ay/mates.length-f.y,ax/mates.length-f.x)}}
-if(f.timer<=0){f.timer=rand(.6,2.4);if(!target)f.angle+=rand(-1.5,1.5)}let speed=(1.1+cfg.swim/100*2.2)*f.speed*(cfg.difficulty==='Hard'?1.2:cfg.difficulty==='Easy'?.8:1);f.x+=Math.cos(f.angle)*speed*60*dt;f.y+=Math.sin(f.angle)*speed*60*dt;f.y=clamp(f.y,65,H-18);if(f.x<-50)f.x=W+40;if(f.x>W+50)f.x=-40;if(f.y<=66||f.y>=H-19)f.angle=-f.angle+rand(-.5,.5)}
-function checkStage(){if(mode==='adventure'&&score>=stageGoal){playing=false;playSfx('win');localStorage.setItem('oceanUnlocked',String(Math.max(level+1,+(localStorage.getItem('oceanUnlocked')||1))));$('levelMessage').textContent='Bạn đã hoàn thành vùng biển '+String(level).padStart(2,'0')+' • Điểm '+score;$('nextLevelBtn').textContent=level>=5?'HOÀN TẤT CHIẾN DỊCH':'MÀN TIẾP THEO →';$('levelComplete').classList.remove('hidden')}else if(mode==='challenge'&&score>=stageGoal){playing=false;playSfx('win');$('levelMessage').textContent='Thử thách hoàn thành trong '+Math.floor(stageTime)+' giây!';$('nextLevelBtn').textContent='THỬ THÁCH TIẾP THEO';$('levelComplete').classList.remove('hidden')}}
-function eatCheck(){for(let i=fish.length-1;i>=0;i--){let f=fish[i];if(!f.alive)continue;let d=Math.hypot(f.x-player.x,f.y-player.y);if(d<player.r+f.r*.7){if(player.r>f.r*1.12){playSfx('eat');score+=Math.round(f.r*4);player.r=Math.min(58,player.r+f.r*.018);fish.splice(i,1);for(let n=0;n<8;n++)particles.push({x:f.x,y:f.y,vx:rand(-2,2),vy:rand(-2,2),life:1,hue:f.hue});spawnFish();checkStage();updateHUD()}else if(f.kind==='pred'&&f.r>player.r*1.12){if(player.shield>0){player.shield=0;score+=Math.round(f.r*2);fish.splice(i,1);spawnFish();playSfx('power')}else{die();return}}}}for(let i=foods.length-1;i>=0;i--){let q=foods[i];if(Math.hypot(q.x-player.x,q.y-player.y)<player.r+q.r+3){playSfx('snack');score+=2;player.r=Math.min(58,player.r+.035);foods.splice(i,1);spawnFood();checkStage();updateHUD()}}}
+function moveFish(f,dt){
+ f.timer-=dt;
+ let target=null, fleeing=false, fleeX=0, fleeY=0, threatWeight=0;
+ if(f.kind==='pred'){
+   let nearest=Infinity;
+   for(const q of [player,...fish.filter(z=>z.kind==='prey'&&z.alive)]){
+     if(!q||q===f)continue;
+     const d=Math.hypot(q.x-f.x,q.y-f.y);
+     if(q.r<f.r*.88&&d<nearest&&d<300){nearest=d;target=q}
+   }
+   if(target){
+     const huntChance=(cfg.hunt/100)*(cfg.difficulty==='Easy'?.48:cfg.difficulty==='Hard'?1.12:.78);
+     if(Math.random()<Math.min(1,huntChance*dt*8))f.angle=Math.atan2(target.y-f.y,target.x-f.x);
+   }
+ }else if(cfg.escape){
+   // Threat detection includes both AI predators and the human-controlled fish.
+   const possible=[player,...fish.filter(q=>q!==f&&q.kind==='pred'&&q.alive)];
+   const detectRange=cfg.difficulty==='Easy'?285:cfg.difficulty==='Hard'?235:260;
+   for(const q of possible){
+     if(!q||q===f||q.r<f.r*1.10)continue;
+     const dx=f.x-q.x,dy=f.y-q.y,d=Math.max(1,Math.hypot(dx,dy));
+     if(d<detectRange){
+       // Nearby and much larger threats exert stronger steering.
+       const sizeFactor=Math.min(2.2,q.r/Math.max(1,f.r));
+       const weight=(1-d/detectRange)*sizeFactor;
+       fleeX+=(dx/d)*weight;
+       fleeY+=(dy/d)*weight;
+       threatWeight+=weight;
+     }
+   }
+   if(threatWeight>.04){
+     fleeing=true;
+     f.fleeing=true;
+     f.fleeTimer=.42;
+     f.fleeAngle=Math.atan2(fleeY,fleeX);
+   }else if(f.fleeTimer>0){
+     fleeing=true;
+     f.fleeTimer=Math.max(0,f.fleeTimer-dt);
+   }else{
+     f.fleeing=false;
+   }
+ }
+ // School cohesion is deliberately secondary: it must never overwrite an active escape direction.
+ if(fleeing){
+   const desired=f.fleeAngle??f.angle;
+   let delta=Math.atan2(Math.sin(desired-f.angle),Math.cos(desired-f.angle));
+   f.angle+=clamp(delta,-dt*8,dt*8);
+ }else{
+   if(cfg.school&&f.kind==='prey'){
+     const mates=fish.filter(q=>q!==f&&q.kind==='prey'&&q.schoolId===f.schoolId&&Math.hypot(q.x-f.x,q.y-f.y)<115);
+     if(mates.length){
+       let ax=0,ay=0;
+       for(const q of mates){ax+=q.x;ay+=q.y}
+       const schoolAngle=Math.atan2(ay/mates.length-f.y,ax/mates.length-f.x);
+       const delta=Math.atan2(Math.sin(schoolAngle-f.angle),Math.cos(schoolAngle-f.angle));
+       f.angle+=clamp(delta,-dt*1.8,dt*1.8)*.32;
+     }
+   }
+   if(f.timer<=0){
+     f.timer=rand(.6,2.4);
+     if(!target)f.angle+=rand(-1.15,1.15);
+   }
+ }
+ const baseSpeed=(1.1+cfg.swim/100*2.2)*f.speed*(cfg.difficulty==='Hard'?1.22:cfg.difficulty==='Easy'?.68:.9);
+ const panicBoost=fleeing?1.75:1;
+ const speed=baseSpeed*panicBoost;
+ f.x+=Math.cos(f.angle)*speed*60*dt;
+ f.y+=Math.sin(f.angle)*speed*60*dt;
+ f.y=clamp(f.y,65,H-18);
+ if(f.x<-50)f.x=W+40;
+ if(f.x>W+50)f.x=-40;
+ if(f.y<=66||f.y>=H-19)f.angle=-f.angle+rand(-.25,.25);
+}
+function checkStage(){if(mode==='adventure'&&score>=stageGoal){playing=false;playSfx('win');localStorage.setItem('oceanUnlocked',String(Math.max(level+1,+(localStorage.getItem('oceanUnlocked')||1))));$('levelMessage').textContent='Bạn đã hoàn thành vùng biển '+String(level).padStart(2,'0')+' • Điểm '+score;$('nextLevelBtn').textContent=level>=30?'HOÀN TẤT CHIẾN DỊCH':'MÀN TIẾP THEO →';$('levelComplete').classList.remove('hidden')}else if(mode==='challenge'&&score>=stageGoal){playing=false;playSfx('win');$('levelMessage').textContent='Thử thách hoàn thành trong '+Math.floor(stageTime)+' giây!';$('nextLevelBtn').textContent='THỬ THÁCH TIẾP THEO';$('levelComplete').classList.remove('hidden')}}
+function eatCheck(){for(let i=fish.length-1;i>=0;i--){let f=fish[i];if(!f.alive)continue;let d=Math.hypot(f.x-player.x,f.y-player.y);if(d<player.r+f.r*.7){if(player.r>f.r*(f.boss?1.02:1.12)){playSfx('eat');score+=Math.round(f.r*(f.boss?12:4));player.r=Math.min(76,player.r+(f.boss?4:f.r*.018));if(f.boss)showToast('🏆 HẠ GỤC CÁ MẬP ĐẦU ĐÀN!');fish.splice(i,1);for(let n=0;n<8;n++)particles.push({x:f.x,y:f.y,vx:rand(-2,2),vy:rand(-2,2),life:1,hue:f.hue});spawnFish();checkStage();updateHUD()}else if(f.kind==='pred'&&f.r>player.r*(cfg.difficulty==='Easy'?1.65:cfg.difficulty==='Hard'?1.05:1.2)){if(player.shield>0){player.shield=0;score+=Math.round(f.r*2);fish.splice(i,1);spawnFish();playSfx('power')}else{die();return}}}}for(let i=foods.length-1;i>=0;i--){let q=foods[i];if(Math.hypot(q.x-player.x,q.y-player.y)<player.r+q.r+3){playSfx('snack');score+=2;player.r=Math.min(58,player.r+.035);foods.splice(i,1);spawnFood();checkStage();updateHUD()}}}
 function ensureAudio(){if(!audioOn)return;try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();if(!ambientNodes){const master=audioCtx.createGain();master.gain.value=.12;master.connect(audioCtx.destination);const low=audioCtx.createOscillator(),high=audioCtx.createOscillator(),filter=audioCtx.createBiquadFilter(),gain=audioCtx.createGain();low.type='sine';low.frequency.value=74;high.type='sine';high.frequency.value=111;filter.type='lowpass';filter.frequency.value=260;gain.gain.value=.18;low.connect(filter);high.connect(filter);filter.connect(gain);gain.connect(master);low.start();high.start();ambientNodes={master,low,high,gain};}}catch{}}
 function playTone(freq,duration,type='sine',volume=.045,slide=0){if(!audioOn)return;try{ensureAudio();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(30,freq+slide),audioCtx.currentTime+duration);g.gain.setValueAtTime(volume,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration)}catch{}}
-function playSfx(kind){if(!audioOn)return;const sounds={eat:()=>{playTone(620,.08,'sine',.035,260);setTimeout(()=>playTone(980,.07,'sine',.022,180),35)},snack:()=>playTone(880,.045,'triangle',.018,140),boost:()=>{playTone(260,.22,'sawtooth',.025,760);setTimeout(()=>playTone(720,.16,'sine',.018,300),70)},power:()=>{playTone(540,.12,'sine',.035,450);setTimeout(()=>playTone(900,.2,'triangle',.025,320),75)},hit:()=>{playTone(180,.28,'triangle',.05,-90);setTimeout(()=>playTone(90,.32,'sine',.04,-35),90)},win:()=>{[523,659,784,1047].forEach((n,i)=>setTimeout(()=>playTone(n,.18,'sine',.025,60),i*95))}};if(sounds[kind])sounds[kind]()}
+function playSfx(kind){if(!audioOn)return;const sounds={eat:()=>{playTone(620,.08,'sine',.035,260);setTimeout(()=>playTone(980,.07,'sine',.022,180),35)},snack:()=>playTone(880,.045,'triangle',.018,140),boost:()=>{playTone(260,.22,'sawtooth',.025,760);setTimeout(()=>playTone(720,.16,'sine',.018,300),70)},power:()=>{playTone(540,.12,'sine',.035,450);setTimeout(()=>playTone(900,.2,'triangle',.025,320),75)},hit:()=>{playTone(220,.34,'sawtooth',.035,-150);setTimeout(()=>playTone(82,.42,'sine',.055,-35),110)},caught:()=>{playTone(460,.12,'triangle',.025,-210);setTimeout(()=>playTone(125,.38,'sawtooth',.045,-75),85);setTimeout(()=>playTone(58,.48,'sine',.035,-20),170)},win:()=>{[523,659,784,1047].forEach((n,i)=>setTimeout(()=>playTone(n,.18,'sine',.025,60),i*95))}};if(sounds[kind])sounds[kind]()}
 function startAmbient(){ensureAudio()}
-function die(){playSfx('hit');dead=true;playing=false;let best=+(localStorage.getItem('oceanBest_'+mode)||0);if(score>best){localStorage.setItem('oceanBest_'+mode,String(score));best=score}$('bestScore').textContent='Kỷ lục: '+best;$('finalScore').textContent='Điểm của bạn: '+score+' • Kích thước: '+(player.r/13).toFixed(1)+'×';$('gameover').classList.remove('hidden')}
-function update(dt){elapsed+=dt;stageTime+=dt;bubbleSfxTimer-=dt;if(bubbleSfxTimer<=0){bubbleSfxTimer=rand(4.5,8);if(audioOn&&Math.random()<.55)playTone(rand(720,1150),.12,'sine',.008,rand(150,360))}player.shield=Math.max(0,player.shield-dt);powerTimer-=dt;if(powerTimer<=0&&powerups.length<2){spawnPowerup();powerTimer=rand(16,24)}let dx=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),dy=(keys.s||keys.arrowdown?1:0)-(keys.w||keys.arrowup?1:0);if(pointer){let px=pointer.x-player.x,py=pointer.y-player.y,dist=Math.hypot(px,py);if(dist>12){dx=px/dist;dy=py/dist}}let len=Math.hypot(dx,dy);if(len){dx/=len;dy/=len;player.angle=Math.atan2(dy,dx)}let speed=(2.3+player.r*.035)*(boost>0?1.8:1);player.vx+=(dx*speed-player.vx)*Math.min(1,dt*7);player.vy+=(dy*speed-player.vy)*Math.min(1,dt*7);player.x=clamp(player.x+player.vx*60*dt,player.r,W-player.r);player.y=clamp(player.y+player.vy*60*dt,65+player.r,H-player.r);boost=Math.max(0,boost-dt);player.boost=Math.min(100,player.boost+dt*7);for(let f of fish)moveFish(f,dt);
+function die(){if(dead)return;playSfx('hit');lives=Math.max(0,lives-1);updateHUD();dead=true;deathFx={time:0,duration:1.0,x:player.x,y:player.y,r:player.r,angle:player.angle};$('damageFlash').classList.remove('active');void $('damageFlash').offsetWidth;$('damageFlash').classList.add('active');for(let n=0;n<30;n++){const a=rand(0,Math.PI*2),v=rand(1.2,5.2);particles.push({x:player.x,y:player.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.55,1.1),hue:rand(0,28),size:rand(2,6),damage:true})}playSfx('caught')}
+function update(dt){if(dead&&deathFx){deathFx.time+=dt;if(deathFx.time>=deathFx.duration){deathFx=null;if(lives>0){dead=false;player.x=W*.34;player.y=H*.5;player.vx=0;player.vy=0;player.r=Math.max(13,player.r*.88);player.shield=cfg.difficulty==='Easy'?5:3;showToast('♥ CÒN '+lives+' MẠNG — TIẾP TỤC!');updateHUD();return}playing=false;let best=+(localStorage.getItem('oceanBest_'+mode)||0);if(score>best){localStorage.setItem('oceanBest_'+mode,String(score));best=score}$('bestScore').textContent='Kỷ lục: '+best;$('finalScore').textContent='Điểm của bạn: '+score+' • Kích thước: '+(player.r/13).toFixed(1)+'×';$('gameover').classList.remove('hidden')}for(let p of particles){p.x+=p.vx*.45;p.y+=p.vy*.45;p.life-=dt*1.2}particles=particles.filter(p=>p.life>0);return}if(dead)return;
+if(introTimer>0){introTimer=Math.max(0,introTimer-dt);if(introTimer===0&&!introStarted){introStarted=true;introWave=1;introWaveDelay=1.25;for(let i=0;i<7;i++)spawnFish('prey',true)}}
+else if(introStarted&&introWave===1){introWaveDelay-=dt;if(introWaveDelay<=0){introWave=2;for(let i=0;i<(cfg.difficulty==='Easy'?2:cfg.difficulty==='Hard'?5:4)+Math.floor((level-1)/6);i++)spawnFish('pred',true);for(let i=0;i<6;i++)spawnFish('prey',true);if(mode==='adventure'&&level%5===0)spawnBoss()}}
+elapsed+=dt;stageTime+=dt;bubbleSfxTimer-=dt;if(bubbleSfxTimer<=0){bubbleSfxTimer=rand(4.5,8);if(audioOn&&Math.random()<.55)playTone(rand(720,1150),.12,'sine',.008,rand(150,360))}player.shield=Math.max(0,player.shield-dt);powerTimer-=dt;if(powerTimer<=0&&powerups.length<2){spawnPowerup();powerTimer=rand(16,24)}let dx=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),dy=(keys.s||keys.arrowdown?1:0)-(keys.w||keys.arrowup?1:0);if(pointer){let px=pointer.x-player.x,py=pointer.y-player.y,dist=Math.hypot(px,py);if(dist>12){dx=px/dist;dy=py/dist}}let len=Math.hypot(dx,dy);if(len){dx/=len;dy/=len;player.angle=Math.atan2(dy,dx)}let difficultyMove=cfg.difficulty==='Easy'?1.24:cfg.difficulty==='Hard'?.98:1.12;let speed=(3.25+player.r*.045)*difficultyMove*(boost>0?2.15:1);const response=Math.min(1,dt*18);player.vx+=(dx*speed-player.vx)*response;player.vy+=(dy*speed-player.vy)*response;player.x=clamp(player.x+player.vx*60*dt,player.r,W-player.r);player.y=clamp(player.y+player.vy*60*dt,65+player.r,H-player.r);boost=Math.max(0,boost-dt);player.boost=Math.min(100,player.boost+dt*9);for(let f of fish)moveFish(f,dt);
 // Autonomous ecosystem: predators consume smaller AI fish, then grow.
 for(let i=fish.length-1;i>=0;i--){const hunter=fish[i];if(hunter.kind!=='pred')continue;for(let j=fish.length-1;j>=0;j--){if(i===j)continue;const prey=fish[j];if(prey.kind==='prey'&&hunter.r>prey.r*1.12&&Math.hypot(hunter.x-prey.x,hunter.y-prey.y)<hunter.r*.75+prey.r*.65){hunter.r=Math.min(48,hunter.r+prey.r*.025);fish.splice(j,1);if(j<i)i--;break}}}eatCheck();for(let i=powerups.length-1;i>=0;i--){const p=powerups[i];if(Math.hypot(p.x-player.x,p.y-player.y)<player.r+15){if(p.type==='boost')player.boost=100;else if(p.type==='shield')player.shield=8;else player.r=Math.min(58,player.r+2.5);score+=25;powerups.splice(i,1);playSfx('power');updateHUD()}}for(let b of bubbles){b.y-=b.v*dt*60;b.x+=Math.sin(elapsed+b.p)*.3;if(b.y<-10)b.y=H+10}for(let p of particles){p.x+=p.vx;p.y+=p.vy;p.life-=dt*1.7}particles=particles.filter(p=>p.life>0);if(fish.length<27&&Math.random()<dt*.7)spawnFish();if(foods.length<100&&Math.random()<dt*3)spawnFood()}
-function drawFish(x,y,r,angle,hue,playerFish=false){
- const t=elapsed,tail=Math.sin(t*9+(x+y)*.012)*.22,scale=Math.max(.65,Math.min(1.8,r/18));
+function drawFish(x,y,r,angle,hue,playerFish=false,species='blueTang'){
+ const playerSpecies=playerFish?(r<22?'clown':r<31?'blueTang':r<42?'angelfish':'parrot'):species;const spriteName=fishSprites[playerSpecies]?playerSpecies:'blueTang';
+ const sprite=fishSprites[spriteName];
+ if(sprite&&sprite.complete&&sprite.naturalWidth>0){
+   const swimPulse=Math.sin(elapsed*9+(x+y)*.01)*.035;
+   ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(1+swimPulse,1-swimPulse*.45);
+   const targetW=r*(spriteName==='shark'||spriteName==='barracuda'?3.05:2.75);
+   const ratio=sprite.naturalHeight/sprite.naturalWidth;
+   ctx.shadowColor='rgba(0,12,28,.48)';ctx.shadowBlur=Math.max(3,r*.22);ctx.shadowOffsetY=Math.max(1,r*.07);
+   ctx.drawImage(sprite,-targetW*.5,-targetW*ratio*.5,targetW,targetW*ratio);
+   ctx.restore();
+   if(playerFish){ctx.save();ctx.strokeStyle='rgba(215,255,255,.82)';ctx.lineWidth=Math.max(1.3,r*.045);ctx.shadowColor='#6ff7ff';ctx.shadowBlur=10;ctx.beginPath();ctx.ellipse(x,y,r*1.42,r*.94,angle,0,Math.PI*2);ctx.stroke();ctx.restore()}
+   return;
+ }
+ const t=elapsed,tail=Math.sin(t*8+(x+y)*.012)*.16,small=Math.max(.72,Math.min(1.7,r/18));
+ const palettes={
+  blueTang:{base:'#087cc9',light:'#77e4ff',dark:'#063b86',fin:'#ffd84d',stripe:'#e7f9ff'},
+  yellowTang:{base:'#f7c928',light:'#fff18b',dark:'#b96b12',fin:'#ff9b24',stripe:'#fff6cb'},
+  angelfish:{base:'#f2b72d',light:'#fff0a1',dark:'#192d49',fin:'#e9a52d',stripe:'#172a45'},
+  butterfly:{base:'#f2a52d',light:'#fff0a8',dark:'#d75d24',fin:'#f9d05b',stripe:'#252a3b'},
+  sardine:{base:'#91c9d7',light:'#f1ffff',dark:'#416d91',fin:'#7eabc2',stripe:'#d4faff'},
+  parrot:{base:'#13b9a2',light:'#9af6d8',dark:'#075c83',fin:'#ed6ba9',stripe:'#f8d86d'},
+  barracuda:{base:'#8299a9',light:'#e1f2ee',dark:'#263e58',fin:'#526e83',stripe:'#425c6e'},
+  grouper:{base:'#a77d52',light:'#e6c49a',dark:'#493d35',fin:'#826044',stripe:'#443c38'},
+  lionfish:{base:'#d85b36',light:'#ffc18b',dark:'#8c2631',fin:'#f5a05a',stripe:'#fff0d2'},
+  clown:{base:'#f47b20',light:'#fff1d9',dark:'#bd3b13',fin:'#f16a18',stripe:'#fff9e8'},
+  moorishIdol:{base:'#e7d6a4',light:'#fff9dc',dark:'#172b50',fin:'#e2b52f',stripe:'#14284d'},
+  puffer:{base:'#d6b83c',light:'#fff1a0',dark:'#77602b',fin:'#e6a74c',stripe:'#fff4b0'},
+  triggerfish:{base:'#36b8a6',light:'#a9fff0',dark:'#075b70',fin:'#f5d04e',stripe:'#f3ffff'},
+  wrasse:{base:'#d34fba',light:'#ffb2ed',dark:'#3f3b9c',fin:'#f7d34c',stripe:'#ffe5fa'},
+  royalGramma:{base:'#8750d2',light:'#d7a2ff',dark:'#efb52b',fin:'#f4cb45',stripe:'#fce9a1'},
+  shark:{base:'#718b9f',light:'#d9edf2',dark:'#263d56',fin:'#526d83',stripe:'#e7f5f6'},
+  moray:{base:'#6a9b55',light:'#b9d48b',dark:'#31523a',fin:'#547b42',stripe:'#dce9b4'}
+ };
+ let sp=playerFish?'clown':(palettes[species]?species:'blueTang'),p=palettes[sp];
+ const pred=['barracuda','grouper','lionfish','shark','moray'].includes(sp);
  ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.scale(1,1);
- const body=ctx.createLinearGradient(-r,-r*.65,r,r*.65);body.addColorStop(0,`hsl(${hue} 88% 76%)`);body.addColorStop(.42,`hsl(${hue} 82% 57%)`);body.addColorStop(1,`hsl(${(hue+24)%360} 82% 35%)`);
- // soft cast shadow and tail fin
- ctx.shadowColor=`hsla(${hue},90%,55%,.35)`;ctx.shadowBlur=Math.max(5,r*.55);
- ctx.fillStyle=`hsl(${(hue+8)%360} 78% 48%)`;ctx.beginPath();ctx.moveTo(-r*.68,0);ctx.quadraticCurveTo(-r*1.18,-r*.55-tail*r,-r*1.62,-r*.68+tail*r);ctx.quadraticCurveTo(-r*1.42,0,-r*1.62,r*.68+tail*r);ctx.quadraticCurveTo(-r*1.05,r*.46,-r*.68,0);ctx.fill();ctx.shadowBlur=0;
- // dorsal and lower fins
- ctx.fillStyle=`hsl(${(hue+18)%360} 82% 46%)`;ctx.beginPath();ctx.moveTo(-r*.28,-r*.48);ctx.quadraticCurveTo(r*.05,-r*1.02,r*.52,-r*.48);ctx.quadraticCurveTo(r*.12,-r*.56,-r*.28,-r*.48);ctx.fill();
- ctx.globalAlpha=.88;ctx.beginPath();ctx.moveTo(-r*.25,r*.42);ctx.quadraticCurveTo(r*.05,r*.92,r*.42,r*.48);ctx.lineTo(-r*.08,r*.38);ctx.fill();ctx.globalAlpha=1;
- // body
- ctx.fillStyle=body;ctx.beginPath();ctx.ellipse(0,0,r*1.02,r*.64,0,0,Math.PI*2);ctx.fill();
- // belly highlight
- const belly=ctx.createLinearGradient(0,-r*.1,0,r*.62);belly.addColorStop(0,'#ffffff00');belly.addColorStop(1,'#fff3d77a');ctx.fillStyle=belly;ctx.beginPath();ctx.ellipse(r*.12,r*.08,r*.72,r*.48,0,0,Math.PI*2);ctx.fill();
- // gill and scale arcs
- ctx.strokeStyle='#ffffff48';ctx.lineWidth=Math.max(.7,r*.025);ctx.beginPath();ctx.arc(r*.35,0,r*.3,-1.05,1.05);ctx.stroke();
- if(r>13){for(let i=0;i<3;i++){ctx.strokeStyle='#ffffff25';ctx.lineWidth=Math.max(.6,r*.018);ctx.beginPath();ctx.arc(-r*.12+i*r*.18,0,r*.18,-.8,.8);ctx.stroke()}}
- // pectoral fin
- ctx.fillStyle=`hsla(${(hue+35)%360},85%,68%,.72)`;ctx.beginPath();ctx.moveTo(-r*.02,r*.08);ctx.quadraticCurveTo(r*.25,r*.55,r*.62,r*.38);ctx.quadraticCurveTo(r*.28,r*.28,-r*.02,r*.08);ctx.fill();
- // eye with glint
- ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(r*.62,-r*.16,Math.max(2,r*.145),0,Math.PI*2);ctx.fill();ctx.fillStyle='#08263b';ctx.beginPath();ctx.arc(r*.67,-r*.16,Math.max(1.2,r*.075),0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(r*.69,-r*.2,Math.max(.7,r*.035),0,Math.PI*2);ctx.fill();
- ctx.strokeStyle='#17364b';ctx.lineWidth=Math.max(.8,r*.035);ctx.beginPath();ctx.moveTo(r*.84,r*.18);ctx.quadraticCurveTo(r*.96,r*.23,r*1.04,r*.16);ctx.stroke();
- if(playerFish){ctx.strokeStyle='#b9fbff';ctx.lineWidth=Math.max(1.5,r*.07);ctx.globalAlpha=.65+Math.sin(t*5)*.18;ctx.beginPath();ctx.ellipse(0,0,r*1.14,r*.76,0,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
+ // Ambient shadow and soft rim light
+ ctx.shadowColor='rgba(0,13,30,.55)';ctx.shadowBlur=Math.max(3,r*.28);ctx.shadowOffsetY=r*.12;
+ // Tail fin with translucent lobes
+ ctx.fillStyle=p.fin;ctx.beginPath();
+ ctx.moveTo(-r*.58,0);ctx.quadraticCurveTo(-r*1.05,-r*(.3+tail),-r*1.52,-r*(.66+tail));
+ ctx.quadraticCurveTo(-r*1.42,-r*.08,-r*1.48,r*(.62-tail));
+ ctx.quadraticCurveTo(-r*.94,r*(.34-tail),-r*.58,0);ctx.fill();
+ ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+ ctx.strokeStyle='rgba(255,255,255,.42)';ctx.lineWidth=Math.max(.6,r*.025);
+ ctx.beginPath();ctx.moveTo(-r*.7,0);ctx.quadraticCurveTo(-r*1.12,-r*.1,-r*1.42,-r*.55);ctx.moveTo(-r*.7,0);ctx.quadraticCurveTo(-r*1.12,r*.1,-r*1.4,r*.5);ctx.stroke();
+ // Dorsal fin, individually shaped by species
+ ctx.fillStyle=p.fin;ctx.beginPath();
+ if(sp==='lionfish'){for(let i=0;i<7;i++){let xx=-r*.35+i*r*.19;ctx.moveTo(xx,-r*.38);ctx.lineTo(xx-r*.07,-r*(1.15+(i%2)*.18));ctx.lineTo(xx+r*.12,-r*.35)}}
+ else {ctx.moveTo(-r*.42,-r*.32);ctx.quadraticCurveTo(-r*.08,-r*.95,r*.42,-r*.42);ctx.quadraticCurveTo(r*.08,-r*.52,-r*.42,-r*.32)}
+ ctx.fill();
+ // Belly / pelvic fin
+ ctx.beginPath();ctx.moveTo(-r*.28,r*.32);ctx.quadraticCurveTo(r*.05,r*.83,r*.48,r*.37);ctx.lineTo(r*.05,r*.27);ctx.closePath();ctx.fill();
+ // Main body silhouette
+ let body=ctx.createLinearGradient(0,-r*.7,0,r*.7);body.addColorStop(0,p.light);body.addColorStop(.27,p.base);body.addColorStop(.75,p.base);body.addColorStop(1,p.dark);
+ ctx.fillStyle=body;ctx.beginPath();
+ if(sp==='puffer'){ctx.arc(0,0,r*.78,0,Math.PI*2)}
+ else if(pred||sp==='moray'||sp==='shark'){ctx.moveTo(-r*.92,0);ctx.quadraticCurveTo(-r*.42,-r*.52,r*.48,-r*.34);ctx.quadraticCurveTo(r*.98,-r*.16,r*1.08,0);ctx.quadraticCurveTo(r*.7,r*.26,r*.3,r*.34);ctx.quadraticCurveTo(-r*.45,r*.4,-r*.92,0)}
+ else {ctx.ellipse(0,0,r*(sp==='sardine'?.98:sp==='moorishIdol'?.78:1.02),r*(sp==='angelfish'||sp==='moorishIdol'?.78:sp==='triggerfish'?.7:.62),0,0,Math.PI*2)}
+ ctx.fill();
+ // Clownfish / angelfish / butterfly vertical bands
+ if(['clown','angelfish','butterfly','barracuda'].includes(sp)){
+  ctx.save();ctx.beginPath();
+  if(pred){ctx.moveTo(-r*.86,0);ctx.quadraticCurveTo(-r*.4,-r*.58,r*.48,-r*.35);ctx.quadraticCurveTo(r*.96,-r*.18,r*1.05,0);ctx.quadraticCurveTo(r*.75,r*.25,r*.32,r*.38);ctx.quadraticCurveTo(-r*.4,r*.45,-r*.86,0)}
+  else ctx.ellipse(0,0,r*1.02,r*(sp==='angelfish'?.72:.62),0,0,Math.PI*2);
+  ctx.clip();
+  const bands=sp==='clown'?[-.48,.28]:sp==='barracuda'?[-.35,.02,.35]:[-.3,.32];
+  for(const bx of bands){ctx.fillStyle=p.stripe;ctx.globalAlpha=sp==='barracuda'?.28:.96;ctx.beginPath();ctx.ellipse(r*bx,0,r*(sp==='clown'?.105:.07),r*.72,sp==='angelfish'?.12:0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(20,30,40,.45)';ctx.lineWidth=Math.max(1,r*.045);ctx.stroke()}
+  ctx.restore();ctx.globalAlpha=1;
+ }
+ // Species-specific details: puffer spines, spots and bold reef-fish markings.
+ if(sp==='puffer'){ctx.save();ctx.strokeStyle=p.dark;ctx.lineWidth=Math.max(1,r*.035);for(let a=0;a<Math.PI*2;a+=Math.PI/7){let sx=Math.cos(a)*r*.68,sy=Math.sin(a)*r*.68;ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(Math.cos(a)*r*.92,Math.sin(a)*r*.92);ctx.stroke()}ctx.fillStyle='rgba(70,55,25,.48)';for(let i=0;i<13;i++){let a=i*2.4,x=Math.cos(a)*r*.43,y=Math.sin(a)*r*.34;ctx.beginPath();ctx.arc(x,y,Math.max(1,r*.035),0,Math.PI*2);ctx.fill()}ctx.restore()}
+ if(sp==='moorishIdol'||sp==='royalGramma'||sp==='triggerfish'||sp==='wrasse'){ctx.save();ctx.globalAlpha=.55;ctx.strokeStyle=p.stripe;ctx.lineWidth=Math.max(1,r*.06);for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-r*.42+i*r*.22,-r*.45);ctx.quadraticCurveTo(-r*.15+i*r*.22,0,-r*.38+i*r*.22,r*.42);ctx.stroke()}ctx.restore()}
+ // Scales in subtle overlapping arcs
+ if(r>10){ctx.save();ctx.globalAlpha=.19;ctx.strokeStyle='#f8ffff';ctx.lineWidth=Math.max(.55,r*.018);
+  for(let row=-1;row<=1;row++)for(let col=-2;col<=2;col++){let sx=col*r*.24+(row%2)*r*.1,sy=row*r*.22;ctx.beginPath();ctx.arc(sx,sy,r*.15,-.85,.85);ctx.stroke()}
+  ctx.restore()}
+ // Lateral line and gill plate
+ ctx.strokeStyle='rgba(255,255,255,.42)';ctx.lineWidth=Math.max(.65,r*.022);ctx.beginPath();ctx.moveTo(-r*.55,-r*.02);ctx.quadraticCurveTo(0,-r*.14,r*.62,-r*.04);ctx.stroke();
+ ctx.strokeStyle='rgba(14,38,54,.42)';ctx.lineWidth=Math.max(.8,r*.035);ctx.beginPath();ctx.arc(r*.36,0,r*.27,-1.1,1.05);ctx.stroke();
+ // Pectoral fin with a soft translucent gradient
+ let fin=ctx.createLinearGradient(0,0,r*.5,r*.5);fin.addColorStop(0,'rgba(255,255,255,.7)');fin.addColorStop(1,p.fin);
+ ctx.fillStyle=fin;ctx.beginPath();ctx.moveTo(-r*.02,r*.02);ctx.quadraticCurveTo(r*.12,r*.5,r*.62,r*.38);ctx.quadraticCurveTo(r*.34,r*.16,-r*.02,r*.02);ctx.fill();
+ // Eye and reflective catchlight; predators have a more focused eye
+ const eyeR=Math.max(2,r*(pred?.115:.13));
+ ctx.fillStyle='#f7ffff';ctx.beginPath();ctx.arc(r*.66,-r*.16,eyeR*1.28,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle=pred?'#b63b23':'#08263d';ctx.beginPath();ctx.arc(r*.69,-r*.16,eyeR*.78,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(r*.72,-r*.21,eyeR*.3,0,Math.PI*2);ctx.fill();
+ // Mouth: predator jaws or tiny reef-fish lips
+ if(pred){ctx.fillStyle='#3b2022';ctx.beginPath();ctx.moveTo(r*.83,r*.04);ctx.lineTo(r*1.08,r*.12);ctx.lineTo(r*.88,r*.22);ctx.closePath();ctx.fill();ctx.fillStyle='#fff4dd';for(let i=0;i<4;i++){let tx=r*(.87+i*.045);ctx.beginPath();ctx.moveTo(tx,r*.08);ctx.lineTo(tx+r*.025,r*.17);ctx.lineTo(tx+r*.04,r*.09);ctx.fill()}}
+ else {ctx.strokeStyle='#653d32';ctx.lineWidth=Math.max(.7,r*.03);ctx.beginPath();ctx.moveTo(r*.83,r*.16);ctx.quadraticCurveTo(r*.93,r*.2,r*1.01,r*.14);ctx.stroke()}
+ // Bright upper-body highlight
+ ctx.globalAlpha=.32;ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(r*.12,-r*.34,r*.46,r*.12,-.12,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+ // Player ring
+ if(playerFish){ctx.strokeStyle='#fff3bd';ctx.lineWidth=Math.max(1.4,r*.055);ctx.globalAlpha=.8+Math.sin(t*4)*.12;ctx.beginPath();ctx.ellipse(0,0,r*1.18,r*.82,0,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}
  ctx.restore();
 }
 function draw(){
  let g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#19a9d0');g.addColorStop(.38,'#087eae');g.addColorStop(1,'#032b50');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
  if(reefBg.complete&&reefBg.naturalWidth){let scale=Math.max(W/reefBg.width,H/reefBg.height),iw=reefBg.width*scale,ih=reefBg.height*scale;ctx.globalAlpha=.92;ctx.drawImage(reefBg,(W-iw)/2,(H-ih)/2,iw,ih);ctx.globalAlpha=1}
+ // Deep-water depth haze and distant reef silhouettes.
+ const haze=ctx.createLinearGradient(0,H*.18,0,H*.88);haze.addColorStop(0,'rgba(12,153,194,.02)');haze.addColorStop(.55,'rgba(4,76,119,.08)');haze.addColorStop(1,'rgba(1,24,55,.24)');ctx.fillStyle=haze;ctx.fillRect(0,0,W,H);
  // drifting caustic light ribbons
  ctx.save();ctx.globalCompositeOperation='screen';for(let i=0;i<9;i++){let x=(i*W/7+Math.sin(elapsed*.22+i)*28);ctx.fillStyle='rgba(164,250,255,.045)';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+22,0);ctx.lineTo(x+170+Math.sin(elapsed*.3+i)*35,H*.72);ctx.lineTo(x+100+Math.sin(elapsed*.2+i)*25,H*.72);ctx.closePath();ctx.fill()}ctx.restore();
-ctx.fillStyle='rgba(3,39,57,.78)';ctx.fillRect(0,H-22,W,22);for(let i=0;i<18;i++){let x=i*W/17;ctx.strokeStyle=i%3?'#18b99c':'#42c9a3';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x,H-18);ctx.quadraticCurveTo(x+Math.sin(elapsed+i)*12,H-55,x+Math.cos(elapsed*.7+i)*9,H-78);ctx.stroke()}for(let q of foods){ctx.fillStyle=`hsl(${q.hue} 90% 70%)`;ctx.shadowBlur=17;ctx.shadowColor='#fff4a8';ctx.beginPath();ctx.arc(q.x,q.y,q.r+Math.sin(elapsed*3+q.phase),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;for(let f of fish)drawFish(f.x,f.y,f.r,f.angle,f.hue);for(let p of powerups){ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle=p.type==='boost'?'#ffd86b':p.type==='shield'?'#70e8ff':'#a8ff87';ctx.shadowBlur=16;ctx.shadowColor=ctx.fillStyle;ctx.beginPath();ctx.arc(0,0,11+Math.sin(elapsed*4+p.phase)*2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#07304a';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.type==='boost'?'⚡':p.type==='shield'?'◆':'✚',0,1);ctx.restore();}for(let p of particles){ctx.globalAlpha=p.life;ctx.fillStyle=`hsl(${p.hue} 90% 70%)`;ctx.beginPath();ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;if(player){drawFish(player.x,player.y,player.r,player.angle,188,true);if(player.shield>0){ctx.strokeStyle='#8ff5ff';ctx.lineWidth=3;ctx.globalAlpha=.5+Math.sin(elapsed*8)*.25;ctx.beginPath();ctx.arc(player.x,player.y,player.r+9,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}}for(let i=0;i<24;i++){let x=(i*137+elapsed*(5+i%4))%(W+40)-20,y=(i*83+Math.sin(elapsed*.7+i)*24)%(H-80)+55;ctx.fillStyle='rgba(190,250,255,.12)';ctx.beginPath();ctx.arc(x,y,2+(i%5)*1.1,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c9ffff55';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,3+(i%4)*2,0,Math.PI*2);ctx.stroke()}}
-function loop(t){if(!playing)return;let dt=Math.min(.033,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}draw();
+// Animated sea grass and tiny reef polyps give the foreground real depth.
+ for(let i=0;i<24;i++){const bx=(i*W/23),len=24+(i%5)*12;ctx.strokeStyle=i%3===0?'rgba(70,207,147,.7)':'rgba(26,164,133,.62)';ctx.lineWidth=2+(i%3);ctx.beginPath();ctx.moveTo(bx,H+4);ctx.quadraticCurveTo(bx+Math.sin(elapsed*.8+i)*13,H-len*.45,bx+Math.sin(elapsed*.8+i+1)*19,H-len);ctx.stroke()}
+ for(let i=0;i<38;i++){const x=(i*173+Math.sin(elapsed*.3+i)*24)%W,y=(i*97+elapsed*(3+i%4))%H;ctx.fillStyle='rgba(210,255,244,.26)';ctx.beginPath();ctx.arc(x,y,1+(i%3)*.6,0,Math.PI*2);ctx.fill()}
+ ctx.fillStyle='rgba(3,39,57,.78)';ctx.fillRect(0,H-22,W,22);for(let i=0;i<18;i++){let x=i*W/17;ctx.strokeStyle=i%3?'#18b99c':'#42c9a3';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x,H-18);ctx.quadraticCurveTo(x+Math.sin(elapsed+i)*12,H-55,x+Math.cos(elapsed*.7+i)*9,H-78);ctx.stroke()}for(let q of foods){ctx.fillStyle=`hsl(${q.hue} 90% 70%)`;ctx.shadowBlur=17;ctx.shadowColor='#fff4a8';ctx.beginPath();ctx.arc(q.x,q.y,q.r+Math.sin(elapsed*3+q.phase),0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;for(let f of fish)drawFish(f.x,f.y,f.r,f.angle,f.hue,false,f.species);for(let p of powerups){ctx.save();ctx.translate(p.x,p.y);ctx.fillStyle=p.type==='boost'?'#ffd86b':p.type==='shield'?'#70e8ff':'#a8ff87';ctx.shadowBlur=16;ctx.shadowColor=ctx.fillStyle;ctx.beginPath();ctx.arc(0,0,11+Math.sin(elapsed*4+p.phase)*2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#07304a';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.type==='boost'?'⚡':p.type==='shield'?'◆':'✚',0,1);ctx.restore();}for(let p of particles){ctx.globalAlpha=p.life;ctx.fillStyle=`hsl(${p.hue} 90% 70%)`;ctx.beginPath();ctx.arc(p.x,p.y,3*p.life,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;if(player){drawFish(player.x,player.y,player.r,player.angle,28,true,'clown');if(player.shield>0){ctx.strokeStyle='#8ff5ff';ctx.lineWidth=3;ctx.globalAlpha=.5+Math.sin(elapsed*8)*.25;ctx.beginPath();ctx.arc(player.x,player.y,player.r+9,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1}}for(let i=0;i<24;i++){let x=(i*137+elapsed*(5+i%4))%(W+40)-20,y=(i*83+Math.sin(elapsed*.7+i)*24)%(H-80)+55;ctx.fillStyle='rgba(190,250,255,.12)';ctx.beginPath();ctx.arc(x,y,2+(i%5)*1.1,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#c9ffff55';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,3+(i%4)*2,0,Math.PI*2);ctx.stroke()}
+if(deathFx){const k=clamp(deathFx.time/deathFx.duration,0,1),fade=1-k;ctx.save();ctx.globalCompositeOperation='screen';ctx.strokeStyle=`rgba(255,220,190,${fade*.9})`;ctx.lineWidth=3+fade*5;for(let n=0;n<3;n++){const radius=deathFx.r*(1.2+k*5+n*1.15);ctx.globalAlpha=fade*(1-n*.2);ctx.beginPath();ctx.ellipse(deathFx.x,deathFx.y,radius*1.5,radius*.9,0,0,Math.PI*2);ctx.stroke()}ctx.restore();const vg=ctx.createRadialGradient(deathFx.x,deathFx.y,deathFx.r*.5,deathFx.x,deathFx.y,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,30,35,0)');vg.addColorStop(.55,`rgba(255,25,35,${fade*.08})`);vg.addColorStop(1,`rgba(110,0,15,${fade*.58})`);ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);if(k<.38){ctx.save();ctx.globalAlpha=(.38-k)*1.8;ctx.strokeStyle='#fff3dc';ctx.lineWidth=5;ctx.beginPath();ctx.arc(deathFx.x,deathFx.y,deathFx.r*(1.4+k*5),0,Math.PI*2);ctx.stroke();ctx.restore()}}}
+function drawIntro(){if(introTimer<=0)return;const n=Math.ceil(introTimer);ctx.save();ctx.fillStyle='rgba(0,20,42,.3)';ctx.fillRect(0,0,W,H);ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='#00233f';ctx.shadowBlur=16;ctx.fillStyle='#ffe28a';ctx.font=`900 ${Math.max(25,Math.min(42,W*.085))}px system-ui`;ctx.fillText('SẴN SÀNG!',W/2,H*.34);ctx.shadowBlur=0;ctx.fillStyle='#e8fbff';ctx.font=`600 ${Math.max(12,Math.min(17,W*.034))}px system-ui`;ctx.fillText('Các loài cá đang tiến vào...',W/2,H*.34+32);const rad=Math.max(27,Math.min(39,W*.085));const pulse=1+Math.sin(elapsed*7)*.06;ctx.fillStyle='rgba(65,211,239,.22)';ctx.strokeStyle='#b7f8ff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(W/2,H*.34+78,rad*pulse,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff0a6';ctx.font=`900 ${rad}px system-ui`;ctx.fillText(String(n),W/2,H*.34+79);ctx.restore()}
+function loop(t){if(!playing)return;let raw=Math.min(.033,(t-last)/1000||0);last=t;const slow=deathFx?(.22+.78*Math.min(1,deathFx.time/.32)):1;update(raw*slow);draw();if(introTimer>0)drawIntro();requestAnimationFrame(loop)}draw();
 $('bestScore').textContent='Kỷ lục: '+(localStorage.getItem('oceanBest_'+$('modeSelect').value)||0);$('modeSelect').onchange=()=>{$('bestScore').textContent='Kỷ lục: '+(localStorage.getItem('oceanBest_'+$('modeSelect').value)||0)};
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{}));
 })();
 </script></body></html>
