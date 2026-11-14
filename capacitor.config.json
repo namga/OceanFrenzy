@@ -1,1 +1,9 @@
-{"appId":"com.oceanfrenzy.game","appName":"Ocean Frenzy","webDir":".","bundledWebRuntime":false,"server":{"androidScheme":"https"}}
+{
+  "appId": "com.oceanfrenzy.game",
+  "appName": "Ocean Frenzy",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Ocean Frenzy",
+  "short_name": "Ocean Frenzy",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#062b49",
+  "theme_color": "#062b49",
+  "description": "Cá lớn ăn cá bé - game arcade đại dương.",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "./"
+}

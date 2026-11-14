@@ -1,25 +1,23 @@
-# Ocean Frenzy v1.0.6
+# Ocean Frenzy v1.0.7 — Capacitor webDir repair
 
-## Important: replace the old GitHub workflow
+## Root cause fixed
 
-The previous run log still showed `android-actions/setup-android@v3`. This release removes that action entirely and uses the Android SDK preinstalled on GitHub's Ubuntu runner.
+The previous Capacitor config set `webDir` to `.`. Capacitor rejects the repository root as a web asset directory (`"." is not a valid value for webDir`). Since `cap add android` failed before creating the Android project, the following plugin sync then failed because `android/app/src/main/assets/capacitor.plugins.json` did not exist.
+
+This release:
+- Changes Capacitor `webDir` to `www`.
+- Copies the complete static game runtime (index, service worker, manifest, icons and assets) into `www/`.
+- Adds a workflow preflight that checks `www/index.html` exists before creating the Android project.
+- Keeps the Android project generated fresh in CI; do not commit a partially generated Android folder.
+
+## GitHub update
 
 1. Extract this ZIP.
-2. Copy the **contents** of the `ocean-frenzy-v1.0.5` folder into the repository root.
-3. In the repository, open `.github/workflows/`.
-4. Replace `build-apk.yml` with this release's file.
-5. Delete any other workflow YAML that still contains `android-actions/setup-android@v3` or installs Android packages through that action. Do not leave the old workflow active.
-6. Commit and push to `main`, then open Actions and run **Ocean Frenzy Android APK**.
+2. Copy the contents of `ocean-frenzy-v1.0.7` into the repository root, replacing existing files.
+3. Commit and push to the branch configured in the workflow.
+4. Run **Ocean Frenzy Android APK** in Actions.
 
-The first log step prints the commit SHA and fails early if an old `setup-android@v3` workflow remains. The SDK packages are installed as three separate `sdkmanager --install` commands.
+Expected artifact: `Ocean-Frenzy-v1.0.7-Android-APK`
+Expected APK: `Ocean-Frenzy-v1.0.7-Android-debug.apk`
 
-Expected artifact: `Ocean-Frenzy-v1.0.6-Android-APK`
-Expected APK filename: `Ocean-Frenzy-v1.0.6-Android-debug.apk`
-
-## Local web run
-
-Run `npm install`, then `npm run start`, or serve this directory as a static site.
-
-## Build status
-
-This ZIP contains a corrected workflow source. It has not been run on the user's GitHub repository, so an APK build is not claimed as successful until GitHub Actions produces the artifact.
+This source/workflow has been statically validated and packaged. It has not been executed on your GitHub repository; APK success must be confirmed by the Actions run.
