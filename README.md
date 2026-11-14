@@ -1,4 +1,4 @@
-# Ocean Frenzy v1.0.5
+# Ocean Frenzy v1.0.6
 
 ## Important: replace the old GitHub workflow
 
@@ -13,8 +13,8 @@ The previous run log still showed `android-actions/setup-android@v3`. This relea
 
 The first log step prints the commit SHA and fails early if an old `setup-android@v3` workflow remains. The SDK packages are installed as three separate `sdkmanager --install` commands.
 
-Expected artifact: `Ocean-Frenzy-v1.0.5-Android-APK`
-Expected APK filename: `Ocean-Frenzy-v1.0.5-Android-debug.apk`
+Expected artifact: `Ocean-Frenzy-v1.0.6-Android-APK`
+Expected APK filename: `Ocean-Frenzy-v1.0.6-Android-debug.apk`
 
 ## Local web run
 
