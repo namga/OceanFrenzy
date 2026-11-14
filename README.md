@@ -1,46 +1,25 @@
-# Ocean Frenzy v1.0.3 — Release Candidate
+# Ocean Frenzy v1.0.5
 
-A self-contained HTML5 arcade fish-eat-fish game for desktop browsers, phones, tablets, and Android via Capacitor. Original canvas-drawn art; no third-party game assets.
+## Important: replace the old GitHub workflow
 
-## Play locally
+The previous run log still showed `android-actions/setup-android@v3`. This release removes that action entirely and uses the Android SDK preinstalled on GitHub's Ubuntu runner.
 
-```bash
-npx serve .
-```
+1. Extract this ZIP.
+2. Copy the **contents** of the `ocean-frenzy-v1.0.5` folder into the repository root.
+3. In the repository, open `.github/workflows/`.
+4. Replace `build-apk.yml` with this release's file.
+5. Delete any other workflow YAML that still contains `android-actions/setup-android@v3` or installs Android packages through that action. Do not leave the old workflow active.
+6. Commit and push to `main`, then open Actions and run **Ocean Frenzy Android APK**.
 
-Open the local URL. Landscape is recommended. Touch and drag to swim on touch screens; use WASD or arrow keys on desktop. Hold Space or tap the boost button to dash.
+The first log step prints the commit SHA and fails early if an old `setup-android@v3` workflow remains. The SDK packages are installed as three separate `sdkmanager --install` commands.
 
-## Included in v1.0.3
+Expected artifact: `Ocean-Frenzy-v1.0.5-Android-APK`
+Expected APK filename: `Ocean-Frenzy-v1.0.5-Android-debug.apk`
 
-- Adventure campaign with five launch stages and unlock progress saved locally
-- Survival mode and Challenge mode
-- Eat smaller fish and plankton to grow; larger predators can eat the player
-- Autonomous predator/prey AI, schooling, fleeing, hunting, and ecosystem feeding
-- Fish AI settings with defaults: swim 65%, hunting 70%, schooling on, auto-escape on, Normal difficulty
-- Pause/resume, restart, game-over, stage-complete flow, local high scores
-- Boost meter, responsive touch/keyboard controls, sound effects toggle, graphics quality setting
-- Offline PWA cache and Capacitor Android project configuration
+## Local web run
 
-## PWA
+Run `npm install`, then `npm run start`, or serve this directory as a static site.
 
-Serve over HTTPS or localhost. Use the browser's Install/Add to Home Screen action.
+## Build status
 
-## Android debug APK
-
-Push this folder to GitHub. The workflow in `.github/workflows/build-apk.yml` runs on push or manual dispatch and uploads a versioned debug APK artifact. Android SDK command-line tools are pinned to a stable release to avoid failures caused by automatically selecting the newest SDK manager.. The debug APK is for testing, not Play Store distribution.
-
-## Next version
-
-Additional campaign regions, fish species, boss encounters, and new challenge stages are intentionally reserved for v1.1.0 and later.
-
-
-## Visual & audio upgrade v1.0.3
-- Added a high-quality reef background illustration, light rays and layered underwater atmosphere.
-- Reworked fish rendering with gradient bodies, animated tail fins, dorsal/pectoral fins, gill and scale highlights, eye glints and player aura.
-- Added synthesized underwater ambience and distinct sound effects for feeding, boost, power-ups, victory and defeat. Audio starts after the first user gesture and can be disabled in Settings.
-- Added the reef artwork to the offline service-worker cache.
-
-
-## Android SDK workflow fix v1.0.3
-- Fixed `android-actions/setup-android` package input: it requires a comma-separated package list, not a YAML multiline list.
-- SDK verification now fails clearly if required packages are missing instead of masking errors.
+This ZIP contains a corrected workflow source. It has not been run on the user's GitHub repository, so an APK build is not claimed as successful until GitHub Actions produces the artifact.

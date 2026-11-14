@@ -1,75 +1,135 @@
-name: Build Ocean Frenzy Android APK
+name: Ocean Frenzy Android APK
+
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
+
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Show exact source revision
+        run: |
+          echo "Commit: $(git rev-parse HEAD)"
+          echo "Workflow: .github/workflows/build-apk.yml"
+          OLD_ACTION='setup-android@v''3'
+          if grep -RIn "$OLD_ACTION" .github/workflows; then
+            echo "::error::Old setup-android@v3 workflow remains in the repository."
+            exit 1
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: actions/setup-java@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
-      # Pin a known stable Android command-line tools package instead of latest.
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          cmdline-tools-version: 11076708
-          # setup-android parses this input as a comma-separated list.
-          # Do not use a YAML block list here: it is passed as one invalid package ID.
-          packages: "platform-tools,platforms;android-35,build-tools;35.0.0"
-      - name: Verify Android SDK
+
+      # GitHub's Ubuntu runner already includes Android SDK.
+      # Avoid android-actions/setup-android entirely; its package input
+      # was the source of the repeated combined-package parsing failure.
+      - name: Locate preinstalled Android SDK
         shell: bash
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          command -v sdkmanager
-          sdkmanager --version
-          yes | sdkmanager --licenses >/dev/null
-          sdkmanager --list_installed
-          sdkmanager --list_installed | grep -F "platform-tools"
-          sdkmanager --list_installed | grep -F "platforms;android-35"
-          sdkmanager --list_installed | grep -F "build-tools;35.0.0"
-      - name: Install dependencies
-        run: npm install
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
+          if [ -z "$SDK" ]; then
+            for candidate in /usr/local/lib/android/sdk "$HOME/Android/Sdk"; do
+              if [ -d "$candidate" ]; then SDK="$candidate"; break; fi
+            done
+          fi
+          if [ -z "$SDK" ] || [ ! -d "$SDK" ]; then
+            echo "::error::Android SDK not found on GitHub runner."
+            env | sort | grep -E 'ANDROID|JAVA' || true
+            exit 1
+          fi
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK" >> "$GITHUB_ENV"
+          echo "$SDK/platform-tools" >> "$GITHUB_PATH"
+          SDKMANAGER="$(find "$SDK/cmdline-tools" -type f -name sdkmanager 2>/dev/null | sort | tail -n 1)"
+          if [ -z "$SDKMANAGER" ]; then
+            echo "::error::sdkmanager not found under $SDK/cmdline-tools"
+            find "$SDK" -maxdepth 4 -type f -name sdkmanager -print || true
+            exit 1
+          fi
+          echo "SDKMANAGER=$SDKMANAGER" >> "$GITHUB_ENV"
+          "$SDKMANAGER" --version
+
+      - name: Install Android SDK components
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --licenses >/dev/null || true
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --install "platform-tools"
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --install "platforms;android-35"
+          "$SDKMANAGER" --sdk_root="$ANDROID_HOME" --install "build-tools;35.0.0"
+          test -d "$ANDROID_HOME/platforms/android-35"
+          test -d "$ANDROID_HOME/build-tools/35.0.0"
+          test -x "$ANDROID_HOME/platform-tools/adb"
+
+      - name: Install npm dependencies
+        run: npm install --no-audit --no-fund
+
       - name: Validate game source
         run: npm run check
+
       - name: Create Android project
         shell: bash
         run: |
+          set -euo pipefail
           if [ ! -d android ]; then
             npx cap add android
           fi
+          test -f android/gradlew
+
       - name: Sync web assets
         run: npx cap sync android
-      - name: Apply app branding and version
+
+      - name: Apply app name and version
         shell: bash
         run: |
-          mkdir -p android/app/src/main/res/mipmap-mdpi android/app/src/main/res/mipmap-hdpi android/app/src/main/res/mipmap-xhdpi android/app/src/main/res/mipmap-xxhdpi android/app/src/main/res/mipmap-xxxhdpi
-          for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do cp icon-512.png "android/app/src/main/res/mipmap-${density}/ic_launcher.png"; done
+          set -euo pipefail
           if [ -f android/app/src/main/res/values/strings.xml ]; then
             sed -i 's/<string name="app_name">.*<\/string>/<string name="app_name">Ocean Frenzy<\/string>/' android/app/src/main/res/values/strings.xml
           fi
           if [ -f android/app/build.gradle ]; then
-            sed -i 's/versionName " .*"/versionName "1.0.3"/' android/app/build.gradle || true
-            sed -i 's/versionName "[^"]*"/versionName "1.0.3"/' android/app/build.gradle
+            sed -i 's/versionName "[^"]*"/versionName "1.0.5"/' android/app/build.gradle
           elif [ -f android/app/build.gradle.kts ]; then
-            sed -i 's/versionName = "[^"]*"/versionName = "1.0.3"/' android/app/build.gradle.kts
+            sed -i 's/versionName = "[^"]*"/versionName = "1.0.5"/' android/app/build.gradle.kts
           fi
+
       - name: Build debug APK
-        run: cd android && chmod +x gradlew && ./gradlew --no-daemon assembleDebug
-      - name: Verify APK output
         shell: bash
         run: |
-          test -s android/app/build/outputs/apk/debug/app-debug.apk
+          set -euo pipefail
+          cd android
+          chmod +x gradlew
+          ./gradlew --no-daemon --stacktrace assembleDebug
+
+      - name: Verify and rename APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
           mkdir -p release
-          cp android/app/build/outputs/apk/debug/app-debug.apk release/Ocean-Frenzy-v1.0.3-Android-debug.apk
-      - uses: actions/upload-artifact@v4
+          cp "$APK" release/Ocean-Frenzy-v1.0.5-Android-debug.apk
+          ls -lh release/Ocean-Frenzy-v1.0.5-Android-debug.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: Ocean-Frenzy-v1.0.3-Android-APK
-          path: release/Ocean-Frenzy-v1.0.3-Android-debug.apk
+          name: Ocean-Frenzy-v1.0.5-Android-APK
+          path: release/Ocean-Frenzy-v1.0.5-Android-debug.apk
           if-no-files-found: error
