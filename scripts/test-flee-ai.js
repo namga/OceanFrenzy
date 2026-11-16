@@ -6,7 +6,7 @@ const b=source.indexOf('function checkStage()',a);
 const fn=source.slice(a,b).replace(/function moveFish\(f,dt\)\{/, 'globalThis.moveFish=function(f,dt){');
 const ctx={Math,clamp:(v,a,b)=>Math.max(a,Math.min(b,v)),rand:(a,b)=>(a+b)/2,
   cfg:{escape:true,school:false,swim:65,reaction:45,difficulty:'Easy',hunt:70},
-  player:{x:100,y:100,r:35},fish:[],H:600,W:800};
+  player:{x:100,y:100,r:35},fish:[],H:600,W:800,worldWidth:2400};
 vm.createContext(ctx);vm.runInContext(fn,ctx);
 const prey={x:140,y:100,r:12,kind:'prey',angle:0,speed:1,timer:5,fleeTimer:0,schoolId:0};
 ctx.fish=[prey];for(let i=0;i<18;i++)ctx.moveFish(prey,.016);
