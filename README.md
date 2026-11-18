@@ -1,29 +1,20 @@
-# YUMY Ocean 0.7.4
+# YUMY Ocean 0.7.9 – Predator Mouth Cleanup
 
-Cross-platform Web/PWA + Android Capacitor source.
+Cross-platform source for Web/PWA and Android (Capacitor).
 
-## Changes in 0.7.4
-- Predator attack trigger works when a predator is clearly larger than the player.
-- Rear/tail contact starts a visible turn before the lunge.
-- Predator jaw opens wider during turn and lunge; bite collision is tested at the mouth after movement.
-- Corrected source-facing metadata for lionfish and shark sprites.
-- Replaced PWA and Android launcher icons with the bright red YUMY logo.
+## 0.7.9 changes
+- Removed the synthetic Canvas jaw overlay that caused detached dark mouth shapes and dangling strokes.
+- Fish are rendered from their authored sprite artwork without extra mouth geometry.
+- Predator turn/lunge/hit logic remains; the fake jaw overlay is not used.
+- PWA cache version: `yumy-079`.
 
-## Web
-Open `www/index.html` through a local web server or deploy `www/` to HTTPS hosting.
+**Known limitation:** species-specific closed/open mouth sprite pairs are not yet included, so this version does not provide a true open-then-close jaw animation.
+
+## Web / PWA
+Serve the `www/` directory through HTTPS or localhost.
 
 ## Android
-Run `npm install`, `npx cap add android` (first setup), `npx cap sync android`, then open Android Studio or use the GitHub Actions workflow.
+Run `npm install`, then `npx cap add android` on first setup, followed by `npx cap sync android`. Open the Android project in Android Studio to build an APK.
 
-
-## YUMY Ocean 0.7.6
-- Replaced moray eel with a dedicated transparent seahorse sprite and gentler non-predator behavior.
-- Added six manta ray wing-flap frames; animation cycles while the ray swims, with a subtle body bob.
-- Updated PWA cache to `yumy-076`.
-
-
-## YUMY Ocean 0.7.7
-- Removed the separate pause control. The single MENU button opens an in-game menu with Resume and Choose Mode/Stage actions.
-- Choosing a mode or stage returns to the start flow; starting it calls reset() so the run begins from the beginning.
-- Predator jaw rendering now uses species-specific curved mouth cavities and lower-jaw shapes with a smoothed open/close envelope. The shark retains its authored toothy open-mouth sprite.
-- Web and Capacitor Android share the same game code.
+## Validation
+JavaScript syntax and ZIP integrity were checked. No APK compilation or physical-device gameplay test is claimed for this package.

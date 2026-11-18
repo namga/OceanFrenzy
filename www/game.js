@@ -194,35 +194,15 @@ function drawFish(f){
  const scale=f.name==="lionfish.png"||f.name==="manta.png"||f.name==="shark.png"?2.0:f.name==="grouper.png"?2.05:f.name==="minnow.png"?2.55:2.15;
  const w=f.r*scale,h=w*im.height/im.width,sourceLeft=f.sourceLeft,flip=sourceLeft?f.dir>0:f.dir<0;
  ctx.save();ctx.translate(f.x,f.y+Math.sin(f.phase*2+f.school)* (f.name==="manta.png"?5.2:2.4));ctx.scale(flip?-1:1,1);ctx.drawImage(im,-w/2,-h/2,w,h);
- // Species-aware jaw animation. Shark artwork already contains a detailed open jaw;
- // other predators receive a curved, shaded lower jaw rather than a generic triangle.
- if(f.pred&&f.mouthOpen>.035&&f.name!=="shark.png"){
-   const amount=Math.min(1,f.mouthOpen),forward=sourceLeft?-1:1;
-   const profiles={
-     "grouper.png":{x:.405,y:.055,w:.17,h:.19,lip:"#d88b35",inside:"#42151b",teeth:3},
-     "lionfish.png":{x:.385,y:.025,w:.145,h:.16,lip:"#f4a35e",inside:"#4a1722",teeth:2},
-     "manta.png":{x:.405,y:.105,w:.13,h:.13,lip:"#8ed8ed",inside:"#16334f",teeth:0}
-   };
-   const p=profiles[f.name]||{x:.39,y:.04,w:.15,h:.16,lip:"#e99a54",inside:"#351522",teeth:2};
-   const jawW=w*p.w,open=h*p.h*(.10+.90*amount),anchorX=forward*w*p.x,anchorY=h*p.y;
-   ctx.save();ctx.translate(anchorX,anchorY);ctx.scale(forward,1);
-   // dark mouth cavity with a soft inner highlight
-   const cavity=ctx.createLinearGradient(0,-open*.1,0,open);
-   cavity.addColorStop(0,p.inside);cavity.addColorStop(.62,"#210d1a");cavity.addColorStop(1,"#090d19");
-   ctx.fillStyle=cavity;ctx.beginPath();ctx.moveTo(-jawW*.12,-open*.12);
-   ctx.quadraticCurveTo(jawW*.30,-open*.32,jawW*.98,open*.03);
-   ctx.quadraticCurveTo(jawW*.82,open*.70,jawW*.16,open*.84);
-   ctx.quadraticCurveTo(-jawW*.06,open*.52,-jawW*.12,-open*.12);ctx.closePath();ctx.fill();
-   // upper lip stays attached to the snout; lower jaw swings down from its hinge
-   ctx.lineCap="round";ctx.lineJoin="round";
-   ctx.strokeStyle=p.lip;ctx.lineWidth=Math.max(2.4,f.r*.055);ctx.beginPath();
-   ctx.moveTo(-jawW*.10,-open*.12);ctx.quadraticCurveTo(jawW*.38,-open*.31,jawW*.98,open*.03);ctx.stroke();
-   ctx.fillStyle=p.lip;ctx.beginPath();ctx.moveTo(-jawW*.08,open*.22);
-   ctx.quadraticCurveTo(jawW*.36,open*1.12,jawW*.96,open*.12);
-   ctx.quadraticCurveTo(jawW*.75,open*.92,jawW*.12,open*.68);ctx.closePath();ctx.fill();
-   ctx.strokeStyle="#ffd5a0";ctx.lineWidth=Math.max(1.4,f.r*.025);ctx.beginPath();ctx.moveTo(jawW*.05,open*.60);ctx.quadraticCurveTo(jawW*.48,open*.98,jawW*.91,open*.17);ctx.stroke();
-   if(p.teeth){ctx.fillStyle="#fff3d9";for(let tooth=0;tooth<p.teeth;tooth++){const tx=jawW*(.20+tooth*.22),tw=jawW*.075,th=open*(.20+((tooth%2)*.035));ctx.beginPath();ctx.moveTo(tx,-open*.12);ctx.quadraticCurveTo(tx+tw*.45,-open*.03,tx+tw,open*th);ctx.quadraticCurveTo(tx+tw*.35,open*th*.72,tx,-open*.12);ctx.closePath();ctx.fill();}}
-   ctx.restore();
+ // 0.7.9: do not paint a synthetic jaw over the fish artwork.
+ // The previous Canvas overlay was detached from each species' muzzle and produced
+ // oversized dark ovals and dangling strokes. Keep the original clean sprite intact.
+ // Predator attack timing remains in update(); the bite is communicated by the
+ // lunge and hit reaction until dedicated closed/open sprite pairs are authored.
+ if(f.pred&&f.attackState==="lunge"){
+   const pulse=1+Math.sin(Math.min(1,f.attackTimer/.82)*Math.PI)*.035;
+   ctx.translate(f.dir*f.r*.035,0);
+   ctx.scale(pulse,1/pulse);
  }
  ctx.restore();
 }
