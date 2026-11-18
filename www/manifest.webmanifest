@@ -1,5 +1,5 @@
 {
-  "name": "YUMY Ocean 0.7.9",
+  "name": "YUMY Ocean",
   "short_name": "YUMY",
   "start_url": "./",
   "display": "standalone",
@@ -17,5 +17,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "description": "YUMY Ocean 0.8.0"
 }

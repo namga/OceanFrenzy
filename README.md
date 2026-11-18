@@ -1,20 +1,18 @@
-# YUMY Ocean 0.7.9 – Predator Mouth Cleanup
+# YUMY Ocean 0.8.0 — Predator Feeding AI
 
-Cross-platform source for Web/PWA and Android (Capacitor).
+## Highlights
+- Predatory fish (grouper, lionfish, manta, shark) now hunt smaller AI fish.
+- Predators turn toward prey, open their mouth, lunge, consume prey at the mouth point, then close their mouth and return to swimming.
+- Added closed-mouth idle sprites and uses the existing open-mouth species art only during the bite phase.
+- Preserves player drag controls, player feeding rules, Survival/Adventure, PWA and Capacitor setup.
 
-## 0.7.9 changes
-- Removed the synthetic Canvas jaw overlay that caused detached dark mouth shapes and dangling strokes.
-- Fish are rendered from their authored sprite artwork without extra mouth geometry.
-- Predator turn/lunge/hit logic remains; the fake jaw overlay is not used.
-- PWA cache version: `yumy-079`.
-
-**Known limitation:** species-specific closed/open mouth sprite pairs are not yet included, so this version does not provide a true open-then-close jaw animation.
-
-## Web / PWA
-Serve the `www/` directory through HTTPS or localhost.
+## Web
+Serve the `www/` folder from a static HTTPS host.
 
 ## Android
-Run `npm install`, then `npx cap add android` on first setup, followed by `npx cap sync android`. Open the Android project in Android Studio to build an APK.
+Run `npm install`, `npx cap add android` (first time), `npx cap sync android`, then open with Android Studio.
 
-## Validation
-JavaScript syntax and ZIP integrity were checked. No APK compilation or physical-device gameplay test is claimed for this package.
+The ZIP contains source and assets; it is not a prebuilt APK.
+
+
+Android launcher icon build note: the GitHub Actions workflow copies only mipmap-* launcher resources. Capacitor generates values/ic_launcher_background.xml; do not copy a second ic_launcher_background color definition into res/values, or Android resource merging will fail with duplicate resources.
