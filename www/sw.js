@@ -1,4 +1,4 @@
-const C='yumy-076';
+const C='yumy-078';
 const CORE=['./','index.html','style.css','game.js','manifest.webmanifest',
 'assets/icon-192.png','assets/icon-512.png','assets/reef_background.png','assets/kelp_background.png','assets/volcanic_background.png','assets/abyss_background.png',
 'assets/player_0.png','assets/player_1.png','assets/player_2.png','assets/player_3.png','assets/player_4.png','assets/player_5.png','assets/player_6.png','assets/player_7.png',

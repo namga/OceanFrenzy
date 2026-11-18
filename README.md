@@ -20,3 +20,10 @@ Run `npm install`, `npx cap add android` (first setup), `npx cap sync android`, 
 - Replaced moray eel with a dedicated transparent seahorse sprite and gentler non-predator behavior.
 - Added six manta ray wing-flap frames; animation cycles while the ray swims, with a subtle body bob.
 - Updated PWA cache to `yumy-076`.
+
+
+## YUMY Ocean 0.7.7
+- Removed the separate pause control. The single MENU button opens an in-game menu with Resume and Choose Mode/Stage actions.
+- Choosing a mode or stage returns to the start flow; starting it calls reset() so the run begins from the beginning.
+- Predator jaw rendering now uses species-specific curved mouth cavities and lower-jaw shapes with a smoothed open/close envelope. The shark retains its authored toothy open-mouth sprite.
+- Web and Capacitor Android share the same game code.

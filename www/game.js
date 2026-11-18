@@ -62,7 +62,7 @@ function playCue(kind,amount=1){
   else if(kind==='menu'){tone(480,t,.07,.035,'sine',620);}
 }
 async function playChomp(f){try{if(!musicOn)return;await audioStart();const size=Math.max(.8,Math.min(1.4,(f?.r||35)/45));playCue('bite',size);setTimeout(()=>playCue('gulp',size),145)}catch(e){}}
-function resizeGame(){const nextPortrait=window.innerHeight>window.innerWidth;const nw=nextPortrait?720:1280,nh=nextPortrait?1280:720;if(nw===W&&nh===H)return;W=nw;H=nh;portrait=nextPortrait;canvas.width=W;canvas.height=H;if(portrait){$("webMenuBtn").style.top="max(88px,calc(env(safe-area-inset-top) + 68px))";$("webMenuBtn").style.left="max(14px,env(safe-area-inset-left))";$("pauseBtn").style.top="max(42px,calc(env(safe-area-inset-top) + 28px))";$("pauseBtn").style.left="auto";$("pauseBtn").style.right="max(12px,env(safe-area-inset-right))";$("soundBtn").style.top="auto";$("soundBtn").style.right="auto";$("soundBtn").style.left="16px";$("soundBtn").style.bottom="max(94px,calc(env(safe-area-inset-bottom) + 82px))"}else{$("webMenuBtn").style.top="max(48px,calc(env(safe-area-inset-top) + 36px))";$("webMenuBtn").style.left="max(14px,env(safe-area-inset-left))";$("pauseBtn").style.top="max(10px,env(safe-area-inset-top))";$("pauseBtn").style.left="max(10px,env(safe-area-inset-left))";$("pauseBtn").style.right="auto";$("soundBtn").style.top="max(16px,env(safe-area-inset-top))";$("soundBtn").style.right="max(88px,calc(env(safe-area-inset-right) + 82px))";$("soundBtn").style.left="auto";$("soundBtn").style.bottom="auto"}camera.x=clamp(camera.x,0,Math.max(0,WORLD_W-W));camera.y=clamp(camera.y,0,Math.max(0,WORLD_H-H))}
+function resizeGame(){const nextPortrait=window.innerHeight>window.innerWidth;const nw=nextPortrait?720:1280,nh=nextPortrait?1280:720;if(nw===W&&nh===H)return;W=nw;H=nh;portrait=nextPortrait;canvas.width=W;canvas.height=H;if(portrait){$("webMenuBtn").style.top="max(88px,calc(env(safe-area-inset-top) + 68px))";$("webMenuBtn").style.left="max(14px,env(safe-area-inset-left))";$("soundBtn").style.top="auto";$("soundBtn").style.right="auto";$("soundBtn").style.left="16px";$("soundBtn").style.bottom="max(94px,calc(env(safe-area-inset-bottom) + 82px))"}else{$("webMenuBtn").style.top="max(48px,calc(env(safe-area-inset-top) + 36px))";$("webMenuBtn").style.left="max(14px,env(safe-area-inset-left))";$("soundBtn").style.top="max(16px,env(safe-area-inset-top))";$("soundBtn").style.right="max(88px,calc(env(safe-area-inset-right) + 82px))";$("soundBtn").style.left="auto";$("soundBtn").style.bottom="auto"}camera.x=clamp(camera.x,0,Math.max(0,WORLD_W-W));camera.y=clamp(camera.y,0,Math.max(0,WORLD_H-H))}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 resizeGame();window.addEventListener("resize",resizeGame);window.addEventListener("orientationchange",()=>setTimeout(resizeGame,120));
 for(let i=0;i<90;i++)bubbles.push({x:Math.random()*WORLD_W,y:Math.random()*WORLD_H,r:2+Math.random()*7,s:10+Math.random()*22,a:.08+Math.random()*.2});
@@ -90,7 +90,7 @@ function spawn(pred=false){
  let x=clamp(player.x+(Math.random()<.5?-distX:distX),80,WORLD_W-80),y=clamp(player.y+(Math.random()-.5)*H*1.7,100,WORLD_H-100),dir=Math.random()<.5?1:-1;
  fish.push({name:s[0],r:s[1],speed:s[2],pred:s[3],unlock:s[4],sourceLeft:s[5],preyTier:s[6],x,y,dir,vx:dir*s[2],vy:0,phase:Math.random()*7,school:Math.floor(Math.random()*5),turn:2+Math.random()*4,frame:0,clock:0,seed:Math.random()*10,attackState:"idle",attackTimer:0,attackCooldown:0,mouthOpen:0});
 }
-function reset(){audioStart().then(()=>playCue("stage"));score=0;stageWon=false;survivalWave=1;waveScoreStart=0;waveGoal=3200;stageGoal=gameMode==="adventure"?stages[selectedStage].goal:0;scene=gameMode==="adventure"?stages[selectedStage].scene:0;growth=.08;level=1;lives=3;combo=1;comboT=0;player={x:420,y:WORLD_H*.5,vx:0,vy:0,r:28,face:1};target=null;camera.x=0;camera.y=clamp(player.y-H*.5,0,WORLD_H-H);fish=[];particles=[];spawnT=0;for(let i=0;i<25;i++)spawn(false);for(let i=0;i<2;i++)spawn(true);running=true;paused=false;over=false;activePointer=null;$("menu").classList.add("hidden");$("pause").classList.add("hidden");$("over").classList.add("hidden")}
+function reset(){audioStart().then(()=>playCue("stage"));score=0;stageWon=false;survivalWave=1;waveScoreStart=0;waveGoal=3200;stageGoal=gameMode==="adventure"?stages[selectedStage].goal:0;scene=gameMode==="adventure"?stages[selectedStage].scene:0;growth=.08;level=1;lives=3;combo=1;comboT=0;player={x:420,y:WORLD_H*.5,vx:0,vy:0,r:28,face:1};target=null;camera.x=0;camera.y=clamp(player.y-H*.5,0,WORLD_H-H);fish=[];particles=[];spawnT=0;for(let i=0;i<25;i++)spawn(false);for(let i=0;i<2;i++)spawn(true);running=true;paused=false;over=false;activePointer=null;$("webMenuBtn").style.display="block";$("menu").classList.add("hidden");$("pause").classList.add("hidden");$("over").classList.add("hidden")}
 function popup(x,y,t,c="#fff1a6"){particles.push({x,y,t,c,life:1,max:1})}
 function requiredPlayerRadius(f){return f.r*(f.pred?1.3:1.15)}
 function canEatFish(f){
@@ -103,7 +103,7 @@ function currentPreyLabel(){
  return names.length?names.slice(-3).join(" · "):"Chưa có mồi phù hợp";
 }
 function eat(i){const f=fish[i];if(!f||!canEatFish(f))return false;playChomp(f);const pts=Math.floor(25+f.r*1.8)*combo;score+=pts;best=Math.max(best,score);localStorage.yumyBest=best;combo=Math.min(6,combo+1);comboT=2.4;growth=Math.min(1,growth+.025+f.r/2600);player.r=Math.min(142,player.r+.42+f.r*.006);popup(f.x,f.y-38,"Yumy","#7b1026");popup(f.x,f.y-8,"+"+pts,"#fff0a6");for(let n=0;n<7;n++)particles.push({x:f.x+(Math.random()-.5)*28,y:f.y+(Math.random()-.5)*24,t:"✦",c:"#ffe47a",life:.48,max:.48});biteT=.42;fish.splice(i,1);while(score>=level*650&&level<99){level++;playCue("grow");popup(player.x,player.y-70,"LEVEL "+level,"#aaff91")}if(gameMode==="adventure"&&score>=stageGoal)finishStage(true);else if(gameMode==="survival"&&score-waveScoreStart>=waveGoal)finishSurvivalWave();return true}
-function showHome(){running=false;paused=false;over=false;activePointer=null;pointer=null;target=null;$("pause").classList.add("hidden");$("over").classList.add("hidden");$("menu").classList.remove("hidden");$("homeView").classList.remove("hidden");$("mapView").classList.add("hidden");if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{})}
+function showHome(){running=false;paused=false;over=false;activePointer=null;pointer=null;target=null;$("webMenuBtn").style.display="none";$("pause").classList.add("hidden");$("over").classList.add("hidden");$("menu").classList.remove("hidden");$("homeView").classList.remove("hidden");$("mapView").classList.add("hidden");if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{})}
 function showAdventureMap(){gameMode="adventure";$("homeView").classList.add("hidden");$("mapView").classList.remove("hidden");$("menu").classList.remove("hidden");renderStages()}
 function finishSurvivalWave(){if(over)return;playCue("stage");over=true;running=false;particles=[];stageWon=true;$("overTitle").textContent=`WAVE ${survivalWave} HOÀN THÀNH!`;$ ("result").textContent=`${scenes[scene].name} · ${score-waveScoreStart}/${waveGoal} điểm · Cấp ${level}`;$ ("again").textContent="TIẾP TỤC SANG VÙNG BIỂN MỚI";$("over").classList.remove("hidden")}
 function nextSurvivalWave(){survivalWave++;waveScoreStart=score;waveGoal=Math.round(3200+survivalWave*1200);scene=(scene+1)%scenes.length;fish=[];for(let i=0;i<22+Math.min(12,survivalWave);i++)spawn(false);for(let i=0;i<Math.min(2+Math.floor(survivalWave/2),5);i++)spawn(true);over=false;running=true;stageWon=false;$("over").classList.add("hidden");popup(player.x,player.y-70,scenes[scene].name,"#aaff91")}
@@ -127,7 +127,7 @@ function startPredatorAttack(f,playerOnFront){
  f.dir=Math.sign(player.x-f.x)||f.dir;
  f.attackState="turn";
  f.attackTimer=playerOnFront?.24:.42;
- f.mouthOpen=1;f.jawPhase=0;
+ f.mouthOpen=.08;f.jawPhase=0;
 }
 
 function update(dt){if(!running||paused)return;predatorWarnCd=Math.max(0,predatorWarnCd-dt);biteT=Math.max(0,biteT-dt);hitT=Math.max(0,hitT-dt);comboT=Math.max(0,comboT-dt);if(!comboT)combo=1;
@@ -138,16 +138,16 @@ if(Math.abs(player.vx)>5)player.face=Math.sign(player.vx);player.x=clamp(player.
 const desiredCamX=clamp(player.x-W*.5,0,WORLD_W-W),desiredCamY=clamp(player.y-H*.5,0,WORLD_H-H);camera.x+=(desiredCamX-camera.x)*Math.min(1,dt*3.8);camera.y+=(desiredCamY-camera.y)*Math.min(1,dt*3.8);
 for(let i=fish.length-1;i>=0;i--){
  const f=fish[i],dx=player.x-f.x,dy=player.y-f.y,d=Math.hypot(dx,dy)||1;
- f.phase+=dt;f.turn-=dt;f.attackCooldown=Math.max(0,f.attackCooldown-dt);f.mouthOpen=Math.max(0,f.mouthOpen-dt);
+ f.phase+=dt;f.turn-=dt;f.attackCooldown=Math.max(0,f.attackCooldown-dt);if(f.attackState==="turn")f.mouthOpen+=(.78-f.mouthOpen)*Math.min(1,dt*6.5);else if(f.attackState==="lunge")f.mouthOpen+=(1-f.mouthOpen)*Math.min(1,dt*10);else f.mouthOpen+=(0-f.mouthOpen)*Math.min(1,dt*8);
  if(f.attackState==="turn"){
    // A predator that was touched at the tail visibly turns first, then bites.
-   f.dir=Math.sign(dx)||f.dir;f.mouthOpen=Math.max(f.mouthOpen,.92);f.attackTimer-=dt;
+   f.dir=Math.sign(dx)||f.dir;f.mouthOpen+=(.82-f.mouthOpen)*Math.min(1,dt*7);f.attackTimer-=dt;
    f.vx+=(f.dir*f.speed*.42-f.vx)*Math.min(1,dt*8);
    f.vy+=(dy/d*f.speed*.30-f.vy)*Math.min(1,dt*5);
    if(f.attackTimer<=0){f.attackState="lunge";f.attackTimer=.82;f.mouthOpen=1;playCue("warning")}
  }else if(f.attackState==="lunge"){
-   f.dir=Math.sign(dx)||f.dir;f.attackTimer-=dt;const lungeSpeed=f.speed*3.15;
-   f.vx+=(f.dir*lungeSpeed-f.vx)*Math.min(1,dt*9);f.vy+=(dy/d*lungeSpeed*1.05-f.vy)*Math.min(1,dt*8);f.mouthOpen=Math.max(f.mouthOpen,.88);
+   f.dir=Math.sign(dx)||f.dir;f.attackTimer-=dt;f.mouthOpen+=(1-f.mouthOpen)*Math.min(1,dt*12);const lungeSpeed=f.speed*3.15;
+   f.vx+=(f.dir*lungeSpeed-f.vx)*Math.min(1,dt*9);f.vy+=(dy/d*lungeSpeed*1.05-f.vy)*Math.min(1,dt*8);f.mouthOpen=Math.max(f.mouthOpen,.96);
    // Test the mouth after this frame's movement; the body/tail never causes a bite by itself.
    const bitePoint=fishMouth(f),biteDist=Math.hypot(player.x-bitePoint.x,player.y-bitePoint.y);
    const mouthRadius=Math.max(16,f.r*.34);
@@ -194,23 +194,35 @@ function drawFish(f){
  const scale=f.name==="lionfish.png"||f.name==="manta.png"||f.name==="shark.png"?2.0:f.name==="grouper.png"?2.05:f.name==="minnow.png"?2.55:2.15;
  const w=f.r*scale,h=w*im.height/im.width,sourceLeft=f.sourceLeft,flip=sourceLeft?f.dir>0:f.dir<0;
  ctx.save();ctx.translate(f.x,f.y+Math.sin(f.phase*2+f.school)* (f.name==="manta.png"?5.2:2.4));ctx.scale(flip?-1:1,1);ctx.drawImage(im,-w/2,-h/2,w,h);
- // Predator jaw: draw a short, readable open-mouth wedge at the real snout.
- // Coordinates are authored in source-sprite space, then mirrored with the fish.
- if(f.pred&&f.mouthOpen>.035){
+ // Species-aware jaw animation. Shark artwork already contains a detailed open jaw;
+ // other predators receive a curved, shaded lower jaw rather than a generic triangle.
+ if(f.pred&&f.mouthOpen>.035&&f.name!=="shark.png"){
    const amount=Math.min(1,f.mouthOpen),forward=sourceLeft?-1:1;
    const profiles={
-     "grouper.png":{x:.385,y:.025,w:.19,h:.22},
-     "lionfish.png":{x:.405,y:.005,w:.16,h:.18},
-     "shark.png":{x:.365,y:.105,w:.23,h:.24},
-     "manta.png":{x:.46,y:.08,w:.18,h:.19}
+     "grouper.png":{x:.405,y:.055,w:.17,h:.19,lip:"#d88b35",inside:"#42151b",teeth:3},
+     "lionfish.png":{x:.385,y:.025,w:.145,h:.16,lip:"#f4a35e",inside:"#4a1722",teeth:2},
+     "manta.png":{x:.405,y:.105,w:.13,h:.13,lip:"#8ed8ed",inside:"#16334f",teeth:0}
    };
-   const p=profiles[f.name]||{x:.38,y:.02,w:.18,h:.20};
-   const jawW=w*p.w,open=h*p.h*(.25+.75*amount),anchorX=forward*w*p.x,anchorY=h*p.y;
+   const p=profiles[f.name]||{x:.39,y:.04,w:.15,h:.16,lip:"#e99a54",inside:"#351522",teeth:2};
+   const jawW=w*p.w,open=h*p.h*(.10+.90*amount),anchorX=forward*w*p.x,anchorY=h*p.y;
    ctx.save();ctx.translate(anchorX,anchorY);ctx.scale(forward,1);
-   ctx.fillStyle="#160b20";ctx.beginPath();ctx.moveTo(-jawW*.12,-open*.16);ctx.quadraticCurveTo(jawW*.34,-open*.38,jawW,open*.02);ctx.quadraticCurveTo(jawW*.82,open*.76,jawW*.18,open);ctx.quadraticCurveTo(-jawW*.02,open*.56,-jawW*.12,-open*.16);ctx.closePath();ctx.fill();
-   ctx.strokeStyle="#fff0d9";ctx.lineWidth=Math.max(1.8,f.r*.035);ctx.lineCap="round";ctx.beginPath();
-   for(let tooth=0;tooth<4;tooth++){const tx=jawW*(.18+tooth*.17);ctx.moveTo(tx,-open*.12);ctx.lineTo(tx+jawW*.035,open*(.10+.035*(tooth%2)));}
-   ctx.stroke();ctx.strokeStyle="#c75b66";ctx.lineWidth=Math.max(2,f.r*.04);ctx.beginPath();ctx.moveTo(-jawW*.08,open*.02);ctx.quadraticCurveTo(jawW*.38,open*1.05,jawW*.98,open*.04);ctx.stroke();ctx.restore();
+   // dark mouth cavity with a soft inner highlight
+   const cavity=ctx.createLinearGradient(0,-open*.1,0,open);
+   cavity.addColorStop(0,p.inside);cavity.addColorStop(.62,"#210d1a");cavity.addColorStop(1,"#090d19");
+   ctx.fillStyle=cavity;ctx.beginPath();ctx.moveTo(-jawW*.12,-open*.12);
+   ctx.quadraticCurveTo(jawW*.30,-open*.32,jawW*.98,open*.03);
+   ctx.quadraticCurveTo(jawW*.82,open*.70,jawW*.16,open*.84);
+   ctx.quadraticCurveTo(-jawW*.06,open*.52,-jawW*.12,-open*.12);ctx.closePath();ctx.fill();
+   // upper lip stays attached to the snout; lower jaw swings down from its hinge
+   ctx.lineCap="round";ctx.lineJoin="round";
+   ctx.strokeStyle=p.lip;ctx.lineWidth=Math.max(2.4,f.r*.055);ctx.beginPath();
+   ctx.moveTo(-jawW*.10,-open*.12);ctx.quadraticCurveTo(jawW*.38,-open*.31,jawW*.98,open*.03);ctx.stroke();
+   ctx.fillStyle=p.lip;ctx.beginPath();ctx.moveTo(-jawW*.08,open*.22);
+   ctx.quadraticCurveTo(jawW*.36,open*1.12,jawW*.96,open*.12);
+   ctx.quadraticCurveTo(jawW*.75,open*.92,jawW*.12,open*.68);ctx.closePath();ctx.fill();
+   ctx.strokeStyle="#ffd5a0";ctx.lineWidth=Math.max(1.4,f.r*.025);ctx.beginPath();ctx.moveTo(jawW*.05,open*.60);ctx.quadraticCurveTo(jawW*.48,open*.98,jawW*.91,open*.17);ctx.stroke();
+   if(p.teeth){ctx.fillStyle="#fff3d9";for(let tooth=0;tooth<p.teeth;tooth++){const tx=jawW*(.20+tooth*.22),tw=jawW*.075,th=open*(.20+((tooth%2)*.035));ctx.beginPath();ctx.moveTo(tx,-open*.12);ctx.quadraticCurveTo(tx+tw*.45,-open*.03,tx+tw,open*th);ctx.quadraticCurveTo(tx+tw*.35,open*th*.72,tx,-open*.12);ctx.closePath();ctx.fill();}}
+   ctx.restore();
  }
  ctx.restore();
 }
@@ -223,14 +235,14 @@ const hudH=portrait?184:92;ctx.fillStyle="#052d45e8";ctx.fillRect(0,0,W,hudH);ct
 function loop(t){const dt=Math.min(.033,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}
 function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H}}
 function screenToWorld(p){return{x:clamp(p.x+camera.x,0,WORLD_W),y:clamp(p.y+camera.y,0,WORLD_H)}}
-canvas.addEventListener("pointerdown",e=>{audioStart();e.preventDefault();canvas.setPointerCapture(e.pointerId);const q=point(e);if(!running||over)return;if(q.y<(portrait?190:95)&&q.x<(portrait?155:155)){showHome();return}activePointer=e.pointerId;pointer=q;target=screenToWorld(q)});
+canvas.addEventListener("pointerdown",e=>{audioStart();e.preventDefault();canvas.setPointerCapture(e.pointerId);const q=point(e);if(!running||over)return;activePointer=e.pointerId;pointer=q;target=screenToWorld(q)});
 canvas.addEventListener("pointermove",e=>{if(activePointer===e.pointerId&&running&&!paused){e.preventDefault();pointer=point(e);target=screenToWorld(pointer)}});
 function endPointer(e){if(activePointer===e.pointerId){activePointer=null;pointer=null;target=null}}
 canvas.addEventListener("pointerup",endPointer);canvas.addEventListener("pointercancel",endPointer);canvas.addEventListener("lostpointercapture",endPointer);
 function renderStages(){const grid=$("stageGrid");grid.innerHTML="";$("mapProgress").textContent=`${stageUnlocked} / ${stages.length} vùng biển đã mở khóa · ${stageCompleted.length} đã hoàn thành`;stages.forEach((st,i)=>{const unlocked=i+1<=stageUnlocked,done=stageCompleted.includes(i),b=document.createElement("button");b.type="button";b.className="stage-card map-node scene-"+st.scene+(unlocked?"":" locked")+(i===selectedStage?" active":"")+(done?" completed":"");b.disabled=!unlocked;b.setAttribute("aria-label",`Màn ${i+1}: ${st.name}, ${unlocked?"đã mở khóa":"đang khóa"}`);const symbols=["🪸","🏝️","🐠","🐚","🌿","🌱","🦁","🪨","🌋","♨️","🔥","🧱","🌌","🕳️","✨","🪼","👑","💎"];b.innerHTML=`<span class="node-top"><span class="node-number">${String(i+1).padStart(2,"0")}</span><span class="node-state">${done?"✓":unlocked?"●":"🔒"}</span></span><span class="node-icon">${symbols[i]}</span><b>${st.name}</b><small>${st.goal.toLocaleString("vi-VN")} điểm</small><em>${done?"ĐÃ HOÀN THÀNH":unlocked?"SẴN SÀNG":"CHƯA MỞ KHÓA"}</em>`;b.onclick=()=>{selectedStage=i;renderStages()};grid.appendChild(b)});const st=stages[selectedStage];$("stageDetails").innerHTML=`<b>${["🪸","🏝️","🐠","🐚","🌿","🌱","🦁","🪨","🌋","♨️","🔥","🧱","🌌","🕳️","✨","🪼","👑","💎"][selectedStage]} ${st.name}</b><span>${st.goal.toLocaleString("vi-VN")} điểm · ${st.desc}</span>`;$("mapStart").disabled=selectedStage+1>stageUnlocked}
-$("webMenuBtn").onclick=()=>{playCue("menu");showHome()};$("survivalMode").onclick=()=>{audioStart().then(()=>playCue("menu"));gameMode="survival";selectedStage=0;audioStart();resizeGame();if(document.documentElement.requestFullscreen&&/Android|iPhone|iPad/i.test(navigator.userAgent))document.documentElement.requestFullscreen().catch(()=>{});reset()};
+$("webMenuBtn").onclick=()=>{if(!running||over)return;playCue("menu");paused=true;activePointer=null;target=null;particles=[];$("pause").classList.remove("hidden")};$("survivalMode").onclick=()=>{audioStart().then(()=>playCue("menu"));gameMode="survival";selectedStage=0;audioStart();resizeGame();if(document.documentElement.requestFullscreen&&/Android|iPhone|iPad/i.test(navigator.userAgent))document.documentElement.requestFullscreen().catch(()=>{});reset()};
 $("adventureMode").onclick=()=>{audioStart().then(()=>playCue("menu"));selectedStage=Math.max(0,Math.min(selectedStage,stageUnlocked-1));showAdventureMap()};$("mapBack").onclick=showHome;$("mapStart").onclick=()=>{if(selectedStage+1>stageUnlocked)return;gameMode="adventure";audioStart();resizeGame();if(document.documentElement.requestFullscreen&&/Android|iPhone|iPad/i.test(navigator.userAgent))document.documentElement.requestFullscreen().catch(()=>{});reset()};$("backToMenu").onclick=showHome;$("pauseToMenu").onclick=showHome;
 $("again").onclick=()=>{if(gameMode==="survival"&&stageWon){nextSurvivalWave();return}if(gameMode==="adventure"&&stageWon&&selectedStage<stages.length-1){selectedStage++;showAdventureMap();return}reset()};
-$("soundBtn").textContent=musicOn?"♫":"×";$("soundBtn").setAttribute("aria-label",musicOn?"Tắt âm thanh":"Bật âm thanh");$("soundBtn").onclick=async()=>{musicOn=!musicOn;localStorage.yumySoundOn=musicOn?"1":"0";$("soundBtn").textContent=musicOn?"♫":"×";$("soundBtn").setAttribute("aria-label",musicOn?"Tắt âm thanh":"Bật âm thanh");if(musicOn)await audioStart();else audioStop()};$("resume").onclick=()=>{paused=false;$("pause").classList.add("hidden")};$("pauseBtn").onclick=()=>{if(running){paused=!paused;if(paused)particles=[];$("pause").classList.toggle("hidden",!paused)}};window.addEventListener("keydown",e=>{if(e.code==="Escape"){if(!$("mapView").classList.contains("hidden"))showHome();else if(running){paused=!paused;$("pause").classList.toggle("hidden",!paused)}}});
+$("soundBtn").textContent=musicOn?"♫":"×";$("soundBtn").setAttribute("aria-label",musicOn?"Tắt âm thanh":"Bật âm thanh");$("soundBtn").onclick=async()=>{musicOn=!musicOn;localStorage.yumySoundOn=musicOn?"1":"0";$("soundBtn").textContent=musicOn?"♫":"×";$("soundBtn").setAttribute("aria-label",musicOn?"Tắt âm thanh":"Bật âm thanh");if(musicOn)await audioStart();else audioStop()};$("resume").onclick=()=>{paused=false;$("pause").classList.add("hidden")};window.addEventListener("keydown",e=>{if(e.code==="Escape"){if(!$("mapView").classList.contains("hidden"))showHome();else if(running){paused=!paused;$("pause").classList.toggle("hidden",!paused)}}});
 if("serviceWorker"in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});requestAnimationFrame(loop);
 })();
