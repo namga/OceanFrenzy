@@ -80,3 +80,28 @@ canvas{width:100%;height:100%;object-fit:fill;touch-action:none}
 .audio-setting input[type=checkbox]{justify-self:end;width:22px;height:22px;accent-color:#ffd45c}
 .audio-setting input[type=range]{width:100%;accent-color:#ffd45c}
 @media(max-width:380px){#pause .menu-actions{padding:20px 16px}.audio-setting{font-size:12px;grid-template-columns:1fr 42%}}
+
+/* 0.8.2: portrait HUD is rendered as a dedicated canvas card layout. Keep the single menu button clear of the brand. */
+@media (orientation: portrait) {
+  #webMenuBtn {
+    top: max(10px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    left: auto;
+    min-width: 78px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+}
+
+
+/* 0.8.3: separate pause menu and audio settings into distinct navigation screens. */
+#pause .pause-view{width:100%;display:flex;flex-direction:column;gap:13px}
+#pause .pause-view.hidden{display:none}
+#pause .pause-subnav{display:grid;grid-template-columns:48px 1fr;align-items:center;gap:10px;margin:0 0 8px;text-align:left}
+#pause .pause-subnav h2{font-size:clamp(19px,4.8vw,25px);line-height:1.15;margin:0;letter-spacing:.3px}
+#pause .pause-subnav .back-btn{width:44px;height:44px;min-height:44px;padding:0;border-radius:14px;background:linear-gradient(145deg,#176b83,#0d405e);color:#fff;font-size:32px;line-height:1;box-shadow:none;border:1px solid #8de7ee88}
+#pause .pause-view .audio-settings{width:100%;display:flex;flex-direction:column;gap:16px;margin:4px 0 0;padding:18px 16px;border:1px solid #7bdce577;border-radius:18px;background:#042f49aa;text-align:left}
+#pause .pause-view .audio-settings.hidden{display:none}
+@media(max-width:380px){#pause section.menu-actions{padding:22px 17px;gap:10px}#pause .pause-view{gap:10px}#pause .pause-view .audio-settings{padding:15px 12px;gap:14px}}
