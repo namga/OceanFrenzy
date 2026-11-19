@@ -170,3 +170,7 @@ body{inset:0}
 
 /* 0.8.22: compact MENU pill; no oversized panel obscuring HUD labels. */
 #webMenuBtn{border-radius:18px!important;font-size:14px!important;font-weight:900!important;letter-spacing:.35px!important;box-shadow:0 2px 8px #001a2c66!important;background:rgba(5,67,91,.88)!important;border:1px solid #8edbe688!important}
+
+
+/* 1.0.0 mobile HUD fix: MENU occupies its own slot after the LIVES card. */
+#webMenuBtn{min-width:0!important;max-width:none!important;padding:0!important;box-sizing:border-box!important;transform:none!important;white-space:nowrap!important;display:grid!important;place-items:center!important;border-radius:18px!important;line-height:1!important}

@@ -106,34 +106,27 @@ function resizeGame(){
  const root=document.getElementById("game"),rect=root.getBoundingClientRect();
  const rw=Math.max(1,rect.width||window.innerWidth),rh=Math.max(1,rect.height||window.innerHeight);
  const nextPortrait=rh>rw,nw=nextPortrait?720:1280,nh=Math.max(1,Math.round(nw*rh/rw));
- if(nw===W&&nh===H&&nextPortrait===portrait)return;
- W=nw;H=nh;portrait=nextPortrait;canvas.width=W;canvas.height=H;
+ const sizeChanged=nw!==W||nh!==H||nextPortrait!==portrait;
+ W=nw;H=nh;portrait=nextPortrait;
+ if(sizeChanged){canvas.width=W;canvas.height=H;}
  const menu=$("webMenuBtn");
- // Canvas coordinates are logical pixels; scale BOTH position and dimensions
- // into CSS pixels. The previous build scaled left/top but left width/height
- // unscaled, so on high-DPI phones the MENU button extended beyond the right edge.
+ // Keep MENU in its own fourth HUD slot, immediately to the right of LIVES.
+ // The portrait HUD cards occupy x=18..494; MENU starts at x=510, so it never
+ // covers the lives label/hearts. Convert logical canvas units to CSS pixels.
  const sx=rw/W,sy=rh/H;
- // The in-game MENU is a fourth HUD tile: same top and height as SCORE,
- // GROWTH and LIVES. Use proportional columns so nothing is clipped on
- // narrow phones or unusual portrait aspect ratios.
- // Reserve a dedicated fourth HUD tile for MENU. Derive its right edge from
- // the logical canvas width so it can never spill over the lives card or viewport.
- const menuH=42;
- const menuW=language==="vi"?116:104;
- const menuCssX=Math.max(8,rw-menuW-12);
- const menuCssY=Math.max(6,Math.round((portrait?8:8)));
+ const menuX=510,menuY=86,menuW=192,menuH=58;
  menu.style.position="absolute";
- menu.style.left=`${menuCssX}px`;
- menu.style.top=`${menuCssY}px`;
+ menu.style.left=`${menuX*sx}px`;
+ menu.style.top=`${menuY*sy}px`;
  menu.style.right="auto";
- menu.style.width=`${menuW}px`;
- menu.style.height=`${menuH}px`;
+ menu.style.width=`${menuW*sx}px`;
+ menu.style.height=`${menuH*sy}px`;
  menu.style.minWidth="0";
  menu.style.maxWidth=`${Math.max(0,rw-menuCssX-8)}px`;
  menu.style.padding="0";
  menu.style.boxSizing="border-box";
  menu.style.overflow="hidden";
- menu.style.fontSize=language==="vi"?"14px":"14px";
+ menu.style.fontSize=`${Math.max(11,14*Math.min(sx,sy))}px`;
  menu.style.lineHeight="1";
  menu.style.whiteSpace="nowrap";
  camera.x=clamp(camera.x,0,Math.max(0,WORLD_W-W));camera.y=clamp(camera.y,0,Math.max(0,WORLD_H-H));

@@ -6,3 +6,9 @@
 - Preserved mouse-move steering, mouse-hold boost, Android touch-drag controls, and independent ambient creature movement.
 
 This archive contains source code and build configuration. It is not a precompiled APK.
+
+
+### Mobile HUD alignment fix
+- Repositioned the in-game MENU button into a dedicated slot to the right of the LIVES card.
+- Scaled button position and dimensions with the canvas viewport to prevent overlap on portrait phones.
+- Kept the game version at 1.0.0.
