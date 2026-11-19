@@ -67,3 +67,16 @@ canvas{width:100%;height:100%;object-fit:fill;touch-action:none}
 /* 0.7.8: no separate pause control; the MENU button is the sole in-game entry point. */
 #pauseBtn{display:none!important}
 #webMenuBtn{display:inline-flex;align-items:center;justify-content:center}
+
+
+/* 0.8.1: keep portrait HUD clear and move audio controls into the menu. */
+#soundBtn{display:none!important}
+#webMenuBtn{position:fixed;z-index:12;top:max(10px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));right:auto}
+@media(orientation:portrait){#webMenuBtn{top:max(8px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));left:auto;height:38px;min-width:78px;padding:0 14px;font-size:12px}}
+#pause .menu-actions{gap:11px}
+#pause .audio-settings{width:100%;display:flex;flex-direction:column;gap:12px;margin:2px 0 4px;padding:14px 15px;border:1px solid #7bdce577;border-radius:16px;background:#042f49aa;text-align:left}
+#pause .audio-settings.hidden{display:none}
+.audio-setting{display:grid;grid-template-columns:1fr minmax(110px,45%);align-items:center;gap:12px;color:#eafcff;font-size:13px;font-weight:700}
+.audio-setting input[type=checkbox]{justify-self:end;width:22px;height:22px;accent-color:#ffd45c}
+.audio-setting input[type=range]{width:100%;accent-color:#ffd45c}
+@media(max-width:380px){#pause .menu-actions{padding:20px 16px}.audio-setting{font-size:12px;grid-template-columns:1fr 42%}}

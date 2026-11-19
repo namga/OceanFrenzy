@@ -1,4 +1,4 @@
-# YUMY Ocean 0.8.0 — Predator Feeding AI
+# YUMY Ocean 0.8.1 — Predator Feeding AI
 
 ## Highlights
 - Predatory fish (grouper, lionfish, manta, shark) now hunt smaller AI fish.
@@ -16,3 +16,9 @@ The ZIP contains source and assets; it is not a prebuilt APK.
 
 
 Android launcher icon build note: the GitHub Actions workflow copies only mipmap-* launcher resources. Capacitor generates values/ic_launcher_background.xml; do not copy a second ic_launcher_background color definition into res/values, or Android resource merging will fail with duplicate resources.
+
+
+## 0.8.1 UI update
+- Portrait HUD reflowed to prevent overlap with the in-game MENU control.
+- Removed floating sound button from gameplay.
+- Added menu audio settings for music/SFX toggles and independent volume sliders.
