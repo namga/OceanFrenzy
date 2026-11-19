@@ -105,3 +105,17 @@ canvas{width:100%;height:100%;object-fit:fill;touch-action:none}
 #pause .pause-view .audio-settings{width:100%;display:flex;flex-direction:column;gap:16px;margin:4px 0 0;padding:18px 16px;border:1px solid #7bdce577;border-radius:18px;background:#042f49aa;text-align:left}
 #pause .pause-view .audio-settings.hidden{display:none}
 @media(max-width:380px){#pause section.menu-actions{padding:22px 17px;gap:10px}#pause .pause-view{gap:10px}#pause .pause-view .audio-settings{padding:15px 12px;gap:14px}}
+
+
+/* 0.8.5 responsive viewport: reserve Android/iOS system bars and match the
+   canvas logical aspect ratio to the actual usable viewport (not a fixed 720x1280). */
+@media (max-width: 900px) and (orientation: portrait) {
+  #game { top: max(env(safe-area-inset-top), 24px); bottom: max(env(safe-area-inset-bottom), 18px); height: auto; width: 100vw; }
+  #game > canvas { width: 100%; height: 100%; object-fit: fill; }
+  #webMenuBtn { position: absolute; top: 10px; right: 12px; left: auto; z-index: 12; }
+}
+@media (max-width: 900px) and (orientation: landscape) {
+  #game { top: env(safe-area-inset-top); bottom: env(safe-area-inset-bottom); height: auto; }
+  #game > canvas { width: 100%; height: 100%; }
+  #webMenuBtn { position: absolute; top: 10px; left: 12px; right: auto; }
+}

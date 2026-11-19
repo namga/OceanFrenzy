@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b43"><meta name="description" content="YUMY Ocean 0.8.3 - Navigation & Back Gesture"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="style.css"><title>YUMY Ocean 0.8.3</title></head>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b43"><meta name="description" content="YUMY Ocean 0.8.6 - Stage Count Label Fix"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="style.css"><title>YUMY Ocean 0.8.6</title></head>
 <body><main id="game"><canvas id="c" width="1280" height="720"></canvas><div id="menu" class="overlay">
 <section class="menu-panel">
   <div id="homeView" class="menu-view">
@@ -10,10 +10,10 @@
       <button class="mode-card survival-card" id="survivalMode"><span class="mode-icon">♾️</span><b>SINH TỒN</b><small>Sống sót lâu nhất có thể. Không cần chọn bản đồ.</small><em>CHƠI NGAY →</em></button>
       <button class="mode-card adventure-card" id="adventureMode"><span class="mode-icon">🗺️</span><b>PHIÊU LƯU</b><small>Khám phá từng vùng biển, hoàn thành mục tiêu để mở khóa màn mới.</small><em>CHỌN VÙNG BIỂN →</em></button>
     </div>
-    <div class="home-footer"><span>🎮 Điều khiển chạm và kéo</span><span>🌊 9 vùng biển phiêu lưu</span></div>
+    <div class="home-footer"><span>🎮 Điều khiển chạm và kéo</span><span id="stageCountLabel">🌊 18 màn chơi · 9 vùng biển</span></div>
   </div>
   <div id="mapView" class="menu-view hidden">
-    <div class="subnav"><button id="mapBack" class="back-btn" aria-label="Quay lại">‹</button><div><h2>BẢN ĐỒ ĐẠI DƯƠNG</h2><small id="mapProgress">1 / 9 vùng biển đã mở khóa</small></div><span class="map-compass">✦</span></div>
+    <div class="subnav"><button id="mapBack" class="back-btn" aria-label="Quay lại">‹</button><div><h2>BẢN ĐỒ ĐẠI DƯƠNG</h2><small id="mapProgress">1 / 18 màn chơi đã mở khóa</small></div><span class="map-compass">✦</span></div>
     <div class="map-legend"><span>🟢 Hoàn thành</span><span>🟡 Có thể chơi</span><span>🔒 Chưa mở</span></div>
     <div id="stageGrid" class="stage-grid ocean-map"></div>
     <div id="stageDetails" class="stage-details"><b>🪸 Rạn san hô</b><span>900 điểm · Khởi đầu êm đềm</span></div>
