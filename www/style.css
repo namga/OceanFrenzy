@@ -174,3 +174,13 @@ body{inset:0}
 
 /* 1.0.0 mobile HUD fix: MENU occupies its own slot after the LIVES card. */
 #webMenuBtn{min-width:0!important;max-width:none!important;padding:0!important;box-sizing:border-box!important;transform:none!important;white-space:nowrap!important;display:grid!important;place-items:center!important;border-radius:18px!important;line-height:1!important}
+
+/* Mobile movement control: optional virtual joystick (game version remains 1.0.0). */
+#joystick{position:fixed;z-index:5;left:max(18px,env(safe-area-inset-left));bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px));width:148px;height:148px;display:none;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+#joystick.visible{display:flex;pointer-events:auto}
+#joystick .joystick-ring{position:relative;width:132px;height:132px;border-radius:50%;border:2px solid #b9f5f080;background:radial-gradient(circle,#0a5a70aa 0%,#063b58aa 68%,#032b43bb 100%);box-shadow:inset 0 0 0 9px #ffffff0a,0 5px 20px #001b2b66;display:grid;place-items:center}
+#joystickThumb{width:58px;height:58px;border-radius:50%;border:2px solid #e2ffffcc;background:linear-gradient(145deg,#45c4d4ee,#08718bee);box-shadow:0 4px 12px #001a2c88,inset 0 2px 5px #ffffff55;transform:translate(0,0);will-change:transform}
+#joystick.visible:active .joystick-ring{border-color:#e0ffff}
+@media(orientation:landscape){#joystick{width:128px;height:128px;left:max(16px,env(safe-area-inset-left));bottom:max(20px,calc(env(safe-area-inset-bottom) + 16px))}#joystick .joystick-ring{width:112px;height:112px}#joystickThumb{width:52px;height:52px}}
+@media(max-width:360px){#joystick{width:126px;height:126px;left:10px;bottom:max(22px,calc(env(safe-area-inset-bottom) + 16px))}#joystick .joystick-ring{width:112px;height:112px}#joystickThumb{width:50px;height:50px}}
+#pause .control-setting select{width:100%;min-height:42px;padding:9px 12px;border:1px solid #7bdce588;border-radius:12px;background:#073d59;color:#effcff;font:600 14px Lato,system-ui,sans-serif}

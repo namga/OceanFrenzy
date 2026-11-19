@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#062b43"><meta name="description" content="YUMY Ocean 1.0.0 - 50-stage ocean adventure with responsive mouse and touch controls"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="style.css"><title>YUMY Ocean 1.0.0</title></head>
-<body><main id="game"><canvas id="c" width="1280" height="720"></canvas><div id="menu" class="overlay">
+<body><main id="game"><canvas id="c" width="1280" height="720"></canvas><div id="joystick" aria-label="Joystick điều khiển" role="application"><div class="joystick-ring"><div id="joystickThumb"></div></div></div><div id="menu" class="overlay">
 <section class="menu-panel">
   <div id="homeView" class="menu-view">
     <div class="brand-mark">🐠</div>
@@ -30,6 +30,7 @@
   <div id="pauseAudioView" class="pause-view hidden">
     <div class="pause-subnav"><button id="audioBack" class="back-btn" aria-label="Quay lại">‹</button><h2 data-i18n="settings">CÀI ĐẶT</h2></div>
     <div id="audioSettings" class="audio-settings">
+      <label class="audio-setting control-setting"><span data-i18n="controlMode">Kiểu điều khiển</span><select id="controlModeSelect" aria-label="Kiểu điều khiển"><option value="joystick" data-i18n="joystick">Joystick</option><option value="swipe" data-i18n="swipe">Vuốt màn hình</option></select></label>
       <label class="audio-setting language-setting"><span data-i18n="language">Ngôn ngữ</span><select id="languageSelect" aria-label="Language"><option value="vi">Tiếng Việt</option><option value="en">English</option><option value="zh">中文</option><option value="ko">한국어</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label>
       <label class="audio-setting"><span data-i18n="music">Nhạc nền</span><input id="musicToggle" type="checkbox"></label>
       <label class="audio-setting"><span data-i18n="musicVolume">Âm lượng nhạc</span><input id="musicVolume" type="range" min="0" max="100" value="22"></label>

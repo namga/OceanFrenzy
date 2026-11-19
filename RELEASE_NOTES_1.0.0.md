@@ -18,3 +18,11 @@ This archive contains source code and build configuration. It is not a precompil
 - AI predators no longer play bite/chomp/gulp sounds when attacking the player or eating other fish, reducing overlapping sound effects.
 - Predator warning, damage, growth, stage, and ambient sounds remain unchanged.
 - Updated the service-worker cache namespace to refresh deployed assets without changing the public game version.
+
+
+### Mobile control options (still version 1.0.0)
+- Added a virtual joystick option for touch devices; it is the default on phones and tablets unless a saved preference exists.
+- Added a Settings selector to switch between Joystick and Swipe Screen controls.
+- Joystick direction is continuous, supports diagonal movement, and clears safely when the finger is released or the game is paused.
+- Swipe mode preserves the previous touch-and-drag destination control.
+- Saved the selected control method locally on the device.

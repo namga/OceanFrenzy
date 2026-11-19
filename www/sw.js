@@ -1,4 +1,4 @@
-const C='yumy-ocean-1.0.0-audiofix1';
+const C='yumy-ocean-1.0.0-controls1';
 const CORE=['./','index.html','style.css','game.js','manifest.webmanifest',
 ...Array.from({length:50},(_,i)=>`assets/stage_bg_${String(i+1).padStart(2,'0')}.jpg`),'assets/icon-192.png','assets/icon-512.png','assets/reef_background.png','assets/kelp_background.png','assets/volcanic_background.png','assets/abyss_background.png',
 'assets/player_0.png','assets/player_1.png','assets/player_2.png','assets/player_3.png','assets/player_4.png','assets/player_5.png','assets/player_6.png','assets/player_7.png',
