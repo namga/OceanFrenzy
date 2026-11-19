@@ -12,3 +12,9 @@ This archive contains source code and build configuration. It is not a precompil
 - Repositioned the in-game MENU button into a dedicated slot to the right of the LIVES card.
 - Scaled button position and dimensions with the canvas viewport to prevent overlap on portrait phones.
 - Kept the game version at 1.0.0.
+
+### Audio behavior refinement (still version 1.0.0)
+- Player fish retains the chomp and gulp sounds when it successfully eats eligible prey.
+- AI predators no longer play bite/chomp/gulp sounds when attacking the player or eating other fish, reducing overlapping sound effects.
+- Predator warning, damage, growth, stage, and ambient sounds remain unchanged.
+- Updated the service-worker cache namespace to refresh deployed assets without changing the public game version.

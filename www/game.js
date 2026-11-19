@@ -30,8 +30,7 @@ const LANGS={
 let language=["vi","en","zh","ko","fr","de"].includes(localStorage.yumyLanguage)?localStorage.yumyLanguage:"vi";
 function tr(key){return (LANGS[language]&&LANGS[language][key])||LANGS.vi[key]||key}
 // Apply the selected locale to every translated UI element before the first frame.
-// This function was missing in 1.0.1, causing a ReferenceError during boot and
-// preventing requestAnimationFrame(loop) from ever being scheduled.
+// Keep the selected locale applied before the first rendered frame.
 function applyLanguage(){
   document.documentElement.lang=language;
   document.querySelectorAll("[data-i18n]").forEach(el=>{
@@ -122,7 +121,7 @@ function resizeGame(){
  menu.style.width=`${menuW*sx}px`;
  menu.style.height=`${menuH*sy}px`;
  menu.style.minWidth="0";
- menu.style.maxWidth=`${Math.max(0,rw-menuCssX-8)}px`;
+ menu.style.maxWidth=`${Math.max(0,rw-menuX*sx-8)}px`;
  menu.style.padding="0";
  menu.style.boxSizing="border-box";
  menu.style.overflow="hidden";
@@ -327,7 +326,7 @@ for(let i=fish.length-1;i>=0;i--){
    f.dir=Math.sign(dx)||f.dir;f.mouthOpen+=(.82-f.mouthOpen)*Math.min(1,dt*7);f.attackTimer-=dt;
    f.vx+=(f.dir*f.speed*.42-f.vx)*Math.min(1,dt*8);
    f.vy+=(dy/d*f.speed*.30-f.vy)*Math.min(1,dt*5);
-   if(f.attackTimer<=0){f.attackState="lunge";f.attackTimer=.82;f.mouthOpen=1;playCue("bite",f.r/70)}
+   if(f.attackTimer<=0){f.attackState="lunge";f.attackTimer=.82;f.mouthOpen=1}
  }else if(f.attackState==="lunge"){
    f.dir=Math.sign(dx)||f.dir;f.attackTimer-=dt;f.mouthOpen+=(1-f.mouthOpen)*Math.min(1,dt*12);const lungeSpeed=f.speed*3.15;
    f.vx+=(f.dir*lungeSpeed-f.vx)*Math.min(1,dt*9);f.vy+=(dy/d*lungeSpeed*1.05-f.vy)*Math.min(1,dt*8);f.mouthOpen=Math.max(f.mouthOpen,.96);
@@ -348,13 +347,13 @@ for(let i=fish.length-1;i>=0;i--){
      if(f.attackState==="preyTurn"){
        f.attackTimer-=dt;f.mouthOpen+=(0-f.mouthOpen)*Math.min(1,dt*10);
        const speed=f.speed*1.25;f.vx+=(pdx/pd*speed-f.vx)*Math.min(1,dt*5);f.vy+=(pdy/pd*speed-f.vy)*Math.min(1,dt*5);
-       if(f.attackTimer<=0){f.attackState="preyLunge";f.attackTimer=.72;f.mouthOpen=1;playCue("bite",f.r/70);}
+       if(f.attackTimer<=0){f.attackState="preyLunge";f.attackTimer=.72;f.mouthOpen=1;}
      }else{
        f.attackTimer-=dt;f.mouthOpen+=(1-f.mouthOpen)*Math.min(1,dt*14);
        const speed=f.speed*3.0;f.vx+=(pdx/pd*speed-f.vx)*Math.min(1,dt*8);f.vy+=(pdy/pd*speed-f.vy)*Math.min(1,dt*8);
        const mouth=fishMouth(f),biteDist=Math.hypot(prey.x-mouth.x,prey.y-mouth.y);
        if(biteDist<f.r*.42+prey.r*.42){
-         prey.eaten=true;playChomp(prey);popup(prey.x,prey.y-18,"CHOMP!","#ffdf70");
+         prey.eaten=true;popup(prey.x,prey.y-18,"CHOMP!","#ffdf70");
          for(let n=0;n<5;n++)particles.push({x:prey.x+(Math.random()-.5)*22,y:prey.y+(Math.random()-.5)*18,t:"✦",c:"#ffe47a",life:.42,max:.42});
          f.attackState="recover";f.attackTimer=.58;f.attackCooldown=1.15;f.preyTarget=null;f.mouthOpen=0;
        }else if(f.attackTimer<=0){f.attackState="recover";f.attackTimer=.42;f.attackCooldown=.8;f.preyTarget=null;f.mouthOpen=0;}
