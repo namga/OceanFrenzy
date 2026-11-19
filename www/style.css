@@ -1,4 +1,7 @@
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;height:100dvh;overflow:hidden;background:#052a40;font-family:system-ui,-apple-system,Segoe UI,sans-serif;touch-action:none;overscroll-behavior:none}body{position:fixed;inset:0}#game{position:absolute;inset:0;width:100vw;height:100dvh;display:flex;align-items:center;justify-content:center;background:#052a40;overflow:hidden}canvas{width:100vw;height:100dvh;max-width:100vw;max-height:100dvh;display:block;touch-action:none;user-select:none;-webkit-user-select:none}.overlay{position:fixed;inset:0;display:grid;place-items:center;background:#001b2caa;z-index:4;padding:20px}.overlay.hidden{display:none}.overlay section{width:min(520px,92vw);padding:clamp(18px,4vh,30px) 24px;border:1px solid #64d9e9aa;border-radius:26px;text-align:center;background:linear-gradient(145deg,#0b4c65f5,#082c4af5);color:#effcff;box-shadow:0 20px 70px #00131f88}.overlay h1{font-size:clamp(34px,8vw,64px);margin:0;color:#ffe35a;letter-spacing:3px}.overlay h1 span{color:#7ce7ef}.overlay h2{font-size:clamp(26px,6vw,34px);margin:0 0 12px}.overlay p{line-height:1.5;color:#d0eff4}.overlay small{display:block;margin-top:18px;color:#b9e5ec}button{border:0;border-radius:999px;background:linear-gradient(135deg,#ffe66a,#ff9d39);color:#18344a;font-weight:900;font-size:18px;padding:15px 30px;box-shadow:0 7px 0 #a65a28;cursor:pointer;touch-action:manipulation}#pauseBtn,#pauseBtn{top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left))}
+@font-face{font-family:Lato;src:url("fonts/Lato-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:Lato;src:url("fonts/Lato-Semibold.ttf") format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:Lato;src:url("fonts/Lato-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;height:100dvh;overflow:hidden;background:#052a40;font-family:Lato,system-ui,-apple-system,Segoe UI,sans-serif;touch-action:none;overscroll-behavior:none}body{position:fixed;inset:0}#game{position:absolute;inset:0;width:100vw;height:100dvh;display:flex;align-items:center;justify-content:center;background:#052a40;overflow:hidden}canvas{width:100vw;height:100dvh;max-width:100vw;max-height:100dvh;display:block;touch-action:none;user-select:none;-webkit-user-select:none}.overlay{position:fixed;inset:0;display:grid;place-items:center;background:#001b2caa;z-index:4;padding:20px}.overlay.hidden{display:none}.overlay section{width:min(520px,92vw);padding:clamp(18px,4vh,30px) 24px;border:1px solid #64d9e9aa;border-radius:26px;text-align:center;background:linear-gradient(145deg,#0b4c65f5,#082c4af5);color:#effcff;box-shadow:0 20px 70px #00131f88}.overlay h1{font-size:clamp(34px,8vw,64px);margin:0;color:#ffe35a;letter-spacing:3px}.overlay h1 span{color:#7ce7ef}.overlay h2{font-size:clamp(26px,6vw,34px);margin:0 0 12px}.overlay p{line-height:1.5;color:#d0eff4}.overlay small{display:block;margin-top:18px;color:#b9e5ec}button{border:0;border-radius:999px;background:linear-gradient(135deg,#ffe66a,#ff9d39);color:#18344a;font-weight:900;font-size:18px;padding:15px 30px;box-shadow:0 7px 0 #a65a28;cursor:pointer;touch-action:manipulation}#pauseBtn,#pauseBtn{top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left))}
 
 #soundBtn{position:fixed;z-index:3;top:max(16px,env(safe-area-inset-top));right:max(88px,calc(env(safe-area-inset-right) + 82px));width:42px;height:42px;padding:0;border:1px solid #a9f5ff88;background:#063c59cc;color:#fff;font-size:22px;box-shadow:0 3px 12px #001a2c66}
 .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.mode-card{border:1px solid #8cecf477;background:#07334dcc;color:#eaffff;box-shadow:none;border-radius:16px;padding:14px 10px;font-size:15px;min-height:104px}.mode-card b{display:block;color:#ffe36b;margin-bottom:7px}.mode-card small{font-size:11px;line-height:1.35;color:#c7edf2}.mode-card.selected{border:2px solid #ffe36b;background:#17627acc;box-shadow:0 0 18px #ffe36b44}.stage-picker{margin:12px 0 18px}.stage-picker h3{font-size:13px;letter-spacing:2px;color:#a8eff5;margin:8px}.stage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-height:180px;overflow:auto;padding:3px}.stage-card{padding:9px 4px;border-radius:12px;background:#0a4960;color:#eaffff;box-shadow:none;border:1px solid #6bd9e766;font-size:12px}.stage-card small{display:block;font-size:10px;color:#b8e9ef}.stage-card.locked{opacity:.35;filter:grayscale(1)}.stage-card.active{border:2px solid #ffe36b;background:#176d7c}.secondary{display:block;margin:14px auto 0;background:#14516a;color:#e8fcff;box-shadow:none;font-size:13px;padding:11px 18px}.overlay section{max-height:94dvh;overflow:auto}.overlay .menu-panel{width:min(560px,94vw)}
@@ -119,3 +122,51 @@ canvas{width:100%;height:100%;object-fit:fill;touch-action:none}
   #game > canvas { width: 100%; height: 100%; }
   #webMenuBtn { position: absolute; top: 10px; left: 12px; right: auto; }
 }
+
+/* 0.8.9: HUD-anchored menu button; JS positions it beside the lives card. */
+#webMenuBtn{z-index:12;display:grid;place-items:center;padding:0 12px;border:1px solid #9beaf099;border-radius:22px;background:linear-gradient(145deg,#0b6680f2,#063a59f2);color:#effcff;font-size:13px;font-weight:900;letter-spacing:.7px;box-shadow:0 4px 14px #001a2c77;white-space:nowrap}
+
+
+/* 0.8.10: MENU button dimensions are scaled in JS from logical canvas pixels. */
+#webMenuBtn{min-width:0!important;max-width:100%;padding:0!important;box-sizing:border-box;overflow:hidden}
+
+
+/* 0.8.11: portrait HUD alignment and full-height playfield. */
+@media (max-width: 900px) and (orientation: portrait) {
+  #game { top: max(env(safe-area-inset-top), 24px); bottom: 0; height: auto; width: 100vw; }
+  #game > canvas { width: 100%; height: 100%; object-fit: fill; }
+  #webMenuBtn { position: absolute; z-index: 12; display: grid; place-items: center; border-radius: 14px; min-width: 0 !important; max-width: none; padding: 0 !important; line-height: 1; white-space: nowrap; }
+}
+@media (max-width: 900px) and (orientation: landscape) {
+  #game { top: env(safe-area-inset-top); bottom: 0; height: auto; }
+  #game > canvas { width: 100%; height: 100%; }
+}
+#webMenuBtn { border: 1px solid #9beaf099; background: linear-gradient(145deg,#0b6680f2,#063a59f2); color: #effcff; font-weight: 900; letter-spacing: .7px; box-shadow: 0 4px 14px #001a2c77; }
+
+/* 0.8.12 language picker */
+.language-setting select{width:min(58%,230px);min-height:42px;padding:8px 34px 8px 12px;border:1px solid #82dce9aa;border-radius:12px;background:#073d5b;color:#f2fcff;font:600 14px system-ui;outline:none}
+.language-setting select option{background:#073d5b;color:#f2fcff}
+#pause .audio-settings{max-height:min(62dvh,520px);overflow-y:auto;overscroll-behavior:contain}
+
+.home-language{display:inline-flex;align-items:center;gap:6px;color:#c8f1f5;font-size:12px;font-weight:700}
+.home-language select{max-width:132px;min-height:34px;padding:5px 24px 5px 8px;border:1px solid #82dce988;border-radius:10px;background:#073d5b;color:#f2fcff;font:600 12px system-ui}
+.home-language select option{background:#073d5b;color:#f2fcff}
+
+
+/* 0.8.15: language picker must fill its grid cell; avoid the clipped blank select seen on Android Chrome. */
+#pause .language-setting{grid-template-columns:minmax(0,1fr) minmax(148px,42%);gap:12px}
+#pause .language-setting select{display:block;width:100%;min-width:0;max-width:230px;justify-self:end;min-height:48px;padding:9px 34px 9px 12px;font-size:16px;line-height:1.2;color:#f5fdff;background-color:#073d5b;border:1px solid #82dce9;border-radius:13px;appearance:auto;-webkit-appearance:menulist}
+#pause .language-setting select option{color:#f5fdff;background:#073d5b}
+@media(max-width:380px){#pause .language-setting{grid-template-columns:minmax(0,1fr) minmax(142px,48%)}}
+
+
+/* 0.8.19: full-viewport web layout and HUD-anchored menu safe bounds. */
+html,body{width:100%;min-width:0;max-width:none;overflow:hidden}
+body{inset:0}
+#game{position:fixed;inset:0;width:100%;height:100dvh;min-width:0;max-width:none;overflow:hidden}
+#game>canvas{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:fill}
+#webMenuBtn{position:absolute;z-index:20;right:auto;left:auto;min-width:0!important;max-width:calc(100% - 16px);padding:0!important;box-sizing:border-box;overflow:hidden;white-space:nowrap;display:grid;place-items:center;line-height:1}
+
+
+/* 0.8.22: compact MENU pill; no oversized panel obscuring HUD labels. */
+#webMenuBtn{border-radius:18px!important;font-size:14px!important;font-weight:900!important;letter-spacing:.35px!important;box-shadow:0 2px 8px #001a2c66!important;background:rgba(5,67,91,.88)!important;border:1px solid #8edbe688!important}

@@ -1,6 +1,6 @@
 {
   "name": "YUMY Ocean",
-  "short_name": "YUMY",
+  "short_name": "YUMY Ocean",
   "start_url": "./",
   "display": "standalone",
   "orientation": "any",
@@ -18,5 +18,6 @@
       "type": "image/png"
     }
   ],
-  "description": "YUMY Ocean 0.8.7 - Clownfish transparent-background cleanup"
+  "description": "A 50-stage ocean survival adventure",
+  "version": "1.0.0"
 }

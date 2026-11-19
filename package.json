@@ -1,6 +1,6 @@
 {
   "name": "yumy-ocean",
-  "version": "0.8.7",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "web": "npx serve www",
