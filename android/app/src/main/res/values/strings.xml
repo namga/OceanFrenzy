@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">YUMY Ocean</string>
+    <string name="title_activity_main">YUMY Ocean</string>
+    <string name="package_name">com.yumy.ocean</string>
+    <string name="custom_url_scheme">com.yumy.ocean</string>
+</resources>
