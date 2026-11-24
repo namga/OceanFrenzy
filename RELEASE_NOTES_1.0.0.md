@@ -26,3 +26,11 @@ This archive contains source code and build configuration. It is not a precompil
 - Joystick direction is continuous, supports diagonal movement, and clears safely when the finger is released or the game is paused.
 - Swipe mode preserves the previous touch-and-drag destination control.
 - Saved the selected control method locally on the device.
+
+
+## Mobile HUD and boost controls refinement (version remains 1.0.0)
+- Landscape: reposition the Settings/Menu pill to the far-right side of the HUD instead of the center of the playfield.
+- Mobile: add a dedicated lightning button at the lower-right corner to activate the existing 5-second speed boost.
+- The lightning button visibly distinguishes ready, active, and cooldown states; cooldown is shown as a minute:second countdown.
+- Preserve the existing boost duration, cooldown, movement physics, joystick/swipe settings, and game version 1.0.0.
+- Updated the service-worker cache key so installed PWA users receive the revised interface.

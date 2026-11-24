@@ -184,3 +184,15 @@ body{inset:0}
 @media(orientation:landscape){#joystick{width:128px;height:128px;left:max(16px,env(safe-area-inset-left));bottom:max(20px,calc(env(safe-area-inset-bottom) + 16px))}#joystick .joystick-ring{width:112px;height:112px}#joystickThumb{width:52px;height:52px}}
 @media(max-width:360px){#joystick{width:126px;height:126px;left:10px;bottom:max(22px,calc(env(safe-area-inset-bottom) + 16px))}#joystick .joystick-ring{width:112px;height:112px}#joystickThumb{width:50px;height:50px}}
 #pause .control-setting select{width:100%;min-height:42px;padding:9px 12px;border:1px solid #7bdce588;border-radius:12px;background:#073d59;color:#effcff;font:600 14px Lato,system-ui,sans-serif}
+
+
+/* 1.0.0 mobile boost control: an explicit thumb-sized speed button. */
+#boostBtn{position:fixed;z-index:7;right:max(22px,calc(env(safe-area-inset-right) + 18px));bottom:max(26px,calc(env(safe-area-inset-bottom) + 20px));width:76px;height:76px;padding:5px;border-radius:50%;display:none;flex-direction:column;align-items:center;justify-content:center;gap:0;background:radial-gradient(circle at 35% 25%,#fff6a6,#ffb52f 52%,#d96b16);border:3px solid #fff0a6;color:#263b48;box-shadow:0 0 0 5px #ffcb4b35,0 5px 18px #001a2c88,inset 0 2px 5px #ffffffaa;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#boostBtn .boost-bolt{font-size:34px;line-height:1;text-shadow:0 2px 2px #9b571c66}
+#boostBtn small{font:900 9px/1 Lato,system-ui,sans-serif;letter-spacing:.35px;margin-top:2px;white-space:nowrap}
+#boostBtn.visible{display:flex}
+#boostBtn.active{background:radial-gradient(circle at 35% 25%,#eaffff,#5be7ed 55%,#087b9c);border-color:#c8ffff;box-shadow:0 0 0 6px #43e5ef44,0 0 24px #40eaffaa}
+#boostBtn.cooldown{filter:saturate(.45);opacity:.72;background:radial-gradient(circle at 35% 25%,#dce5e8,#718a99 60%,#344e61);border-color:#a9c2cb;box-shadow:0 3px 12px #001a2c88}
+#boostBtn:disabled{cursor:default}
+@media(orientation:landscape){#boostBtn{width:70px;height:70px;right:max(24px,calc(env(safe-area-inset-right) + 20px));bottom:max(20px,calc(env(safe-area-inset-bottom) + 16px))}#boostBtn .boost-bolt{font-size:31px}}
+@media(max-width:360px){#boostBtn{width:66px;height:66px;right:14px;bottom:max(20px,calc(env(safe-area-inset-bottom) + 16px))}#boostBtn .boost-bolt{font-size:29px}}

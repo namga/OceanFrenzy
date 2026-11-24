@@ -114,11 +114,12 @@ function resizeGame(){
  W=nw;H=nh;portrait=nextPortrait;
  if(sizeChanged){canvas.width=W;canvas.height=H;}
  const menu=$("webMenuBtn");
- // Keep MENU in its own fourth HUD slot, immediately to the right of LIVES.
- // The portrait HUD cards occupy x=18..494; MENU starts at x=510, so it never
- // covers the lives label/hearts. Convert logical canvas units to CSS pixels.
+ // Keep the Settings/MENU pill out of the center of the landscape playfield.
+ // Portrait keeps its own slot beside the HUD; landscape moves it to the far
+ // right, just below the HUD row, where it cannot cover the score/lives cards.
  const sx=rw/W,sy=rh/H;
- const menuX=510,menuY=86,menuW=192,menuH=58;
+ const menuW=portrait?192:174,menuH=portrait?58:50;
+ const menuX=portrait?510:Math.max(12,W-menuW-18),menuY=portrait?86:96;
  menu.style.position="absolute";
  menu.style.left=`${menuX*sx}px`;
  menu.style.top=`${menuY*sy}px`;
@@ -225,7 +226,7 @@ function drawAmbientCreatures(){
  }
 }
 
-function reset(){updateJoystickVisibility();boostActive=false;boostTime=0;boostCooldown=0;boostNotice=0;audioStart().then(()=>playCue("stage"));score=0;stageWon=false;survivalWave=1;waveScoreStart=0;waveGoal=3200;stageGoal=gameMode==="adventure"?stages[selectedStage].goal:0;scene=gameMode==="adventure"?stages[selectedStage].scene:0;growth=.08;level=1;lives=3;combo=1;comboT=0;comboFlash=0;comboFlashT=0;player={x:420,y:WORLD_H*.5,vx:0,vy:0,r:28,face:1};target=null;camera.x=0;camera.y=clamp(player.y-H*.5,0,WORLD_H-H);fish=[];particles=[];ambientCreatures=[];ambientSpawnT=8+Math.random()*5;spawnT=0;const stageIndex=gameMode==="adventure"?selectedStage:Math.max(0,survivalWave-1);
+function reset(){updateJoystickVisibility();updateBoostButton();boostActive=false;boostTime=0;boostCooldown=0;boostNotice=0;audioStart().then(()=>playCue("stage"));score=0;stageWon=false;survivalWave=1;waveScoreStart=0;waveGoal=3200;stageGoal=gameMode==="adventure"?stages[selectedStage].goal:0;scene=gameMode==="adventure"?stages[selectedStage].scene:0;growth=.08;level=1;lives=3;combo=1;comboT=0;comboFlash=0;comboFlashT=0;player={x:420,y:WORLD_H*.5,vx:0,vy:0,r:28,face:1};target=null;camera.x=0;camera.y=clamp(player.y-H*.5,0,WORLD_H-H);fish=[];particles=[];ambientCreatures=[];ambientSpawnT=8+Math.random()*5;spawnT=0;const stageIndex=gameMode==="adventure"?selectedStage:Math.max(0,survivalWave-1);
 const openingHunters=stageIndex>=40?6:stageIndex>=30?5:stageIndex>=20?4:stageIndex>=12?3:stageIndex>=6?2:1;
 const hunterLatoval=Math.max(4.5,11-stageIndex*.38);
  predatorSpawnT=hunterLatoval*.55+Math.random()*2;for(let i=0;i<25;i++)spawn(false);for(let i=0;i<openingHunters;i++)spawn(true);running=true;paused=false;over=false;activePointer=null;$("webMenuBtn").style.display="block";updateJoystickVisibility();$("menu").classList.add("hidden");$("pause").classList.add("hidden");$("over").classList.add("hidden")}
@@ -310,7 +311,20 @@ function findPredatorPrey(predator){
  return best;
 }
 
-function update(dt){if(!running||paused)return;boostTime=Math.max(0,boostTime-dt);boostCooldown=Math.max(0,boostCooldown-dt);boostNotice=Math.max(0,boostNotice-dt);if(boostTime<=0)boostActive=false;predatorSpawnT=Math.max(0,predatorSpawnT-dt);predatorWarnCd=Math.max(0,predatorWarnCd-dt);biteT=Math.max(0,biteT-dt);hitT=Math.max(0,hitT-dt);comboT=Math.max(0,comboT-dt);comboFlashT=Math.max(0,comboFlashT-dt);if(!comboT)combo=1;
+function activateBoost(){
+ if(!running||paused||over||boostActive||boostCooldown>0)return false;
+ audioStart();boostActive=true;boostTime=5;boostCooldown=185;boostNotice=5;playCue("grow");updateBoostButton();return true;
+}
+function updateBoostButton(){
+ const b=$("boostBtn"),label=$("boostBtnLabel");if(!b||!label)return;
+ const touch=(navigator.maxTouchPoints||0)>0||matchMedia("(pointer:coarse)").matches;
+ b.classList.toggle("visible",touch&&running&&!paused&&!over);
+ b.classList.toggle("active",boostActive);b.classList.toggle("cooldown",!boostActive&&boostCooldown>0);
+ b.disabled=boostActive||boostCooldown>0;
+ label.textContent=boostActive?`${Math.ceil(boostTime)}s`:boostCooldown>0?`${Math.ceil(boostCooldown/60)}:${String(Math.ceil(boostCooldown%60)).padStart(2,"0")}`:"SẴN SÀNG";
+ b.setAttribute("aria-label",boostActive?`Đang tăng tốc ${Math.ceil(boostTime)} giây`:boostCooldown>0?`Tăng tốc hồi sau ${Math.ceil(boostCooldown)} giây`:"Kích hoạt tăng tốc");
+}
+function update(dt){if(!running||paused)return;boostTime=Math.max(0,boostTime-dt);boostCooldown=Math.max(0,boostCooldown-dt);boostNotice=Math.max(0,boostNotice-dt);if(boostTime<=0)boostActive=false;updateBoostButton();predatorSpawnT=Math.max(0,predatorSpawnT-dt);predatorWarnCd=Math.max(0,predatorWarnCd-dt);biteT=Math.max(0,biteT-dt);hitT=Math.max(0,hitT-dt);comboT=Math.max(0,comboT-dt);comboFlashT=Math.max(0,comboFlashT-dt);if(!comboT)combo=1;
 // Swipe mode steers toward the finger destination; joystick mode steers continuously by direction.
 if(controlMode==="joystick"&&Math.hypot(joystickVector.x,joystickVector.y)>.08){const maxSpeed=390*(boostActive?1.5:1),mag=Math.min(1,Math.hypot(joystickVector.x,joystickVector.y)),ax=joystickVector.x/mag*maxSpeed*mag,ay=joystickVector.y/mag*maxSpeed*mag;player.vx+=(ax-player.vx)*Math.min(1,dt*6.5);player.vy+=(ay-player.vy)*Math.min(1,dt*6.5)}else if(controlMode==="swipe"&&target){const dx=target.x-player.x,dy=target.y-player.y,dist=Math.hypot(dx,dy),maxSpeed=390*(boostActive?1.5:1);if(dist>7){const desired=Math.min(maxSpeed,dist*2.65),ax=dx/dist*desired,ay=dy/dist*desired;player.vx+=(ax-player.vx)*Math.min(1,dt*5.8);player.vy+=(ay-player.vy)*Math.min(1,dt*5.8)}else{player.vx*=Math.max(0,1-dt*5);player.vy*=Math.max(0,1-dt*5)}}else{player.vx*=Math.max(0,1-dt*2.7);player.vy*=Math.max(0,1-dt*2.7)}
 if(Math.abs(player.vx)>5)player.face=Math.sign(player.vx);
@@ -508,7 +522,7 @@ canvas.addEventListener("pointerdown",e=>{
  if(e.pointerType==="mouse"){
   if(e.button===0&&running&&!paused&&!over){
    audioStart();
-   if(boostCooldown<=0&&!boostActive){boostActive=true;boostTime=5;boostCooldown=185;boostNotice=5;playCue("grow");}
+   activateBoost();
   }
   return; // Mouse movement alone steers; holding left mouse activates the timed boost.
  }
@@ -534,6 +548,8 @@ function clearJoystick(e){if(joystickPointer!==null&&(!e||e.pointerId===joystick
 joystick.addEventListener("pointerdown",e=>{if(!running||paused||over||controlMode!=="joystick")return;e.preventDefault();e.stopPropagation();audioStart();joystickPointer=e.pointerId;try{joystick.setPointerCapture(e.pointerId)}catch{}setJoystickFromEvent(e)});
 joystick.addEventListener("pointermove",e=>{if(e.pointerId===joystickPointer){e.preventDefault();setJoystickFromEvent(e)}});
 joystick.addEventListener("pointerup",clearJoystick);joystick.addEventListener("pointercancel",clearJoystick);joystick.addEventListener("lostpointercapture",clearJoystick);
+$("boostBtn").addEventListener("pointerdown",e=>{e.preventDefault();e.stopPropagation();if(e.pointerType!=="mouse")activateBoost();});
+$("boostBtn").addEventListener("click",e=>{e.preventDefault();e.stopPropagation();activateBoost();});
 function showPauseHome(){$("pauseAudioView").classList.add("hidden");$("pauseHomeView").classList.remove("hidden");}
 function showPauseAudio(){syncAudioControls();syncControlSettings();$("pauseHomeView").classList.add("hidden");$("pauseAudioView").classList.remove("hidden");}
 function backOneScreen(){
@@ -543,10 +559,10 @@ function backOneScreen(){
   return false;
 }
 function renderStages(){const grid=$("stageGrid");grid.innerHTML="";$("mapProgress").textContent=`${stageUnlocked} / ${stages.length} ${tr("stageUnlocked")} · ${stageCompleted.length} ${tr("finished").toLowerCase()}`;stages.forEach((st,i)=>{const unlocked=i+1<=stageUnlocked,done=stageCompleted.includes(i),b=document.createElement("button");b.type="button";b.className="stage-card map-node scene-"+st.scene+(unlocked?"":" locked")+(i===selectedStage?" active":"")+(done?" completed":"");b.disabled=!unlocked;b.setAttribute("aria-label",`${tr("stage")} ${i+1}: ${stageName(i)}, ${unlocked?tr("ready"):tr("notUnlocked")}`);b.innerHTML=`<span class="node-top"><span class="node-number">${String(i+1).padStart(2,"0")}</span><span class="node-state">${done?"✓":unlocked?"●":"🔒"}</span></span><span class="node-icon">${stageSymbol(i)}</span><b>${stageName(i)}</b><small>${st.goal.toLocaleString()} ${tr("points")}</small><em>${done?tr("finished"):unlocked?tr("ready"):tr("notUnlocked")}</em>`;b.onclick=()=>{selectedStage=i;renderStages()};grid.appendChild(b)});const st=stages[selectedStage];$("stageDetails").innerHTML=`<b>${stageSymbol(selectedStage)} ${stageName(selectedStage)}</b><span>${st.goal.toLocaleString()} ${tr("points")} · ${stageDesc(selectedStage)}</span>`;$("mapStart").disabled=selectedStage+1>stageUnlocked}
-$("webMenuBtn").onclick=()=>{if(!running||over)return;playCue("menu");paused=true;activePointer=null;target=null;joystickVector={x:0,y:0};updateJoystickVisibility();particles=[];showPauseHome();$("pause").classList.remove("hidden")};$("survivalMode").onclick=()=>{audioStart().then(()=>playCue("menu"));gameMode="survival";selectedStage=0;audioStart();resizeGame();if(document.documentElement.requestFullscreen&&/Android|iPhone|iPad/i.test(navigator.userAgent))document.documentElement.requestFullscreen().catch(()=>{});reset()};
+$("webMenuBtn").onclick=()=>{if(!running||over)return;playCue("menu");paused=true;activePointer=null;target=null;joystickVector={x:0,y:0};updateJoystickVisibility();updateBoostButton();particles=[];showPauseHome();$("pause").classList.remove("hidden")};$("survivalMode").onclick=()=>{audioStart().then(()=>playCue("menu"));gameMode="survival";selectedStage=0;audioStart();resizeGame();if(document.documentElement.requestFullscreen&&/Android|iPhone|iPad/i.test(navigator.userAgent))document.documentElement.requestFullscreen().catch(()=>{});reset()};
 $("adventureMode").onclick=()=>{audioStart().then(()=>playCue("menu"));selectedStage=Math.max(0,Math.min(selectedStage,stageUnlocked-1));showAdventureMap()};$("mapBack").onclick=showHome;$("mapStart").onclick=()=>{if(selectedStage+1>stageUnlocked)return;gameMode="adventure";audioStart();resizeGame();if(document.documentElement.requestFullscreen&&/Android|iPhone|iPad/i.test(navigator.userAgent))document.documentElement.requestFullscreen().catch(()=>{});reset()};$("backToMenu").onclick=showHome;$("pauseToMenu").onclick=showHome;
 $("again").onclick=()=>{if(gameMode==="survival"&&stageWon){nextSurvivalWave();return}if(gameMode==="adventure"&&stageWon&&selectedStage<stages.length-1){selectedStage++;stageUnlocked=Math.max(stageUnlocked,selectedStage+1);localStorage.yumyAdventureUnlocked=stageUnlocked;reset();return}reset()};
-$("openAudioSettings").onclick=showPauseAudio;$("controlModeSelect").onchange=e=>{controlMode=e.target.value==="swipe"?"swipe":"joystick";localStorage.yumyControlMode=controlMode;target=null;joystickVector={x:0,y:0};syncControlSettings();updateJoystickVisibility()};$("audioBack").onclick=showPauseHome;$("musicToggle").onchange=async e=>{musicOn=e.target.checked;localStorage.yumyMusicOn=musicOn?"1":"0";if(musicOn)await audioStart();applyAudioSettings()};$("sfxToggle").onchange=async e=>{sfxOn=e.target.checked;localStorage.yumySfxOn=sfxOn?"1":"0";if(sfxOn)await audioStart();applyAudioSettings()};$("musicVolume").oninput=e=>{musicVolume=+e.target.value/100;localStorage.yumyMusicVolume=e.target.value;applyAudioSettings()};$("sfxVolume").oninput=e=>{sfxVolume=+e.target.value/100;localStorage.yumySfxVolume=e.target.value;applyAudioSettings()};syncAudioControls();syncControlSettings();const changeLanguage=e=>{language=e.target.value;localStorage.yumyLanguage=language;applyLanguage();};$("languageSelect").onchange=changeLanguage;$("languageSelectHome").onchange=changeLanguage;applyLanguage();$("resume").onclick=()=>{paused=false;$("pause").classList.add("hidden");showPauseHome();updateJoystickVisibility()};
+$("openAudioSettings").onclick=showPauseAudio;$("controlModeSelect").onchange=e=>{controlMode=e.target.value==="swipe"?"swipe":"joystick";localStorage.yumyControlMode=controlMode;target=null;joystickVector={x:0,y:0};syncControlSettings();updateJoystickVisibility()};$("audioBack").onclick=showPauseHome;$("musicToggle").onchange=async e=>{musicOn=e.target.checked;localStorage.yumyMusicOn=musicOn?"1":"0";if(musicOn)await audioStart();applyAudioSettings()};$("sfxToggle").onchange=async e=>{sfxOn=e.target.checked;localStorage.yumySfxOn=sfxOn?"1":"0";if(sfxOn)await audioStart();applyAudioSettings()};$("musicVolume").oninput=e=>{musicVolume=+e.target.value/100;localStorage.yumyMusicVolume=e.target.value;applyAudioSettings()};$("sfxVolume").oninput=e=>{sfxVolume=+e.target.value/100;localStorage.yumySfxVolume=e.target.value;applyAudioSettings()};syncAudioControls();syncControlSettings();const changeLanguage=e=>{language=e.target.value;localStorage.yumyLanguage=language;applyLanguage();};$("languageSelect").onchange=changeLanguage;$("languageSelectHome").onchange=changeLanguage;applyLanguage();$("resume").onclick=()=>{paused=false;$("pause").classList.add("hidden");showPauseHome();updateJoystickVisibility();updateBoostButton()};
 // Android-style edge swipe: swipe from the left edge to the right to go back one screen.
 let edgeStart=null;
 document.addEventListener("pointerdown",e=>{if(e.clientX<=28&&e.pointerType!=="mouse"){edgeStart={x:e.clientX,y:e.clientY,id:e.pointerId};}},{capture:true,passive:true});
